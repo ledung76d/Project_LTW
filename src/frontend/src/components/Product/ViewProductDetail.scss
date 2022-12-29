@@ -1,0 +1,261 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap');
+
+
+.product-item-displaynon {
+    display: none;
+}
+
+.modal-backdrop.show {
+    opacity         : 0.2;
+    background-color: #1f2937;
+}
+
+.item-product-discount {
+    position        : absolute;
+    background-color: #009f7f;
+    height          : 24px;
+    width           : 40px;
+    border-radius   : 4px;
+    top             : 16px;
+    right           : 16px;
+    color           : #fff;
+    font-size       : 12px;
+    text-align      : center;
+    font-weight     : 500;
+
+    div {
+        padding-top: 3px;
+    }
+}
+
+
+.productDetail {
+    font-family: 'Open Sans', sans-serif;
+
+
+    .productDetail-info {
+        display  : flex;
+        flex-wrap: wrap;
+
+
+        .productDetail-slider {
+            flex   : 50%;
+            padding: 6%;
+
+            .slider-discount {
+                background-color: #f59e0b;
+                border-radius   : 10px;
+                text-align      : center;
+                color           : #fff;
+                max-width       : 44px;
+                margin-left     : 80%;
+                font-size       : 12px;
+                font-weight     : 500;
+                margin-top      : 4px;
+                padding         : 2px 0;
+                margin-bottom   : 40px;
+
+
+            }
+
+            .slider-discount-img {
+                width: 100%;
+            }
+        }
+
+        .productDetail-item {
+            flex   : 50%;
+            padding: 6%;
+
+            .item-title {
+                font-size  : 24px;
+                cursor     : pointer;
+                font-weight: 500;
+            }
+
+            .item-id {
+                opacity   : 0.7;
+                margin-top: 12px;
+            }
+
+            .item-title:hover {
+                color: #249f7f;
+            }
+
+            .item-content {
+                margin-top: 16px;
+                opacity   : 0.7;
+            }
+
+            .item-price {
+                margin   : 40px auto;
+                font-size: 30px;
+
+
+                .item-price--nodiscount {
+                    color      : #249f7f;
+                    font-weight: 500;
+                }
+
+                .item-price--discount {
+                    font-size: 16px;
+                    color    : #aea7b7;
+                    position : relative;
+
+                    .item-price-line {
+                        content         : "";
+                        width           : 100%;
+                        height          : 2px;
+                        background-color: #aea7b7;
+                        position        : absolute;
+                        top             : 50%;
+                    }
+                }
+            }
+
+            .item-btnAndQuatily {
+                display   : flex;
+                flex-wrap : wrap;
+                min-height: 56px;
+                font-size : 16px;
+
+                .item-btn {
+                    flex            : 60%;
+                    background-color: #249f7f;
+                    border-radius   : 10px;
+                    border          : none;
+                    color           : #fff;
+                    min-width       : 240px;
+                    height          : 56px;
+                    position        : relative;
+
+                    .item-btn-icon {
+                        font-size: 10px;
+                        padding  : 24px;
+
+                    }
+
+                    .item-btn-quatily-icon-add {
+                        position     : absolute;
+                        top          : 0;
+                        right        : 0;
+                        height       : 56px;
+                        width        : 56px;
+                        border-radius: 0 10px 10px 0;
+
+
+
+                    }
+
+
+
+                    .item-btn-quatily-icon-minus {
+                        position     : absolute;
+                        left         : 0;
+                        top          : 0;
+                        right        : 0px;
+                        height       : 56px;
+                        width        : 56px;
+                        border-radius: 10px 0 0 10px;
+
+
+
+
+                    }
+
+                    .item-btn-quatily-icon-minus:hover,
+                    .item-btn-quatily-icon-add:hover {
+                        background-color: #008f72;
+                    }
+
+
+
+                }
+
+                .item-btn-quatily-active,
+                .item-btn-quatily:hover {
+                    background-color: #009f7f;
+                    color           : #fff;
+                }
+
+
+                .item-pieces {
+                    flex      : 40%;
+                    text-align: center;
+                    opacity   : 0.7;
+                    margin    : auto;
+
+                }
+            }
+
+            .item-categories {
+                display    : flex;
+                border-top : 1px solid #eff1f3;
+                margin-top : 24px;
+                padding-top: 24px;
+
+                .item-categories-title {
+                    font-weight: 500;
+                    padding    : 4px 28px 4px 0;
+                }
+
+                .item-categories-tag {
+                    display  : flex;
+                    flex-wrap: wrap;
+
+                    span {
+                        border       : 1px solid #eff1f3;
+                        border-radius: 10px;
+                        padding      : 4px 10px;
+                        margin-right : 8px;
+                        cursor       : pointer;
+                    }
+
+                    span:hover {
+                        border: 1px solid #009f7f;
+                        color : #009f7f;
+
+                    }
+                }
+
+
+            }
+
+            .sellers {
+                display   : flex;
+                flex-wrap : wrap;
+                margin-top: 16px;
+
+                .sellers-title {
+                    font-weight : 500;
+                    margin-right: 28px;
+
+                }
+
+                .sellers-shop {
+
+
+                    a {
+                        text-decoration: underline;
+                        color          : #249f7f;
+                        cursor         : pointer;
+                    }
+                }
+            }
+
+
+        }
+
+
+    }
+
+
+
+
+
+}
+
+.modal-content {
+    border-radius: 10px;
+    border       : none;
+}

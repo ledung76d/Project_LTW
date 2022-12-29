@@ -1,0 +1,166 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap');
+
+:root {
+    --white-color: #fff;
+    --black-color: #000;
+    --text-color: #333;
+    --green-color: #009f7f;
+    --modal-color: #000;
+    --gray-color: #f3f4f6;
+}
+
+.order-text--bold {
+    font-weight: 700;
+}
+
+.OrderDetail__container {
+    font-family: 'Open Sans', sans-serif;
+
+    .OrderDetail {
+        background-color: var(--white-color);
+        border-radius: 8px;
+        box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgb(209, 213, 219) 0px 0px 0px 1px inset;
+
+        .OrderDetail__header {
+            background-color: var(--green-color);
+            padding: 16px;
+
+            .OrderDetail__header-title {
+                margin-left: 32px;
+                color: var(--white-color);
+            }
+        }
+
+        .OrderDetail__table {
+            padding: 12px 48px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            max-height: 520px;
+            overflow: auto;
+
+            table {
+                width: 100%;
+
+                thead {
+                    background-color: var(--gray-color);
+                    border: 1px solid rgba(0, 0, 0, 0.1);
+
+                    tr {
+                        th {
+                            padding: 8px 16px;
+                        }
+
+
+
+                        th:last-child {
+                            text-align: right;
+
+                        }
+
+                        th:nth-child(3) {
+                            text-align: center;
+                        }
+                    }
+                }
+
+                tbody {
+                    border: 1px solid rgba(0, 0, 0, 0.1);
+
+                    tr {
+                        td:last-child {
+                            text-align: right;
+
+                        }
+
+                        td:nth-child(1) {
+                            text-align: center;
+
+                        }
+
+                        td:nth-child(2) {
+                            span {
+                                display: inline-block;
+                                width: 320px;
+                                white-space: nowrap;
+                                overflow: hidden !important;
+                                text-overflow: ellipsis;
+                            }
+
+                        }
+
+                        td:nth-child(3) {
+                            text-align: center;
+                        }
+
+                        td {
+                            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+                            padding: 8px 16px;
+                        }
+                    }
+                }
+
+
+            }
+
+
+            .product-img {
+                height: 56px;
+                width: 56px;
+            }
+        }
+
+        .OrderDetail__footer {
+            display: flex;
+
+
+
+            .bill {
+                width: 350px;
+            }
+
+            span {
+                font-size: 14px;
+                margin-bottom: 8px;
+            }
+
+            .Customer {
+                padding: 0 32px 32px 32px;
+                border-right: 1px solid rgba(0, 0, 0, 0.1);
+                width: 100%;
+
+                .OrderDetail-customer-title {
+                    padding-top: 16px;
+                    padding-bottom: 8px;
+                    margin-bottom: 8px;
+                    font-weight: 700;
+                    text-align: center;
+                    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+                }
+
+                .OrderDetail-customer {
+                    display: flex;
+                    justify-content: space-between;
+                }
+
+                .OrderDetail-address {
+                    display: flex;
+                    flex-direction: column;
+                }
+            }
+
+            .bill {
+                padding: 32px;
+                width: 100%;
+
+                .OrderDetail-bill {
+                    display: flex;
+                    justify-content: space-between;
+
+                    span:nth-child(2) {
+                        padding-right: 32px;
+                    }
+                }
+
+            }
+        }
+    }
+}

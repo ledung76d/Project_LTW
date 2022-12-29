@@ -1,0 +1,25 @@
+.row {
+    background-color: #f3f4f6;
+    margin          : 0;
+}
+
+.item-container {
+    width           : calc(100% - 285px);
+    display         : flex;
+    align-content   : stretch;
+    background-color: #f3f4f6;
+    padding         : 35px 20px;
+    flex-wrap       : wrap;
+    align-content   : flex-start;
+    //margin-left: 285px;
+}
+
+.sidebar {
+    padding : 0;
+    width   : 285px;
+    height  : 100%;
+    position: sticky;
+    top     : 90px;
+
+
+}
