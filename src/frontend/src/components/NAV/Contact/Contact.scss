@@ -1,0 +1,193 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap');
+
+:root {
+    --white-color: #fff;
+    --black-color: #000;
+    --text-color : #333;
+    --green-color: #009f7f;
+
+}
+
+.grid {
+    width    : 1400px;
+    max-width: 100%;
+    margin   : 0 auto;
+
+}
+
+.grid__full-width {
+    width: 100%;
+}
+
+.grid__row {
+    display  : flex;
+    flex-wrap: wrap;
+}
+
+.text--strong {
+    font-weight: 440 !important;
+}
+
+.full-window {
+    width           : 100%;
+    background-color: #f3f4f6;
+    height          : 978px;
+}
+
+.fake__navbar {
+    height: 88px;
+    width : 100%;
+}
+
+
+//
+.container__contact {
+    //font-family       : 'Open Sans', sans-serif;
+    font-family       : 'Open Sans', sans-serif;
+    //background-color: #333;   
+    padding           : 56px;
+    max-width         : 1200px;
+    margin            : auto;
+    display           : flex;
+
+    .contact__shop {
+        background-color: var(--white-color);
+        padding         : 20px;
+
+        .contact__shop-img {
+            margin: 0 16px 32px 16px;
+        }
+
+        .contact__shopInfor {
+            display       : flex;
+            flex-direction: column;
+            margin-bottom : 32px;
+
+            .contact__shopInfor-title {
+                font-size    : 16px;
+                font-weight  : 600;
+                margin-bottom: 12px;
+            }
+
+            .contact__shopInfor-content {
+                font-size: 14px;
+                color    : rgba(107, 114, 128, 1);
+            }
+
+
+            .contact__shopInfor-linkweb {
+                display        : flex;
+                justify-content: space-between;
+
+                a {
+                    color      : var(--green-color);
+                    font-weight: 600;
+                    font-size  : 14px;
+                }
+            }
+
+            .contact__shopInfor-link {
+                margin-right: 16px;
+
+                a {
+                    font-size: 16px;
+                    color    : rgba(156, 163, 175, 1);
+                }
+
+                .shopInfor-link-icon {
+                    margin-right: 32px;
+
+
+                }
+            }
+        }
+
+    }
+
+    .contact__survey {
+        background-color: var(--white-color);
+        margin-left     : 36px;
+        padding         : 32px;
+        width           : 100%;
+
+        .contact__survey-title {
+            font-size    : 24px;
+            font-weight  : 700;
+            margin-bottom: 28px;
+        }
+
+        .survey-form {
+
+            .contact__survey-input-Title {
+                font-size    : 14px;
+                font-weight  : 600;
+                color        : rgba(75, 85, 99, 1);
+                margin-bottom: 12px;
+            }
+
+            .survey-form-header {
+                display              : grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                grid-column-gap      : 22px;
+                //justify-content: space-between;
+
+                div {
+                    display       : flex;
+                    flex-direction: column;
+                }
+            }
+
+            .survey-form-body {
+                display       : flex;
+                flex-direction: column;
+                margin-top    : 24px;
+            }
+
+            .contact__survey-input {
+                border       : 1px solid rgba(156, 163, 175, 0.4);
+                border-radius: 6px;
+                height       : 46px;
+                padding      : 0 16px;
+            }
+
+            .contact__survey-textarea {
+                border       : 1px solid rgba(156, 163, 175, 0.4);
+                border-radius: 6px;
+                height       : 104px;
+                padding      : 12px 16px;
+                line-height  : 1.5;
+                margin-bottom: 24px;
+                resize       : none;
+
+            }
+
+            .contact__survey-textarea:focus,
+            .contact__survey-input:focus {
+                border : 1px solid #009f7f;
+                outline: none;
+            }
+
+            .contact__survey-btn {
+                padding         : 14px 20px;
+                border-radius   : 6px;
+                border          : none;
+                background-color: var(--green-color);
+                color           : var(--white-color);
+                font-size       : 16px;
+                font-weight     : 600;
+                font-size       : 16px;
+            }
+        }
+    }
+}
+
+// PC
+@media (max-width: 63.9375em) {}
+
+// Tablet
+@media (min-width: 46.25em) and (max-width: 63.9375em) {}
+
+//Mobile
+@media (max-width: 46.1875em) {
+    .container__contact {}
+}

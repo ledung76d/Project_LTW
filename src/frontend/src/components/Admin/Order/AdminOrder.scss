@@ -1,0 +1,170 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap');
+
+:root {
+    --white-color: #fff;
+    --black-color: #000;
+    --text-color: #333;
+    --green-color: #009f7f;
+    --modal-color: #000;
+    --gray-color: #f3f4f6;
+}
+
+.container__AdminOrder {
+    font-family: 'Open Sans', sans-serif;
+    display: flex;
+    flex-direction: column;
+
+    .adminOrder__header {
+        padding: 32px;
+        width: 1500px;
+        display: flex;
+        justify-content: space-between;
+        background-color: var(--white-color);
+        border-radius: 4px;
+        align-items: center;
+        margin-bottom: 32px;
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+
+        .adminOrder__header-title {
+            font-size: 18px;
+            font-weight: 600;
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        .adminOrder__header-search {
+            position: relative;
+
+            .adminOrder__header-search-btn {
+                border: none;
+                position: absolute;
+                background-color: var(--white-color);
+                top: 28%;
+                left: 8px;
+
+                .search-btn-icon {
+                    color: rgba(0, 0, 0, 0.2);
+                    font-size: 16px;
+                }
+
+                .search-btn-icon:hover {
+                    color: rgba(0, 0, 0, 0.4);
+
+                }
+
+            }
+
+            .adminOrder__header-search-input {
+                border: 1px solid rgba(0, 0, 0, 0.2);
+                height: 48px;
+                width: 680px;
+                padding-left: 40px;
+                padding-right: 16px;
+                font-size: 14px;
+                //border-radius: 0 4px 4px 0;
+                border-radius: 4px;
+            }
+
+
+            .adminOrder__header-search-input:focus {
+                outline: none;
+                background-color: var(--white-color);
+                border: 1px solid #2eb097;
+                font-size: 300;
+            }
+        }
+    }
+
+    .adminOrder__body {
+        height: 600px;
+        width: 1500px;
+        background: var(--white-color);
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+
+        .adminOrder-table {
+            width: 100%;
+
+            thead {
+                background: #f7f8f9;
+                border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+
+                tr {
+
+                    th:first-child {
+                        padding-left: 16px;
+                    }
+
+                    th:last-child {
+                        padding-right: 16px;
+                    }
+
+                    th {
+                        font-size: 14px;
+                        font-weight: 600;
+                    }
+
+
+                }
+            }
+
+            th,
+            td {
+                padding: 12px;
+
+            }
+
+            tbody {
+                tr {
+                    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+
+                }
+            }
+
+            .actions__status {
+                display: flex;
+                justify-content: space-between;
+
+                .actions__status--detail,
+                .actions__status--accept,
+                .actions__status--reject {
+                    border: none;
+                    border-radius: 4px;
+                    padding: 8px;
+                    width: 60px;
+                    color: var(--white-color);
+                    font-weight: 600;
+                    opacity: 0.9;
+                    box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+                }
+
+                .actions__status--accept {
+                    background: var(--green-color);
+
+                }
+
+                .actions__status--reject {
+                    background: rgb(218, 66, 49);
+
+                }
+
+                .actions__status--detail {
+                    background: rgb(58, 15, 212);
+
+                }
+
+                .actions__status--detail:hover,
+                .actions__status--accept:hover,
+                .actions__status--reject:hover {
+                    opacity: 1;
+                }
+            }
+        }
+    }
+
+}
+
+.order-detail-modal {
+    max-width: 860px;
+    border-radius: 8px;
+
+}

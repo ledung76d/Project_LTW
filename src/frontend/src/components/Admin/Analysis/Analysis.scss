@@ -1,0 +1,224 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap');
+
+:root {
+    --white-color: #fff;
+    --black-color: #000;
+    --text-color : #333;
+    --green-color: #009f7f;
+    --modal-color: #000;
+    --gray-color : #f3f4f6;
+}
+
+.hidden-div {
+    display: hidden;
+}
+
+.analysis__container {
+    font-family: 'Open Sans', sans-serif;
+    width      : 1560px;
+
+    .analysis__header {
+        display              : grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        grid-column-gap      : 32px;
+
+
+        .analysis__header-total {
+            background-color  : var(--white-color);
+            padding           : 28px 28px 68px 28px;
+            border-radius     : 4px;
+            display           : flex;
+            justify-content   : space-between;
+            //align-items     : center;
+            min-width         : 320px;
+            margin-bottom     : 24px;
+            box-shadow        : rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgb(209, 213, 219) 0px 0px 0px 1px inset;
+
+            .total-title {
+                display       : flex;
+                flex-direction: column;
+
+                .total-title--bold {
+                    font-size    : 16px;
+                    font-weight  : 700;
+                    margin-bottom: 4px;
+                }
+
+                .total-title--gray {
+                    font-size  : 12px;
+                    color      : #6B7280;
+                    font-weight: 600;
+                }
+            }
+
+            .analysis__header-logo {
+                display    : flex;
+                align-items: center;
+
+                div {
+
+                    border-radius: 100%;
+                    height       : 48px;
+                    width        : 48px;
+                    position     : relative;
+
+                    i {
+                        position : absolute;
+                        font-size: 24px;
+                    }
+
+                }
+
+                .analysis__header-logo-total {
+                    margin-right: 16px;
+                    font-size   : 32px;
+                    font-weight : 600;
+                }
+
+                .text-color--green {
+                    color: rgb(5, 117, 65);
+
+                }
+
+                .text-color--red {
+                    color: rgb(250, 53, 18);
+                }
+
+                .text-color--orange {
+                    color: rgb(224, 108, 31);
+
+                }
+
+                .text-color--blue {
+                    color: rgb(0, 98, 245);
+
+                }
+
+                .total-revenue {
+                    background-color: rgb(167, 243, 208);
+
+                    .header-logo-icon {
+                        top  : 25%;
+                        right: 35%;
+                    }
+                }
+
+                .total-order {
+                    background-color: rgb(250, 202, 202);
+
+                    .header-logo-icon {
+                        top  : 25%;
+                        right: 27%;
+                    }
+                }
+
+                .todays-revenue {
+                    background-color: rgb(255, 232, 178);
+
+                    .header-logo-icon {
+                        top  : 25%;
+                        right: 20%;
+                    }
+                }
+
+                .total-product {
+                    background-color: #93C5FD;
+
+                    .header-logo-icon {
+                        top  : 25%;
+                        right: 20%;
+                    }
+                }
+
+
+            }
+        }
+    }
+
+    .analysis__body {
+        background   : var(--white-color);
+        margin-bottom: 24px;
+        box-shadow   : rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgb(209, 213, 219) 0px 0px 0px 1px inset;
+
+
+        canvas {}
+    }
+
+    .analysis__footer {
+        margin-bottom: 48px;
+
+        background   : var(--white-color);
+        border-radius: 4px;
+        box-shadow   : rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgb(209, 213, 219) 0px 0px 0px 1px inset;
+
+        .analysis__footer-title {
+            text-align        : center;
+            padding           : 16px 0;
+            font-size         : 20px;
+            font-weight       : 600;
+            //background-color: var(--green-color);
+            margin-bottom     : 0;
+
+        }
+
+        .analysis__footer-table {
+            width    : 100%;
+            border   : 1px solid rgba(0, 0, 0, 0.1);
+            font-size: 14px;
+
+            thead {
+                background-color: var(--gray-color);
+                border-bottom   : 1px solid rgba(0, 0, 0, 0.1);
+
+                tr {
+                    th {
+                        padding: 12px;
+                    }
+
+                    th:first-child {
+                        padding-left: 16px;
+                    }
+
+                    th:last-child {
+                        padding-right: 16px;
+                    }
+                }
+            }
+
+            tbody {
+                font-size  : 14px;
+                font-weight: 500;
+                color      : #6B7280;
+
+                tr {
+                    td {
+                        padding: 12px;
+                    }
+
+                    td:first-child {
+                        padding-left: 16px;
+                    }
+
+                    td:last-child {
+                        padding-right: 16px;
+                    }
+                }
+            }
+
+            tr {
+                border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+
+                th,
+                td {
+                    text-align: center;
+                }
+
+                td:nth-child(2),
+                th:nth-child(2) {
+                    text-align: left;
+                }
+            }
+
+        }
+    }
+}

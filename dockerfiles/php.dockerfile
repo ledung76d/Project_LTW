@@ -6,11 +6,9 @@ ARG GID
 ENV UID=${UID}
 ENV GID=${GID}
 
-RUN mkdir -p /var/www/html
+RUN mkdir -p /var/www/api
 
-WORKDIR /var/www/html
-
-COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
+WORKDIR /var/www/api
 
 # MacOS staff group's gid is 20, so is the dialout group in alpine linux. We're not using it, let's just remove it.
 RUN delgroup dialout
@@ -22,8 +20,17 @@ RUN sed -i "s/user = www-data/user = laravel/g" /usr/local/etc/php-fpm.d/www.con
 RUN sed -i "s/group = www-data/group = laravel/g" /usr/local/etc/php-fpm.d/www.conf
 RUN echo "php_admin_flag[log_errors] = on" >> /usr/local/etc/php-fpm.d/www.conf
 
-# Install dependencies: libpq, libfreetype, libjpeg62-turbo, libpng-dev, libwebp, zlib-dev, freetype2
-RUN apk add --no-cache postgresql-dev libpq libjpeg-turbo libjpeg-turbo-dev freetype libwebp-dev zlib-dev libpng-dev freetype-dev
+# Install dependencies
+RUN apk add --no-cache \
+        postgresql-dev \
+        libpq \
+        libjpeg-turbo \
+        libjpeg-turbo-dev \
+        libpng-dev \
+        libwebp-dev \
+        freetype \
+        freetype-dev \
+        zlib-dev
 
 # Install PHP extensions
 RUN docker-php-ext-configure gd --enable-gd --with-freetype --with-jpeg --with-webp

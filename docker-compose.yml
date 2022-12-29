@@ -3,7 +3,6 @@ version: '3'
 networks:
   laravel:
 
-
 services:
   app:
     build:
@@ -14,8 +13,10 @@ services:
         - GID=${GID:-1000}
     ports:
       - "8080:80"
+      - "8090:8090"
     volumes:
-      - ./src:/var/www/html:delegated
+      - ./src/api:/var/www/api:delegated
+      - ./src/frontend:/var/www/frontend:delegated
     depends_on:
       - php
       - redis
@@ -48,7 +49,7 @@ services:
     ports:
       - "9000:9000"
     volumes:
-      - ./src:/var/www/html:delegated
+      - ./src/api:/var/www/api:delegated
     networks:
       - laravel
 
@@ -63,8 +64,8 @@ services:
   composer:
     image: composer:2.1.11
     volumes:
-      - ./src:/var/www/html
-    working_dir: /var/www/html
+      - ./src/api:/var/www/api:delegated
+    working_dir: /var/www/api
     depends_on:
       - php
     networks:
@@ -78,10 +79,17 @@ services:
         - UID=${UID:-1000}
         - GID=${GID:-1000}
     volumes:
-      - ./src:/var/www/html:delegated
+      - ./src/api:/var/www/api:delegated
     depends_on:
       - postgres
-    working_dir: /var/www/html  
-    entrypoint: [ 'php', '/var/www/html/artisan' ]
+    working_dir: /var/www/api  
+    entrypoint: [ 'php', '/var/www/api/artisan' ]
     networks:
       - laravel
+
+  npm:
+    image: node:14.17.6-alpine
+    working_dir: /var/www/frontend
+    volumes:
+      - ./src/frontend:/var/www/frontend
+    entrypoint: [ 'npm' ]

@@ -1,0 +1,179 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap');
+
+/* .product-background {
+    height          : 800px;
+    width           : 800px;
+    background-color: #f3f4f6;
+} */
+
+.product-item-displaynon {
+    display: none;
+}
+
+.product-container {
+    font-family: 'Open Sans', sans-serif;
+
+    max-width       : 300px;
+    //height      : 420px;
+    background-color: #fff;
+    border-radius   : 5px;
+    position        : relative;
+    display         : inline-block;
+    border          : 1px solid rgb(216, 212, 212);
+    flex-basis      : 20%;
+    margin-bottom   : 15px;
+    margin-right    : 10px;
+    border          : none;
+    box-shadow      : 0 0 2px rgba(33, 33, 33, .2);
+
+
+    .item-product-discount {
+        position        : absolute;
+        background-color: #009f7f;
+        height          : 24px;
+        width           : 45px;
+        max-width       : 45px;
+        border-radius   : 4px;
+        top             : 16px;
+        right           : 16px;
+        color           : #fff;
+        font-size       : 12px;
+        text-align      : center;
+        font-weight     : 500;
+
+        div {
+            padding-top: 3px;
+        }
+    }
+
+
+    .item-image {
+        width        : 300px;
+        height       : 292px;
+        cursor       : pointer;
+        border-radius: 5px;
+    }
+
+
+    .item-info {
+        display         : flex;
+        flex-direction  : column;
+        //padding       : 24px;
+        padding         : 0 24px;
+
+        .item-price {
+            padding-bottom: 8px;
+            font-weight   : 500;
+
+            .item-price-discount {
+                color      : #aea7b7;
+                font-weight: 300;
+                position   : relative;
+
+
+                .item-price-line {
+                    content         : "";
+                    width           : 100%;
+                    height          : 2px;
+                    background-color: #aea7b7;
+                    position        : absolute;
+                    top             : 50%;
+                }
+            }
+
+
+        }
+
+        .item-name {
+            padding-bottom: 16px;
+            display       : inline-block;
+            width         : 240px;
+            white-space   : nowrap;
+            overflow      : hidden !important;
+            text-overflow : ellipsis;
+        }
+
+
+
+        .item-btn-quatily {
+            width           : 100%;
+            border          : none;
+            height          : 32px;
+            background-color: #f3f4f6;
+            border-radius   : 4px;
+            position        : relative;
+            color           : #6f7883;
+            margin-bottom   : 24px;
+
+            .item-btn-icon {
+                font-size  : 8px;
+                padding-top: 12px;
+            }
+
+            .item-btn-quatily-icon-add {
+                position          : absolute;
+                top               : 0;
+                right             : 0;
+                height            : 32px;
+                width             : 32px;
+                border-radius     : 0 10px 10px 0;
+                //background-color: #e5e7eb;
+            }
+
+
+
+            .item-btn-quatily-icon-minus {
+                position     : absolute;
+                left         : 0;
+                top          : 0;
+                right        : 0px;
+                height       : 32px;
+                width        : 32px;
+                border-radius: 10px 0 0 10px;
+
+            }
+
+            .item-btn-quatily-icon-minus:hover,
+            .item-btn-quatily-icon-add:hover {
+                background-color: #008f72;
+            }
+
+
+
+        }
+
+        .item-btn-quatily:hover {
+            background-color: #009f7f;
+            color           : #fff;
+        }
+
+        .item-btn-quatily-active {
+            background-color: #009f7f !important;
+            color           : #fff;
+        }
+
+
+    }
+}
+
+.product-container:hover {
+    transform          : translateY(-4px);
+    box-shadow         : 0 0 6px rgba(33, 33, 33, .2);
+    transition-duration: .2s
+}
+
+.item-product-modal {
+    max-width    : 1150px;
+    margin       : 5rem auto;
+    border-radius: 40px;
+
+
+}
+
+/* 
+@media (max-width: 576px) {
+    .item-product-modal {
+        max-width: 100%;
+        margin   : 1.75rem auto;
+    }
+} */

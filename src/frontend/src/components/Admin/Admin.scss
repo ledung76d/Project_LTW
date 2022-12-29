@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap');
+
+.admin-component-container {
+    font-family: 'Open Sans', sans-serif;
+
+    .row {
+        background-color: #f3f4f6;
+        margin          : 0;
+    }
+
+    .item-container {
+        width           : calc(100% - 285px);
+        background-color: #f3f4f6;
+        padding         : 35px 20px;
+    }
+
+    .sidebar {
+        padding   : 0;
+        width     : 285px;
+        height    : 100%;
+        //position: sticky;
+        //position: -webkit-sticky;
+        top       : 53px;
+    }
+}

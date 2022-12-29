@@ -1,0 +1,129 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap');
+
+:root {
+    --white-color: #fff;
+    --black-color: #000;
+    --text-color: #333;
+    --green-color: #009f7f;
+    --modal-color: #000;
+    --gray-color: #f3f4f6;
+}
+
+.AdminNav {
+    width: 100%;
+    position: fixed;
+    z-index: 5;
+
+}
+
+.AdminNavFake {
+    height: 80px;
+}
+
+.container__AdminNav {
+    font-family: 'Open Sans', sans-serif;
+    background-color: var(--white-color);
+    box-shadow: 0px 15px 10px -15px rgba(0, 0, 0, .1);
+
+    .AdminNav__grid {
+        display: flex;
+        justify-content: space-between;
+        width: 94%;
+        max-width: 100%;
+        margin: 0 auto;
+        align-items: center;
+        height: 80px;
+
+        .AdminNav__logo {
+            cursor: pointer;
+
+            .AdminNav__logo-img {
+                height: 20px;
+            }
+        }
+
+        .AdminNav__login {
+            position: relative;
+            display: flex;
+            align-items: center;
+
+            .AdminNav-btn-createShop {
+                border: none;
+                background-color: var(--green-color);
+                color: var(--white-color);
+                font-size: 14px;
+                font-weight: 600;
+                border-radius: 4px;
+                padding: 6px 10px;
+                margin-right: 32px;
+            }
+
+            .AdminNav__login-btn {
+                border: none;
+                background-color: var(--white-color);
+                border-radius: 100%;
+
+                .AdminNav__login-btn-logo {
+                    height: 38px;
+                    width: 38px;
+                    border-radius: 100%;
+                    border: 1px solid rgba(0, 0, 0, .1);
+
+                }
+            }
+
+            .AdminNav__login-list {
+                position: absolute;
+                background-color: var(--white-color);
+                padding: 0;
+                width: 200px;
+                top: 61px;
+                right: 0;
+                border-radius: 0 0 8px 8px;
+                box-shadow: 0px 15px 10px -15px rgba(0, 0, 0, .1);
+
+
+
+                .AdminNav__login-list-item {
+                    font-size: 14px;
+                    list-style: none;
+                    font-weight: 600;
+                    text-align: left;
+                    padding: 16px;
+                    cursor: pointer;
+                }
+
+                .AdminNav__login-list-item:hover {
+                    color: var(--green-color);
+                }
+
+                .AdminNav__logout {
+                    border-top: 1px solid rgba(0, 0, 0, .1);
+                    padding-bottom: 24px;
+                }
+            }
+        }
+    }
+}
+
+.AdminNav__dropdown--hidden {
+    opacity: 1;
+    animation: gowthAdmin linear 0.2s;
+}
+
+
+.AdminNav__dropdown--gowth {
+    opacity: 0;
+    display: none;
+}
+
+@keyframes gowthAdmin {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+
+}

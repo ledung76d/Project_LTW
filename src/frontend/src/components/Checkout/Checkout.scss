@@ -1,0 +1,346 @@
+.co-page {
+  background-color: #f3f4f6;
+  line-height     : 24px;
+  padding         : 56px 80px;
+
+  .h-126 {
+    height: 126px !important;
+  }
+
+  .h-82 {
+    height: 82px !important;
+  }
+
+  .ml-12 {
+    margin-left: 12px !important;
+  }
+
+  .m-5 {
+    margin: 5%;
+  }
+
+  .co-container {
+    display    : flex;
+    align-items: flex-start;
+    line-height: 24px;
+    margin     : 0px 199.5px;
+  }
+
+  .co-list {
+    line-height: 24px;
+    padding    : 32px;
+  }
+
+  .co-contact {
+    background-color: #ffffff;
+    box-shadow      : #000000 0px 0px 0px 0px;
+    width           : 672px;
+    height          : 182px;
+    margin-top      : 58px;
+  }
+
+  .co-shipping-address {
+    background-color: #ffffff;
+    box-shadow      : #000000 0px 0px 0px 0px;
+    margin          : 24px 0px 0px;
+    width           : 672px;
+    height          : 254px;
+  }
+
+  .co-delivery {
+    background-color: #ffffff;
+    box-shadow      : #000000 0px 0px 0px 0px;
+    margin          : 24px 0px 0px;
+    width           : 672px;
+    height          : 308px;
+  }
+
+  .co-item {
+    display        : flex;
+    align-items    : center;
+    justify-content: space-between;
+    margin         : 0px 32px 32px;
+    padding-top    : 32px;
+  }
+
+  .co-item-box {
+    display: flex;
+  }
+
+  .co-content {
+    border-color : #d1cdcd;
+    border-radius: 5px;
+    border-style : solid;
+    border-width : 1px;
+    box-shadow   : #000000 0px 0px 0px 0px;
+    line-height  : 24px;
+    padding      : 16px;
+    width        : 200px;
+    height       : 54px;
+    margin-left  : 32px;
+  }
+
+  .co-content:hover {
+    .add-address {
+      display: flex;
+    }
+
+    .delete-address {
+      display: flex;
+    }
+  }
+
+  .co-order {
+    width     : 320px;
+    height    : 261px;
+    margin-top: 58px;
+  }
+
+  .item-index {
+    display         : flex;
+    align-items     : center;
+    background-color: #009f7f;
+    border-radius   : 9999px;
+    color           : #ffffff;
+    font-size       : 20px;
+    justify-content : center;
+    line-height     : 28px;
+    width           : 32px;
+    height          : 32px;
+  }
+
+  .item-text {
+    color         : #1f2937;
+    font-size     : 27px;
+    line-height   : 28px;
+    margin        : 0px 0px 0px 16px;
+    text-transform: capitalize;
+  }
+
+  .svg-plus {
+    color      : #019376;
+    fill       : #000000;
+    font-size  : 14px;
+    font-weight: 600;
+    line-height: 20px;
+    margin     : 0px 2px 0px 0px;
+    stroke     : #019376;
+    text-align : center;
+    width      : 16px;
+    height     : 16px;
+  }
+
+  .item-btn {
+    align-items: center;
+    color      : #009f7f;
+    display    : flex;
+    font-size  : 14px;
+    font-weight: 600;
+    line-height: 20px;
+    text-align : center;
+  }
+
+  .item-linenumber {
+    color         : #1f2937;
+    font-size     : 14px;
+    font-weight   : 600;
+    line-height   : 20px;
+    text-transform: capitalize;
+    cursor        : pointer;
+  }
+
+  .item-title {
+    color         : #1f2937;
+    font-size     : 14px;
+    font-weight   : 600;
+    line-height   : 20px;
+    margin        : 0px 0px 12px;
+    text-transform: capitalize;
+    display       : flex;
+  }
+
+  .item-address {
+    color      : #374151;
+    font-size  : 14px;
+    line-height: 20px;
+  }
+
+  .item-delivery {
+    display        : flex;
+    justify-content: flex-start;
+    flex-wrap      : wrap;
+    gap            : 10px;
+  }
+
+  .your-order {
+    align-items   : center;
+    display       : flex;
+    flex-direction: column;
+    line-height   : 24px;
+    margin        : 64px 0px 16px;
+  }
+
+  .list-order {
+    line-height: 24px;
+    padding    : 8px 0px;
+  }
+
+  .list-item {
+    // display        : flex;
+    // justify-content: space-between;
+
+    .item {
+      display        : flex;
+      justify-content: space-between;
+      margin-bottom  : 8px;
+      color          : rgba(0, 0, 0, 0.6);
+    }
+
+  }
+
+  .item-calc {
+    display        : flex;
+    justify-content: space-between;
+    line-height    : 24px;
+    padding        : 8px 0px;
+  }
+
+  .link-order {
+    width           : 300px;
+    height          : 45px;
+    background-color: #009f7f;
+    border-color    : #009f7f;
+    padding         : 7px;
+  }
+
+  .link-order:hover {
+    background-color: #00614e;
+  }
+
+  .link-order::after {
+    background-color: #00614e;
+  }
+
+  .link-order:focus {
+    background-color: #00614e;
+  }
+
+  .btn-order {
+    width           : 300px;
+    height          : 45px;
+    background-color: #009f7f;
+    border-color    : #009f7f;
+  }
+
+  .btn-order:hover {
+    background-color: #00614e;
+  }
+
+  .btn-order::after {
+    background-color: #00614e;
+  }
+
+  .btn-order:focus {
+    background-color: #00614e;
+  }
+
+  .add-address {
+    width           : 20px;
+    height          : 20px;
+    align-items     : center;
+    background-color: #009f7f;
+    border-radius   : 9999px;
+    color           : #ffffff;
+    display         : none;
+    justify-content : center;
+    line-height     : 24px;
+    text-align      : center;
+    border-color    : #009f7f;
+    margin-left     : auto;
+  }
+
+  .delete-address {
+    width           : 20px;
+    height          : 20px;
+    align-items     : center;
+    background-color: #dc2626;
+    border-radius   : 9999px;
+    color           : #ffffff;
+    display         : none;
+    justify-content : center;
+    line-height     : 24px;
+    margin          : 0px 0px 0px 8px;
+    text-align      : center;
+    border-color    : #dc2626;
+  }
+
+  .icon-add,
+  .icon-delete {
+    width      : 12px;
+    height     : 12px;
+    color      : #ffffff;
+    fill       : #ffffff;
+    line-height: 24px;
+    text-align : center;
+    flex-shrink: 0;
+  }
+
+  .btn-div {
+    cursor: pointer;
+  }
+
+  .btn-div:hover {
+    border-color: #009f7f;
+  }
+
+  .active {
+    border-color: #009f7f !important;
+  }
+
+  // MODAL
+  .contact-modal {
+    width : 424px;
+    height: 156px;
+  }
+
+  .contact-modal-header {
+    justify-content : center;
+    background-color: #ffffff !important;
+    color           : #000000 !important;
+    font-size       : 9px !important;
+    border-radius   : inherit !important;
+  }
+
+  .contact-modal-title {
+    margin-top : 10px;
+    font-weight: bold;
+  }
+
+  .contact-modal-body {
+    margin : auto;
+    padding: 30px;
+  }
+
+  .ship-modal-header {
+    justify-content : center;
+    background-color: #ffffff !important;
+    color           : #000000 !important;
+    font-size       : 9px !important;
+    border-radius   : inherit !important;
+    margin          : 23px 0px -33px 0px;
+    padding         : 10px 0px 30px 0px !important;
+  }
+
+  .ship-modal-title {
+    margin-top : 10px;
+    font-weight: bold;
+  }
+
+  .ship-button {
+    margin: 20px 0px 0px 0px;
+  }
+
+  .ship-address {
+    height: 100px;
+  }
+}
