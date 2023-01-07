@@ -41,13 +41,13 @@ class ViewProduct extends Component {
         })
     }
 
-    componentWillReceiveProps(nextProps){
+    componentWillReceiveProps(nextProps) {
         //console.log('Hello',nextProps)
-        if (this.props.numberCart!==nextProps.numberCart){
+        if (this.props.numberCart !== nextProps.numberCart) {
             let id = this.state.product.pid
-            let quantity =0
-            nextProps.Carts.map((item,key)=>{
-                if (item.pid === id){
+            let quantity = 0
+            nextProps.Carts.map((item, key) => {
+                if (item.pid === id) {
                     quantity = item.quantity
                 }
             })
@@ -55,27 +55,27 @@ class ViewProduct extends Component {
                 quatily: quantity
             })
         }
-        
+
     }
 
     render() {
         let { product, quatily } = this.state;
 
-
+        console.log("check view product:" + this.props.product)
         //JSX
         return (
             <>
                 <div className='product-container'>
 
                     <div className={product.discount === 0 ? 'product-item-displaynon' : 'item-product-discount'}>
-                        <div className=''>{product.discount }%</div>
+                        <div className=''>{product.discount}%</div>
                     </div>
                     <img src={product.img}
                         className='item-image '
                         onClick={() => this.toggle()}
                     />
-                    <Modal funk='true' isOpen={this.state.modal} toggle={() => this.toggle()} className='item-product-modal' >
-                        <ViewProductDetail product={this.props.product}/>
+                    <Modal funk='true' isOpen={this.state.modal} toggle={() => this.toggle()} className='item-product-modal'  >
+                        <ViewProductDetail product={this.props.product} />
 
                     </Modal>
 
@@ -88,7 +88,7 @@ class ViewProduct extends Component {
                                 :
                                 <>
                                     <span className=''>
-                                        ${((Math.round(product.price * 100) / 100) * (1 - product.discount/100)).toFixed(2)}&nbsp;&nbsp;&nbsp;
+                                        ${((Math.round(product.price * 100) / 100) * (1 - product.discount / 100)).toFixed(2)}&nbsp;&nbsp;&nbsp;
                                     </span>
                                     <span className='item-price-discount'>
                                         <span className=' item-price-line'></span>
@@ -120,7 +120,7 @@ class ViewProduct extends Component {
                     </div>
 
 
-                    </div>
+                </div>
 
             </>
         )
@@ -141,7 +141,7 @@ const mapDispatchToProps = dispatch => {
         userLoginSuccess: (adminInfo) => dispatch(actions.userLoginSuccess(adminInfo)),
         userLoginFail: () => dispatch(actions.userLoginFail()),
         AddCart: (payload) => dispatch(actions.AddCart(payload)),
-        DecreaseQuantity: (payload)=>dispatch(actions.DecreaseQuantity(payload))
+        DecreaseQuantity: (payload) => dispatch(actions.DecreaseQuantity(payload))
     };
 };
 
