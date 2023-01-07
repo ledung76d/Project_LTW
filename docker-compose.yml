@@ -25,13 +25,14 @@ services:
       - laravel
 
   postgres:
-    image: postgres:14-alpine
+    image: postgres:14.0-alpine
     restart: unless-stopped
     tty: true
     ports:
       - "5432:5432"
     volumes:
-      - ./docker/postgres:/var/lib/postgresql/data:delegated
+      - ./postgres_data:/var/lib/postgresql/data:delegated
+      - ./dockerfiles/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql:delegated
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
