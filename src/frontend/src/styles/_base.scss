@@ -1,13 +1,14 @@
 /*
  * General styles
  */
+ @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap');
 
  
  body, html {
     background-image: "#fff";
     background-repeat: no-repeat;
     background-size: cover;
-    font-family: $fontmain;
+    font-family: 'Open Sans', sans-serif;
     font-size: $base-size - 2px;
     height: 100vh;
     //overflow: hidden;
