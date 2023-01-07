@@ -1,17 +1,11 @@
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap');
 
 .home-search {
-  font-family: 'Open Sans', sans-serif;
-
-  width              : 100%;
   background-image   : url(../../assets/images/background.png);
-  height             : 970px;
-  background-position: 0px -100px;
-  background-repeat  : no-repeat;
-  background-size    : cover;
-  margin             : 0 0;
-  padding            : 20px 80px;
-
+  height: 100vh;
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size: cover;
+  display: none;
   .text1-title,
   .text2-title {
     margin-bottom: 24px;
@@ -30,10 +24,7 @@
     }
   }
 
-  .fonttext {
-    font-family: 'Open Sans', sans-serif !important;
-  }
-
+ 
   .bg-light {
     background-color: #fff !important;
   }
@@ -120,6 +111,23 @@
   }
 
   .nuller {
-    padding-bottom: 260px !important;
+    // padding-bottom: 260px !important;
+  }
+}
+@media (max-width: 46.1875em) {
+  
+
+}
+// Tablet
+@media (min-width: 46.25em) and (max-width: 63.9375em) {
+
+
+}
+
+
+// PC
+@media (min-width:  64em) {
+  .home-search{
+    display: block;
   }
 }

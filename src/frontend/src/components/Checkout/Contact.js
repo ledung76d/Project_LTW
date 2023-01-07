@@ -44,11 +44,10 @@ export default class Contact extends Component {
                 fill='none'
                 viewBox='0 0 24 24'
                 stroke='currentColor'
-                className='w-4 h-4 stroke-2 me-0.5'
+                className='w-4 h-4 stroke-2 me-0.5 svg-plus'
                 data-selected='true'
                 data-label-id='0'
-                // data-metatip='true'
-                className='svg-plus'
+              // data-metatip='true'
               >
                 <path
                   stroke-linecap='round'
