@@ -1,7 +1,11 @@
+.slider_top{
+	padding-top: 56px;
+}
 .swiper {
 	width: 100%;
 	height: 176px;
 	margin-right: 15px;
+	margin-top: 70px;
 }
 .swiper-container {
 	padding: 20px !important;
@@ -60,5 +64,23 @@
 	&:hover {
 		background-color: #009F7F;
 		color: #fff;
+	}
+}
+//Mobile
+@media (max-width: 46.1875em) {
+	
+}
+// Tablet
+@media (min-width: 46.25em) and (max-width: 63.9375em) {
+	.slider_top{
+		padding-top: 64px;
+	}
+
+}
+// PC
+@media (min-width:  64em) {
+
+	.slider_top{
+		padding-top: 0;
 	}
 }
