@@ -13,7 +13,29 @@ import {
     withRouter
 } from "react-router-dom";
 import Register from './Register'
+import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/auth';
 
+// Configure Firebase.
+const config = {
+  apiKey: "AIzaSyDMSeYEPU24SqM_Nj_5NTzNXf1rVv-Zrf0",
+  authDomain: "pickbazar-c589c.firebaseapp.com",
+ 
+};
+firebase.initializeApp(config);
+
+// Configure FirebaseUI.
+const uiConfig = {
+
+  signInFlow: 'redirect',
+  
+  signInSuccessUrl: '/faq',
+
+  signInOptions: [
+    firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+  ],
+};
 class Login extends Component {
     constructor(props) {
         super(props);
@@ -225,10 +247,7 @@ class Login extends Component {
 
                                         </div>
                                         <div className='col-12 social-login'>
-                                            <button className='btn-login btn-login--google'>
-                                                <i className="fab fa-google social-login-icon"></i>
-                                                Login with Google
-                                            </button>
+                                        <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} />
                                             <button className='btn-login btn-login--mobile'>
                                                 <i className="fas fa-mobile-alt social-login-icon"></i>
                                                 Login with Mobile number
