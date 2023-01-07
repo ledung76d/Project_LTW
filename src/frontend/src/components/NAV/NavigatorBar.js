@@ -6,6 +6,8 @@ import './NavigatorBar.scss';
 import LogoShop from '../../assets/images/PickBazar.png';
 import Login from '../Auth/Login';
 import { Link } from 'react-router-dom'
+import LoginIcon from '../Auth/LoginIcon';
+import IconCart from '../ProductCart/IconCart';
 
 class NavigatorBar extends Component {
     constructor(props) {
@@ -57,7 +59,7 @@ class NavigatorBar extends Component {
         //JSX
         return (
             <>
-                <div className="app">
+                <div className='app'>
                     <header className="header">
                         <div className="">
                             <nav className="header__navbar">
@@ -67,36 +69,7 @@ class NavigatorBar extends Component {
                                             <img className='header__navbar-item-logo' src={LogoShop} />
                                         </Link>
                                     </li>
-                                    {/*  <li className="header__navbar-item">
-                                        <button className='header__navbar-item-btn '
-                                            onClick={() => this.handleButtonDropdown()}>
-                                            <i className="far fa-lemon "></i>
-                                            <span>Grocery</span>
-                                            <i className={checkDropdow ? 'fas fa-caret-up' : "fas fa-caret-down"}></i>
-                                        </button>
-                                        <ul className={checkDropdow ? 'header__navbar-item-btn-list' : ' tag-display-none  header__navbar-item-btn-list'}>
-                                            <li className='header__nabar-item-btn-list-store'>
-                                                <i className="far fa-lemon "></i>
 
-                                                <a>Grocery</a>
-                                            </li>
-                                            <li className='header__nabar-item-btn-list-store'>
-                                                <i className="far fa-lemon "></i>
-
-                                                <a>Bakery</a>
-                                            </li>
-                                            <li className='header__nabar-item-btn-list-store'>
-                                                <i className="far fa-lemon "></i>
-
-                                                <a>Makeup</a>
-                                            </li>
-                                            <li className='header__nabar-item-btn-list-store'>
-                                                <i className="far fa-lemon "></i>
-
-                                                <a>Bags</a>
-                                            </li>
-                                        </ul>
-                                    </li> */}
                                 </ul>
 
                                 <ul className="header__navlist-list">
@@ -115,7 +88,7 @@ class NavigatorBar extends Component {
                                     </li>
                                     <li className="header__navbar-item ">
                                         <Link to={'/contact'} className="header__navbar-item-link" >
-                                            <span>Contact</span>
+                                            <span>Contacts</span>
                                         </Link>
                                     </li>
                                     <li className="header__navbar-item text--strong">
@@ -129,14 +102,35 @@ class NavigatorBar extends Component {
 
                     </header>
 
-                    <div className="container">
 
-                    </div>
 
                     <footer className="footer">
+                        <nav className='bottom__navbar'>
+                            <ul className='navbar__list'>
+                                <li className='navbar__list-item'>
+                                    <i className="fas fa-bars"></i>
+                                </li>
+                                <li className='navbar__list-item'>
+                                    <i className="fas fa-search"></i>
+                                </li>
+                                <li className='navbar__list-item'>
+                                    <a href='#' >
+                                        <i className="fas fa-home"></i>
+                                    </a>
+                                </li>
 
+                                <li className='navbar__list-item'>
+                                    {/* <i className="fas fa-shopping-bag"></i> */}
+                                    <IconCart />
+                                </li>
+                                <li className='navbar__list-item'>
+                                    {/* <i className="far fa-user"></i> */}
+                                    <LoginIcon />
+                                </li>
+                            </ul>
+                        </nav>
                     </footer>
-                </div >
+                </div>
             </>
         )
     }
