@@ -1,11 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap');
 
 .admin-sidebar-container {
-    font-family     : 'Open Sans', sans-serif;
-    height          : 100vh;
     opacity         : 0.9;
     padding         : 35px 16px;
     background-color: #ffffff;
+    height: 100vh;
 
     .admin-sidebar-container-fixed {
         position        : fixed;
