@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -23,14 +23,34 @@ SwiperCore.use([Pagination, Navigation]);
 
 
 export default function Slider() {
+    const [windowSize, setWindowSize] = useState(getWindowSize());
 
+    useEffect(() => {
+        function handleWindowResize() {
+            setWindowSize(getWindowSize());
+        }
 
+        window.addEventListener('resize', handleWindowResize);
+
+        return () => {
+            window.removeEventListener('resize', handleWindowResize);
+        };
+    }, []);
 
     return (
         <>
-            <Swiper slidesPerView={3} spaceBetween={30} slidesPerGroup={1} loop={true} loopFillGroupWithBlank={true} pagination={{
-                "clickable": true
-            }} navigation={true} className="mySwiper">
+
+
+            <div className="slider_top"></div>
+            <Swiper
+                slidesPerView={window.innerWidth >= 1024 ? 3 : window.innerWidth >= 540 ? 2 : 1}
+                spaceBetween={30}
+                slidesPerGroup={1}
+                loop={true}
+                loopFillGroupWithBlank={true}
+                pagination={{
+                    "clickable": true
+                }} navigation={true} className="mySwiper">
                 <SwiperSlide>
                     <img src="https://pickbazar-react-rest.vercel.app/_next/image?url=https%3A%2F%2Fpickbazarlaravel.s3.ap-southeast-1.amazonaws.com%2F906%2Foffer-1.png&w=1920&q=75"></img>
                 </SwiperSlide>
@@ -53,4 +73,8 @@ export default function Slider() {
             </Swiper>
         </>
     )
+}
+function getWindowSize() {
+    const { innerWidth, innerHeight } = window;
+    return { innerWidth, innerHeight };
 }

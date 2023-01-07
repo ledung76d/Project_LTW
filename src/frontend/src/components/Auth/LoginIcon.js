@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { push } from "connected-react-router";
 import * as actions from "../../store/actions";
 import './Login.scss';
+import './LoginIcon.scss';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import ViewProduct from '../Product/ViewProduct';
 import { handleLogin } from '../../services/userService'
@@ -14,7 +15,7 @@ import {
 } from "react-router-dom";
 import Register from './Register'
 
-class Login extends Component {
+class LoginIcon extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -94,22 +95,7 @@ class Login extends Component {
         })
     }
 
-    hanldeShowUserOption = () => {
-        this.setState({
-            isShowUserOption: !this.state.isShowUserOption
-        })
-    }
 
-    handleLogoutButton = () => {
-        this.props.processLogout()
-    }
-
-    handleOnMouseOut = () => {
-        this.setState({
-            isShowUserOption: false
-
-        })
-    }
 
     handleShowModalForgotPassword = () => {
         console.log('Check forgot password')
@@ -118,14 +104,10 @@ class Login extends Component {
 
         })
     }
-    handleShowModalRegister = () => {
-        console.log('Check forgot Register')
 
+    handleLogoutButton = () => {
+        this.props.processLogout()
     }
-    handleShowModalLogin = () => {
-        console.log('Check login')
-    }
-
 
     render() {
         //JSX
@@ -133,46 +115,49 @@ class Login extends Component {
 
         return (
             <>
-                <div >
-                    {this.props.isLoggedIn
-                        ?
-                        <>
-                            <div className='dropdown-container' onMouseOver={() => this.hanldeShowUserOption()} onMouseOut={() => this.handleOnMouseOut()}>
-                                <div className='dropdown-btn' >
-                                    <img
-                                        src={this.props.userInfo.image} alt="Avatar" className='dropdown-btn--avatar'
-                                    // alt="https://pickbazar-react-rest.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fimage%2Fsrc%2Fassets%2Fplaceholders%2Favatar.2a4ed68cad8ebe21317b04e155b6b245.svg&w=1920&q=75"
-                                    />
-                                </div>
-                                <div className={this.state.isShowUserOption ? 'dropdown-box' : 'dropdown-box display-none'}>
+                {!this.props.isLoggedIn ?
+                    <button
+                        type="button"
+                        onClick={() => this.handleShowLogin()}
+                        className="btn-loginIcon"
+                    >
+                        <i className="far fa-user"></i>
+                    </button>
+                    :
+                    <div className='dropdown-container' >
+                        <div className='dropdown-btn' >
+                            <img
+                                src={this.props.userInfo.image} alt="Avatar" className='dropdown-btn--avatar'
+                            // alt="https://pickbazar-react-rest.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fimage%2Fsrc%2Fassets%2Fplaceholders%2Favatar.2a4ed68cad8ebe21317b04e155b6b245.svg&w=1920&q=75"
+                            />
+                        </div>
+                        <div className={this.state.isShowUserOption ? 'dropdown-box' : 'dropdown-box display-none'}>
 
-                                    <div className='dropdown-username'>
-                                        {this.props.userInfo.userName}
-                                    </div>
-                                    <Link to='/profile' className='dropdown-item'>
-                                        Profile
-                                    </Link>
-                                    <Link to='/my-order' className='dropdown-item'>
-                                        My orders
-                                    </Link>
-                                    <div className='dropdown-item' onClick={() => this.handleLogoutButton()}>
-                                        Logout
-                                    </div>
-                                </div>
+                            <div className='dropdown-username'>
+                                {this.props.userInfo.userName}
                             </div>
-                        </>
-                        :
-                        <button
-                            type="button"
-                            className="btn btn-danger"
-                            style={{ width: '50px', height: '30px', fontSize: '14px', backgroundColor: '#009F7F' }}
-                            onClick={() => this.handleShowLogin()} >
-                            Login
-                        </button>}
-                    <Modal
-                        funk='true' isOpen={this.state.modal}
+                            <Link to='/profile' className='dropdown-item'>
+                                Profile
+                            </Link>
+                            <Link to='/my-order' className='dropdown-item'>
+                                My orders
+                            </Link>
+                            <div className='dropdown-item' onClick={() => this.handleLogoutButton()}>
+                                Logout
+                            </div>
+                        </div>
+                    </div>
+
+
+                }
+
+
+                <div>
+                    <Modal funk='true'
+                        isOpen={this.state.modal}
                         toggle={() => this.setState({ modal: !this.state.modal })}
                         centered
+                        className={'login-modal'}
                     >
                         {!this.state.isShowModalForgotPassword ?
                             <div className='login-background' >
@@ -180,6 +165,12 @@ class Login extends Component {
                                     <div className='login-content'>
                                         <div className='col-12  text-login'>
                                             <img src={LogoShop} className='login-logo' />
+
+                                            <span className='login-close'>
+                                                <i className="fas fa-times"
+                                                    onClick={() => this.handleShowLogin()}
+                                                ></i>
+                                            </span>
                                         </div>
                                         <div className='col-12 text-contentlogin'>
                                             Login with your email &amp; password
@@ -242,14 +233,15 @@ class Login extends Component {
                                         </div>
                                         <div className='login-register-user '>
                                             <span>Don't have any account?</span>
-                                            <Link to='/register' path='/register' onClick={() => this.setState({ modal: !this.state.modal })}>Register</Link>
+                                            <Link to='/register' path='/register' onClick={() => this.setState({ modal: !this.state.modal })}>
+                                                Register
+                                            </Link>
                                         </div>
                                     </div>
                                 </div>
 
                             </div>
                             :
-
                             <div className='container-forgotPassword'>
                                 <div className='forgotPassword-logo' ><img src={LogoShop} /></div>
                                 <h3 className='forgotPassword__header'>
@@ -278,7 +270,7 @@ class Login extends Component {
                             </div>
                         }
                     </Modal>
-                </div >
+                </div>
 
             </>
         )
@@ -303,4 +295,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(LoginIcon);

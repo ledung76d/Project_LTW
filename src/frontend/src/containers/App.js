@@ -6,7 +6,7 @@ import { history } from '../redux'
 import { ToastContainer } from 'react-toastify';
 
 
-import { userIsAuthenticated, userIsNotAuthenticated,adminIsNotAuthenticated,adminIsAuthenticated } from '../hoc/authentication';
+import { userIsAuthenticated, userIsNotAuthenticated, adminIsNotAuthenticated, adminIsAuthenticated } from '../hoc/authentication';
 
 import { path } from '../utils'
 
@@ -60,9 +60,9 @@ class App extends Component {
                     <div className="main-container">
                         <ConfirmModal />
                         {/* {this.props.isLoggedIn && <Header />} */}
-                        <ScrollToTop/>
-                        {this.props.mode === 'userMode' ? <NavigatorBar /> : (this.props.isAdminLoggedIn===true?<AdminNav />:<></>)}
-                        <span className="content-container">
+                        <ScrollToTop />
+                        {this.props.mode === 'userMode' ? <NavigatorBar /> : (this.props.isAdminLoggedIn === true ? <AdminNav /> : <></>)}
+                        <div className="content-container">
                             <Switch>
                                 <Route path={path.HOME} exact component={(Home)} />
                                 <Route path={path.FAQ} exact component={(Faq)} />
@@ -72,7 +72,7 @@ class App extends Component {
                                 <Route path='/checkout'>
                                     <CheckoutOrder />
                                 </Route>
-                                <Route  path='/register'  component={Register}/>
+                                <Route path='/register' component={Register} />
                                 <Route path="/placeorder/:id" component={userIsAuthenticated(PlaceOrder)} />
                                 <Route path='/my-order' component={userIsAuthenticated(MyOders)} />
                                 <Route path='/profile' component={userIsAuthenticated(Profile)} />
@@ -80,7 +80,7 @@ class App extends Component {
                                 <Route path='/admin/login' component={adminIsNotAuthenticated(LoginAdmin)} />
                                 <Route path='/admin' component={adminIsAuthenticated(Admin)} />
                             </Switch>
-                        </span>
+                        </div>
                         {/* <ToastContainer
                             className="toast-container" toastClassName="toast-item" bodyClassName="toast-item-body"
                             autoClose={false} hideProgressBar={true} pauseOnHover={false}

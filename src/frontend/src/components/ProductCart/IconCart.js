@@ -9,7 +9,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-class ProductCart extends Component {
+class IconCart extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -58,14 +58,14 @@ class ProductCart extends Component {
         //JSX
         return (
             <>
-                <button className='cart-btn'
+                <button className='cart-icon'
                     onClick={() => this.toggle()}
                 >
-                    <span className='cart-btn-info'>
-                        <i className="fas fa-shopping-bag cart-btn-icon"></i>
-                        <span className='cart-btn-quatily'>{this.props.numberCart} Items</span>
-                    </span>
-                    <span className='cart-btn-bill'>${this.sumCart()}</span>
+
+                    <span className={this.props.numberCart > 0 ? 'cart-icon-quatily' : 'cart__hide-card'}>{this.props.numberCart}</span>
+
+
+                    <i className="fas fa-shopping-bag"></i>
                 </button>
                 {modal === true ?
                     <div className='cart-modal '>
@@ -153,4 +153,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProductCart);
+export default connect(mapStateToProps, mapDispatchToProps)(IconCart);

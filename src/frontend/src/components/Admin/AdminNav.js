@@ -9,6 +9,9 @@ class AdminNav extends React.Component {
             isdropDown: true,
         }
     }
+    // handleLogoutButton = () => {
+    //     this.props.processLogout()
+    // }
 
     render() {
         console.log("check btn", this.state.isdropDown);
@@ -35,7 +38,7 @@ class AdminNav extends React.Component {
                                     <li className="AdminNav__login-list-item">
                                         Profile
                                     </li>
-                                    <li className="AdminNav__login-list-item AdminNav__logout">
+                                    <li className="AdminNav__login-list-item AdminNav__logout" >
                                         Logout
                                     </li>
                                 </ul>

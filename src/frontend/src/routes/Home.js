@@ -55,23 +55,27 @@ class Home extends React.Component {
                     <HomeSearch searchProduct={this.searchProduct} />
                     <Slider />
                     <div className='row'>
-                        <div className='col-sm-2 sidebar'>
+                        <div className=' sidebar'>
                             <div className='sidebar__fixed'>
                                 <SideBar changeCategory={this.changeCategory} />
                             </div>
 
                         </div>
                         <div className=' item-container'>
-                            {arrProducts.map((item, index) => {
-                                return (
-                                    <ViewProduct product={item} key={uuidv4()} />
-                                )
-                            })}
+                            <div className='item-container-product'>
+                                {arrProducts.map((item, index) => {
+                                    return (
+                                        <ViewProduct product={item} key={uuidv4()} />
+                                    )
+                                })}
+                            </div>
+
                         </div>
                     </div>
 
                     <div className='cart-shopping'>
                         <ProductCart />
+
                     </div>
                 </div>
             </>

@@ -12,7 +12,7 @@ class Contact extends React.Component {
                     <div className="container__contact">
                         <div className="contact__shop">
                             <div className="contact__shop-img">
-                                <img src="https://pickbazar-react-rest.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fimage%2Fsrc%2Fassets%2Fcontact-illustration.d03e6026d8e2aacf97c45d6a67c24857.svg&w=384&q=75" />
+                                <img src="https://pickbazar-react.vercel.app/_next/static/media/contact-illustration.2f6adc05.svg" alt="contact-img" />
                             </div>
                             <div className="contact__shopInfor">
                                 <span className="contact__shopInfor-title">Address</span>

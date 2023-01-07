@@ -24,12 +24,12 @@ class Checkout extends Component {
   }
 
   makeid(length) {
-    var result           = '';
-    var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var result = '';
+    var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     var charactersLength = characters.length;
-    for ( var i = 0; i < length; i++ ) {
-      result += characters.charAt(Math.floor(Math.random() * 
-    charactersLength));
+    for (var i = 0; i < length; i++) {
+      result += characters.charAt(Math.floor(Math.random() *
+        charactersLength));
     }
     return result;
   }
@@ -91,7 +91,7 @@ class Checkout extends Component {
     setTimeout(() => {
       this.props.history.push('/placeorder/' + encodeURIComponent(orderId));
     }, 1000);
-    
+
   }
 
   render() {

@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap');
 
 :root {
     --white-color: #fff;
@@ -31,7 +30,6 @@
 .full-window {
     width           : 100%;
     background-color: #f3f4f6;
-    height          : 978px;
 }
 
 .fake__navbar {
@@ -42,26 +40,32 @@
 
 //
 .container__contact {
-    //font-family       : 'Open Sans', sans-serif;
-    font-family       : 'Open Sans', sans-serif;
-    //background-color: #333;   
-    padding           : 56px;
-    max-width         : 1200px;
-    margin            : auto;
-    display           : flex;
 
+    //background-color: #333;   
+    padding           : 0px 20px 80px 20px ;
+    margin            : auto;
+
+    display           : flex;
+    flex-direction: column-reverse;
+    justify-content: center;
     .contact__shop {
         background-color: var(--white-color);
         padding         : 20px;
 
         .contact__shop-img {
-            margin: 0 16px 32px 16px;
+           
+            max-width: 320px;
+            margin: auto;
+            img{
+                width: 100%;
+                margin: 16px 0;
+            }
         }
 
         .contact__shopInfor {
             display       : flex;
             flex-direction: column;
-            margin-bottom : 32px;
+            margin-top : 32px;
 
             .contact__shopInfor-title {
                 font-size    : 16px;
@@ -106,12 +110,11 @@
 
     .contact__survey {
         background-color: var(--white-color);
-        margin-left     : 36px;
         padding         : 32px;
         width           : 100%;
-
+        margin-bottom: 16px;
         .contact__survey-title {
-            font-size    : 24px;
+            font-size    : 1.25rem;
             font-weight  : 700;
             margin-bottom: 28px;
         }
@@ -126,9 +129,9 @@
             }
 
             .survey-form-header {
-                display              : grid;
-                grid-template-columns: repeat(2, minmax(0, 1fr));
-                grid-column-gap      : 22px;
+                // display              : grid;
+                // grid-template-columns: repeat(2, minmax(0, 1fr));
+                // grid-column-gap      : 22px;
                 //justify-content: space-between;
 
                 div {
@@ -175,19 +178,47 @@
                 color           : var(--white-color);
                 font-size       : 16px;
                 font-weight     : 600;
-                font-size       : 16px;
             }
         }
     }
 }
 
 // PC
-@media (max-width: 63.9375em) {}
+@media (max-width: 46.1875em) {
+   
+}
 
 // Tablet
-@media (min-width: 46.25em) and (max-width: 63.9375em) {}
+@media (min-width: 46.25em) and (max-width: 63.9375em) {
+    .container__contact {
+        padding           : 56px ;
+        margin            : auto;
+        flex-direction: row;
+        .contact__shop{
+            min-width: 280px;
+        }
+
+        .contact__survey {
+            margin-left: 32px;
+            margin-bottom: 0;
+        }
+    }
+}
 
 //Mobile
-@media (max-width: 46.1875em) {
-    .container__contact {}
+@media (min-width:  64em) {
+    .container__contact {
+        padding           : 56px ;
+        margin            : auto;
+        flex-direction: row;
+        .contact__shop{
+            min-width: 320px;
+        }
+
+        .contact__survey {
+            max-width: 748px;
+            margin-left: 32px;
+            margin-bottom: 0;
+        }
+    }
 }

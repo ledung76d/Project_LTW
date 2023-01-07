@@ -4,22 +4,45 @@
 }
 
 .item-container {
-    width           : calc(100% - 285px);
-    display         : flex;
-    align-content   : stretch;
-    background-color: #f3f4f6;
     padding         : 35px 20px;
-    flex-wrap       : wrap;
-    align-content   : flex-start;
-    //margin-left: 285px;
 }
-
 .sidebar {
+    display: none;
     padding : 0;
-    width   : 285px;
+    width   : 230px;
     height  : 100%;
     position: sticky;
-    top     : 90px;
+    top     : 54px;
+}
 
+//Mobile
+@media (max-width: 46.1875em) {
+	
+}
+// Tablet
+@media (min-width: 46.25em) and (max-width: 63.9375em) {
+    .item-container {
+        .item-container-product{
+        display: grid;
+        grid-template-columns: repeat(auto-fill,minmax(300px,1fr));
+        }
+    }
 
+}
+// PC
+@media (min-width:  64em) {
+    .sidebar{
+        display: block;
+    }
+    .item-container {
+        width           : calc(100% - 230px);
+        .item-container-product{
+           
+            display: grid;
+            grid-template-columns: repeat(auto-fill,minmax(300px,1fr));
+        }
+        
+    }
+
+	
 }
