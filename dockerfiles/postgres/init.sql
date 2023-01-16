@@ -26,10 +26,6 @@ CREATE TABLE "user" (
 	CONSTRAINT PK_Person PRIMARY KEY ("cid")
 );
 
--- Them user
-insert into "user" (user_name, pass_word, role_id, phone, address, first_name, last_name, image, created_at, update_at) 
-values ('test@gmail.com','123456',0,'038291392','Ha Noi','abc','xyz','https://phunugioi.com/wp-content/uploads/2020/01/anh-avatar-supreme-dep-lam-dai-dien-facebook.jpg',NOW(),NOW());
-
 CREATE TABLE "store"(
     "sid" serial NOT NULL,
     user_name VARCHAR ( 50 ) NOT NULL,
