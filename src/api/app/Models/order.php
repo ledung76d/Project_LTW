@@ -22,12 +22,12 @@ class order extends Model
     }
 
     /**
-     * Get the products for the order.
+     * Get the order_items for the order.
      */
 
-    public function products()
+    public function order_items()
     {
-        return $this->hasMany(product::class);
+        return $this->hasMany(order_item::class);
     }
 
 }

@@ -26,13 +26,14 @@ class product extends Model
     }
 
     /**
-     * Get the category that owns the product.
+     * Get the product category that owns the product.
      */
-    public function category()
+
+    public function product_category()
     {
-        return $this->belongsToMany(category::class);
+        return $this->hasMany(product_category::class);
     }
-    
+
     /**
      * Get the category that owns the product.
      */
@@ -41,6 +42,4 @@ class product extends Model
     {
         return $this->belongsTo(store::class);
     }
-
-    
 }

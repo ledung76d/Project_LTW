@@ -5,16 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class store extends Model
+class category extends Model
 {
     use HasFactory;
 
+
     /**
-     * Get the products for the store.
+     * Get the product_category for the category.
      */
-    public function products()
+    public function product_category()
     {
-        return $this->hasMany(product::class);
+        return $this->hasMany(product_category::class);
     }
-    
 }
