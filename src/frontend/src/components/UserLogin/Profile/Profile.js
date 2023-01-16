@@ -15,7 +15,7 @@ import {
     InputGroupText,
 } from 'reactstrap'
 
-import {cloudinaryUpload,changeFLA} from '../../../services/userService'
+import {cloudinaryUpload} from '../../../services/userService'
 import userImg from '../../../assets/images/admin/avatar-placeholder.svg'
 
 class Profile extends Component {
@@ -73,9 +73,6 @@ class Profile extends Component {
             lastName: this.state.lastName,
             image: this.state.img
         }
-        console.log('data: ',data)
-        let tmp =   await changeFLA(data)
-        this.props.reduxChangeFLA(data)
     }
 
     render() {

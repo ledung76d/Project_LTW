@@ -4,7 +4,7 @@ import { push } from "connected-react-router";
 import * as actions from "../../../store/actions";
 import './ChangePassword.scss';
 import { Link } from 'react-router-dom'
-import {handleChangePassWord} from '../../../services/userService'
+// import {handleChangePassWord} from '../../../services/userService'
 class ChangePassword extends Component {
     constructor(props) {
         super(props);
@@ -47,14 +47,14 @@ class ChangePassword extends Component {
             oldPassWord: this.state.oldPass,
             newPassWord: this.state.newPass
         }
-        let tmp = await handleChangePassWord(data)
+        // let tmp = await handleChangePassWord(data)
         //console.log(tmp)
-        this.setState({
-            err: tmp.message,
-            oldPass: '',
-            newPass: '',
-            confirmPass: '',
-        })
+        // this.setState({
+        //     err: tmp.message,
+        //     oldPass: '',
+        //     newPass: '',
+        //     confirmPass: '',
+        // })
     }
 
     handleLogout = ()=>{

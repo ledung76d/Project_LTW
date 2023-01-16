@@ -6,7 +6,7 @@ import './Login.scss';
 import './LoginIcon.scss';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import ViewProduct from '../Product/ViewProduct';
-import { handleLogin } from '../../services/userService'
+// import { handleLogin } from '../../services/userService'
 import 'bootstrap'
 import LogoShop from '../../assets/images/PickBazar.png';
 import {
@@ -60,24 +60,24 @@ class LoginIcon extends Component {
 
 
         try {
-            let response = await handleLogin(this.state.username, this.state.password)
-            console.log('tra loi: ', response)
-            if (response && response.errCode !== 0) {
-                this.setState({
-                    errMessage: response.errMessage
-                })
-                //this.props.userLoginFail()
-            }
-            else if (response && response.errCode === 0) {
-                //console.log(response)
-                console.log('Check ')
-                this.props.adminProcessLogout()
-                this.props.userLoginSuccess(response.user)
-                console.log('Check')
-                this.setState({
-                    modal: !this.state.modal
-                })
-            }
+            // let response = await handleLogin(this.state.username, this.state.password)
+            // console.log('tra loi: ', response)
+            // if (response && response.errCode !== 0) {
+            //     this.setState({
+            //         errMessage: response.errMessage
+            //     })
+            //     //this.props.userLoginFail()
+            // }
+            // else if (response && response.errCode === 0) {
+            //     //console.log(response)
+            //     console.log('Check ')
+            //     this.props.adminProcessLogout()
+            //     this.props.userLoginSuccess(response.user)
+            //     console.log('Check')
+            //     this.setState({
+            //         modal: !this.state.modal
+            //     })
+            // }
         } catch (e) {
             //console.log(e.response)
             if (e.response) {
