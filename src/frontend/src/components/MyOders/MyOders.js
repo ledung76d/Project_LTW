@@ -20,7 +20,6 @@ class MyOders extends React.Component {
     };
   }
 
-<<<<<<< HEAD
   async componentDidMount() {
     //console.log('CID: ',this.props.userInfo.cid)
     let data = await handleGetOrderByUserId(this.props.userInfo.cid);
@@ -29,16 +28,6 @@ class MyOders extends React.Component {
       order: data.reverse(),
     });
   }
-=======
-    async componentDidMount() {
-        //console.log('CID: ',this.props.userInfo.cid)
-        let data = await handleGetOrderByUserId(this.props.userInfo.id)
-        console.log(data)
-        this.setState({
-            order: data.reverse()
-        })
-    }
->>>>>>> develop
 
   handleOnClickOrder = (order) => {
     const detail = this.state.order.filter(
