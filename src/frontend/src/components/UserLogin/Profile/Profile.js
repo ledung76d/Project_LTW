@@ -32,7 +32,7 @@ class Profile extends Component {
 
     componentDidMount(){
         this.setState({
-            img: this.props.userInfo.image,
+            img: this.props.userInfo.picture,
             firstName: this.props.userInfo.firstName,
             lastName: this.props.userInfo.lastName
         })
@@ -68,7 +68,7 @@ class Profile extends Component {
 
     saveFLA = async ()=>{
         let data = {
-            cid: this.props.userInfo.cid,
+            cid: this.props.userInfo.id,
             firstName: this.state.firstName,
             lastName: this.state.lastName,
             image: this.state.img

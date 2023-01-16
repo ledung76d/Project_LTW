@@ -43,7 +43,7 @@ class ChangePassword extends Component {
             return
         }
         let data = {
-            userName: this.props.userInfo.userName,
+            userName: this.props.userInfo.name,
             oldPassWord: this.state.oldPass,
             newPassWord: this.state.newPass
         }
