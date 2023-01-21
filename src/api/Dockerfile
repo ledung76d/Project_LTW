@@ -18,7 +18,8 @@ RUN apt-get update && apt-get install -y \
     libjpeg62-turbo-dev \
     libpng-dev \
     libwebp-dev \
-    libxml2-dev
+    libxml2-dev \
+    zip unzip
 
 # Clear cache
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
@@ -38,4 +39,18 @@ RUN usermod -u 1000 www-data && groupmod -g 1000 www-data
 
 WORKDIR /var/www/html/
 COPY . .
-RUN chmod -R 777 storage bootstrap/cache
+
+# Install composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
+# Install dependencies
+RUN composer install
+
+# Create .env file
+RUN cp .env.example .env
+
+# Generate key
+RUN php artisan key:generate
+
+RUN chown -R www-data:www-data /var/www/html/storage \
+    && chown -R www-data:www-data /var/www/html/bootstrap/cache
