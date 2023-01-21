@@ -63,7 +63,8 @@ services:
       - laravel
 
   composer:
-    image: composer:2.1.11
+    user: ${UID:-1000}:${GID:-1000}
+    image: composer:2.5.1
     volumes:
       - ./src/api:/var/www/api:delegated
     working_dir: /var/www/api

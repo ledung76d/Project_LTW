@@ -19,9 +19,8 @@ import 'firebase/compat/auth';
 
 // Configure Firebase.
 const config = {
-  apiKey: "AIzaSyDMSeYEPU24SqM_Nj_5NTzNXf1rVv-Zrf0",
-  authDomain: "pickbazar-c589c.firebaseapp.com",
- 
+  apiKey: process.env.FIREBASE_API_KEY,
+  authDomain: process.env.FIREBASE_AUTH_DOMAIN,
 };
 firebase.initializeApp(config);
 
