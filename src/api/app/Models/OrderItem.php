@@ -12,12 +12,12 @@ class OrderItem extends Model
     /* get the order that owns the order_item */
     public function order()
     {
-        return $this->belongsTo(order::class);
+        return $this->belongsTo(Order::class);
     }
 
     /* get the product that owns the order_item */
     public function product()
     {
-        return $this->belongsTo(product::class);
+        return $this->belongsTo(Product::class);
     }
 }
