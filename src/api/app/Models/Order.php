@@ -5,17 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class order extends Model
+class Order extends Model
 {
     use HasFactory;
 
     protected $fillable = [
         'user_id',
     ];
-
+    protected $table = 'order';
     /**
      * Get the user that owns the order.
-     */ 
+     */
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -29,5 +29,4 @@ class order extends Model
     {
         return $this->hasMany(order_item::class);
     }
-
 }
