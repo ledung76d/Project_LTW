@@ -18,16 +18,4 @@ use App\Http\Controllers\ProductController;
 
 Route::middleware(['api'])->group(function () {
     Route::get('/test', [TestController::class, 'test']);
-
-    //Product
-    Route::get('/get-product/{category}', [ProductController::class, 'getProductbyCategory']);
-    Route::get('/get-category-by-id/{id}', [ProductController::class, 'getCategorybyId']);
-    Route::get('/get-store-by-id/{id}', [ProductController::class, 'getStorebyId']);
-    Route::post('/save-to-order-item', [ProductController::class, 'saveToOrderItem']);
-    Route::get('/find-order-by-id/{id}', [ProductController::class, 'findOrderById']);
-    Route::get('/find-product-by-id/{id}', [ProductController::class, 'findProductById']);
-
-    //User
-    Route::get('/find-order-by-userid/{id}', [UserController::class, 'findOrderByUserId']);
-    Route::post('/save-order', [UserController::class, 'saveOrder']);
 });
