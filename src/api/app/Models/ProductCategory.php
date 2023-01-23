@@ -15,17 +15,17 @@ class ProductCategory extends Model
      * Get the product that owns the product_category.
      */
 
-    public function products()
+    public function product()
     {
-        return $this->belongsTo(product::class);
+        return $this->belongsTo(Product::class);
     }
 
     /**
      * Get the category that owns the product_category.
      */
 
-    public function categories()
+    public function category()
     {
-        return $this->belongsTo(category::class);
+        return $this->belongsTo(Category::class);
     }
 }
