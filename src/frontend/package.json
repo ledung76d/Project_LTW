@@ -51,7 +51,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "eslint --ext .js,.jsx,.ts,.tsx src/; exit 0",
+    "lint:report": "eslint --output-file eslint_report.json --format json src; exit 0"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -69,7 +71,14 @@
     ]
   },
   "devDependencies": {
+    "@babel/core": "^7.20.12",
+    "@babel/eslint-parser": "^7.19.1",
     "ansi-styles": "^3.2.1",
-    "chalk": "^2.4.2"
+    "chalk": "^2.4.2",
+    "eslint": "^8.5.0",
+    "eslint-config-prettier": "^8.6.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-react": "^7.32.1",
+    "prettier": "2.8.3"
   }
 }

@@ -29,22 +29,24 @@ jobs:
         with:
           node-version: 14.17.6
           cache: 'npm'
+          cache-dependency-path: 'src/frontend/package-lock.json'
       - name: Install Node Dependencies
         run:
-          cd src/frontend
-          npm ci
+          cd src/frontend && npm ci
         env:
           CI: TRUE
       - name: Test Code Linting
-        run: npm run lint
+        run: 
+          cd src/frontend && npm run lint
       - name: Save Code Linting Report JSON
-        run: npm run lint:report
+        run: 
+          cd src/frontend && npm run lint:report
         continue-on-error: true
       - name: Annotate Code Linting Results
         uses: ataylorme/eslint-annotate-action@v2
         with:
           repo-token: "${{ secrets.GITHUB_TOKEN }}"
-          report-json: "eslint_report.json"
+          report-json: "src/frontend/eslint_report.json"
 
   laravel-test:
     runs-on: ubuntu-latest
