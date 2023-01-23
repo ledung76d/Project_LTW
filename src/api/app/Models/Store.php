@@ -8,13 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class Store extends Model
 {
     use HasFactory;
-
+    protected $table = 'store';
     /**
      * Get the products for the store.
      */
-    public function products()
+    public function product()
     {
-        return $this->hasMany(product::class);
+        return $this->hasMany(Product::class);
     }
     
 }

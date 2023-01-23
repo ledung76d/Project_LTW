@@ -15,7 +15,7 @@ class Category extends Model
      */
     public function product_category()
     {
-        return $this->hasMany(product_category::class);
+        return $this->hasMany(ProductCategory::class);
     }
 
     
