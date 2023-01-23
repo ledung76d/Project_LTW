@@ -6,7 +6,7 @@ import './Login.scss';
 import './LoginIcon.scss';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import ViewProduct from '../Product/ViewProduct';
-import { handleLogin } from '../../services/userService'
+// import { handleLogin } from '../../services/userService'
 import 'bootstrap'
 import LogoShop from '../../assets/images/PickBazar.png';
 import {
@@ -60,24 +60,24 @@ class LoginIcon extends Component {
 
 
         try {
-            let response = await handleLogin(this.state.username, this.state.password)
-            console.log('tra loi: ', response)
-            if (response && response.errCode !== 0) {
-                this.setState({
-                    errMessage: response.errMessage
-                })
-                //this.props.userLoginFail()
-            }
-            else if (response && response.errCode === 0) {
-                //console.log(response)
-                console.log('Check ')
-                this.props.adminProcessLogout()
-                this.props.userLoginSuccess(response.user)
-                console.log('Check')
-                this.setState({
-                    modal: !this.state.modal
-                })
-            }
+            // let response = await handleLogin(this.state.username, this.state.password)
+            // console.log('tra loi: ', response)
+            // if (response && response.errCode !== 0) {
+            //     this.setState({
+            //         errMessage: response.errMessage
+            //     })
+            //     //this.props.userLoginFail()
+            // }
+            // else if (response && response.errCode === 0) {
+            //     //console.log(response)
+            //     console.log('Check ')
+            //     this.props.adminProcessLogout()
+            //     this.props.userLoginSuccess(response.user)
+            //     console.log('Check')
+            //     this.setState({
+            //         modal: !this.state.modal
+            //     })
+            // }
         } catch (e) {
             //console.log(e.response)
             if (e.response) {
@@ -127,14 +127,14 @@ class LoginIcon extends Component {
                     <div className='dropdown-container' >
                         <div className='dropdown-btn' >
                             <img
-                                src={this.props.userInfo.image} alt="Avatar" className='dropdown-btn--avatar'
+                                src={this.props.userInfo.picture} alt="Avatar" className='dropdown-btn--avatar'
                             // alt="https://pickbazar-react-rest.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fimage%2Fsrc%2Fassets%2Fplaceholders%2Favatar.2a4ed68cad8ebe21317b04e155b6b245.svg&w=1920&q=75"
                             />
                         </div>
                         <div className={this.state.isShowUserOption ? 'dropdown-box' : 'dropdown-box display-none'}>
 
                             <div className='dropdown-username'>
-                                {this.props.userInfo.userName}
+                                {this.props.userInfo.name}
                             </div>
                             <Link to='/profile' className='dropdown-item'>
                                 Profile

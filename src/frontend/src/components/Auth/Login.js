@@ -25,16 +25,34 @@ const config = {
 firebase.initializeApp(config);
 
 // Configure FirebaseUI.
-const uiConfig = {
+const uiConfig = (handleLogin) => ({
+    callbacks: {
+        signInSuccessWithAuthResult: function (authResult, redirectUrl) {
+            firebase.auth().currentUser.getIdToken(false).then(function (idToken) {
+                localStorage.setItem('token', idToken);
+            }).catch(function (error) {
+                // Handle error
+            });
+            const userInfo = {
+                id: authResult.user.uid,
+                email: authResult.user.email,
+                name: authResult.user.displayName,
+                picture: authResult.user.photoURL,
+            };
+            handleLogin(userInfo);
+            return false;
+        }
+    },
+    signInFlow: 'popup',
+    signInSuccessUrl: '/',
+    signInOptions: [
+        firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+        firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+        firebase.auth.TwitterAuthProvider.PROVIDER_ID,
+        firebase.auth.GithubAuthProvider.PROVIDER_ID
+    ],
+});
 
-  signInFlow: 'redirect',
-  
-  signInSuccessUrl: '/faq',
-
-  signInOptions: [
-    firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-  ],
-};
 class Login extends Component {
     constructor(props) {
         super(props);
@@ -71,44 +89,15 @@ class Login extends Component {
         //console.log(event.target.value);
 
     }
-    handleLoginButton = async () => {
-        console.log('username: ', this.state.username, 'password: ', this.state.password)
-        //console.log('all stage: ', this.state);
+    
+    handleUserLogin = async (userInfo) => {
+        this.props.adminProcessLogout()
+        this.props.userLoginSuccess(userInfo)
         this.setState({
-            errMessage: ''
+            modal: !this.state.modal
         })
-
-
-        try {
-            let response = await handleLogin(this.state.username, this.state.password)
-            console.log('tra loi: ', response)
-            if (response && response.errCode !== 0) {
-                this.setState({
-                    errMessage: response.errMessage
-                })
-                //this.props.userLoginFail()
-            }
-            else if (response && response.errCode === 0) {
-                //console.log(response)
-                console.log('Check ')
-                this.props.adminProcessLogout()
-                this.props.userLoginSuccess(response.user)
-                console.log('Check')
-                this.setState({
-                    modal: !this.state.modal
-                })
-            }
-        } catch (e) {
-            //console.log(e.response)
-            if (e.response) {
-                this.setState({
-                    errMessage: e.response.message
-                })
-            }
-        }
-
-
     }
+
     handleShowHidePassword = () => {
         this.setState({
             isShowPassword: !this.state.isShowPassword,
@@ -161,14 +150,14 @@ class Login extends Component {
                             <div className='dropdown-container' onMouseOver={() => this.hanldeShowUserOption()} onMouseOut={() => this.handleOnMouseOut()}>
                                 <div className='dropdown-btn' >
                                     <img
-                                        src={this.props.userInfo.image} alt="Avatar" className='dropdown-btn--avatar'
+                                        src={this.props.userInfo.picture} alt="Avatar" className='dropdown-btn--avatar'
                                     // alt="https://pickbazar-react-rest.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fimage%2Fsrc%2Fassets%2Fplaceholders%2Favatar.2a4ed68cad8ebe21317b04e155b6b245.svg&w=1920&q=75"
                                     />
                                 </div>
                                 <div className={this.state.isShowUserOption ? 'dropdown-box' : 'dropdown-box display-none'}>
 
                                     <div className='dropdown-username'>
-                                        {this.props.userInfo.userName}
+                                        {this.props.userInfo.name}
                                     </div>
                                     <Link to='/profile' className='dropdown-item'>
                                         Profile
@@ -202,66 +191,17 @@ class Login extends Component {
                                         <div className='col-12  text-login'>
                                             <img src={LogoShop} className='login-logo' />
                                         </div>
-                                        <div className='col-12 text-contentlogin'>
-                                            Login with your email &amp; password
-                                        </div>
-
-
-                                        <div className='col-12 form-group login-input'>
-                                            <label>
-                                                <span>Username</span></label>
-                                            <input type='email' className='form-control login-input--text' placeholder='Enter you username'
-                                                value={this.state.username}
-                                                onChange={(event) => this.handleOnChangeUsername(event)}
-                                            />
-                                        </div>
-                                        <div className='col-12 form-group login-input'>
-                                            <label className='login-input-password'>
-                                                <span>Password</span>
-                                                <span className='forgot-password'
-                                                    onClick={() => this.handleShowModalForgotPassword()}
-                                                >
-                                                    Forgot password?</span>
-                                            </label>
-                                            <div className='custom-input-password'>
-                                                <input type={this.state.isShowPassword ? 'text' : 'password'} className='form-control login-input--text' placeholder='Enter you password'
-                                                    value={this.state.password}
-                                                    onChange={(event) => this.handleOnChangePassword(event)}
-                                                />
-                                                <span
-                                                    onClick={() => this.handleShowHidePassword()}
-                                                >
-                                                    <i className={this.state.isShowPassword ? 'far fa-eye' : 'far fa-eye-slash'}></i>
-                                                </span>
-                                            </div>
-                                            <div className='mt-3' style={{ color: 'red' }}>{this.state.errMessage}</div>
-                                        </div>
-                                        <button className='btn-login btn-login-normal'
-                                            onClick={() => this.handleLoginButton()}
-                                        >Login</button>
-                                        <div className='col-12'>
-
-                                        </div>
-                                        <div className='col-12  login-orther'>
-                                            <span className='text-orther-login '>
-                                                <span>Or</span>
-                                            </span>
-
-                                        </div>
                                         <div className='col-12 social-login'>
-                                        <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} />
-                                            <button className='btn-login btn-login--mobile'>
+                                            <StyledFirebaseAuth 
+                                                uiConfig={uiConfig(this.handleUserLogin)}
+                                                firebaseAuth={firebase.auth()}
+                                            />
+                                            {/* <button className='btn-login btn-login--mobile'>
                                                 <i className="fas fa-mobile-alt social-login-icon"></i>
                                                 Login with Mobile number
-                                            </button>
+                                            </button> */}
                                         </div>
-                                        <div className='col-12  login-line'>
-
-                                        </div>
-                                        <div className='login-register-user '>
-                                            <span>Don't have any account?</span>
-                                            <Link to='/register' path='/register' onClick={() => this.setState({ modal: !this.state.modal })}>Register</Link>
-                                        </div>
+                                        <div className='col-12  login-line'></div>
                                     </div>
                                 </div>
 
