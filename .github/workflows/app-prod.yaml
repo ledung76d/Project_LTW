@@ -1,5 +1,5 @@
 # Github Actions Workflow file that builds and pushes the docker images.
-name: pick-bazar-app
+name: pick-bazar-app-prod
 env:
   FRONTEND_TAG: "${{ secrets.DOCKERHUB_USERNAME }}/pick-bazar-frontend"
   LARAVEL_TAG: "${{ secrets.DOCKERHUB_USERNAME }}/pick-bazar-laravel"
@@ -9,15 +9,13 @@ on:
     branches:
       - main
     paths:
-      - "src/frontend/**"
-      - "src/api/**"
+      - "src/**"
       - "!**/README.md"
   pull_request:
     branches:
       - main
     paths:
-      - "src/frontend/**"
-      - "src/api/**"
+      - "src/**"
       - "!**/README.md"
 
 # Job declaration starts.
@@ -32,7 +30,9 @@ jobs:
           node-version: 14.17.6
           cache: 'npm'
       - name: Install Node Dependencies
-        run: npm ci
+        run:
+          cd src/frontend
+          npm ci
         env:
           CI: TRUE
       - name: Test Code Linting
