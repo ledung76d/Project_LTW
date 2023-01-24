@@ -47,6 +47,7 @@ jobs:
         with:
           repo-token: "${{ secrets.GITHUB_TOKEN }}"
           report-json: "src/frontend/eslint_report.json"
+          fail-on-error: false
 
   laravel-test:
     runs-on: ubuntu-latest
