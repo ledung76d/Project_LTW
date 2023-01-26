@@ -70,7 +70,10 @@ class ProductController extends Controller
         return response()->json($store);
     }
    
-        
+    public function findProductById($id){
+        $product = Product::find($id);
+        return response()->json($product);
+    }
 
 
     
