@@ -9,6 +9,8 @@ class OrderItem extends Model
 {
     use HasFactory;
     protected $table = 'order_item';
+    // define primary key
+    protected $primaryKey = 'order_id';
     /* get the order that owns the order_item */
     public function order()
     {

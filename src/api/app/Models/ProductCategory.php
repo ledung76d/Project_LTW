@@ -9,6 +9,8 @@ class ProductCategory extends Model
 {
     use HasFactory;
     protected $table = 'product_category';
+    // define primary key
+    protected $primaryKey = 'pid';
 
 
     /**
