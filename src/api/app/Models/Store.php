@@ -9,6 +9,7 @@ class Store extends Model
 {
     use HasFactory;
     protected $table = 'store';
+    protected $primaryKey = 'sid';
     /**
      * Get the products for the store.
      */
@@ -16,5 +17,9 @@ class Store extends Model
     {
         return $this->hasMany(Product::class);
     }
+    
+
+    
+ 
     
 }

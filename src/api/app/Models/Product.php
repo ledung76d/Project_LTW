@@ -16,6 +16,7 @@ class Product extends Model
         'quantity',
     ];
     protected $table = 'product';
+    protected $primaryKey = 'pid';
     /**
      * Get the order that owns the product.
      */

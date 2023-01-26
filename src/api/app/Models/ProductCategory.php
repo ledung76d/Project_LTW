@@ -10,6 +10,15 @@ class ProductCategory extends Model
     use HasFactory;
     protected $table = 'product_category';
 
+    /** 
+     * Primary key associated with the table.
+     */
+
+    
+
+
+
+
 
     /**
      * Get the product that owns the product_category.

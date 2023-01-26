@@ -17,5 +17,18 @@ use App\Http\Controllers\ProductController;
 */
 
 Route::middleware(['api'])->group(function () {
-    Route::get('/test', [TestController::class, 'test']);
+    Route::get('/test', [TestController::class, 'test']); 
+
+    
+
 });
+
+
+    
+    //Product
+    Route::get('/get-store-by-id/{id}', [ProductController::class, 'getStoreById']);
+
+
+
+
+
