@@ -9,16 +9,6 @@ class ProductCategory extends Model
 {
     use HasFactory;
     protected $table = 'product_category';
-    // define primary key
-    protected $primaryKey = 'pid';
-
-    /** 
-     * Primary key associated with the table.
-     */
-
-    
-
-
 
 
 
@@ -28,7 +18,7 @@ class ProductCategory extends Model
 
     public function product()
     {
-        return $this->belongsTo(Product::class);
+        return $this->belongsTo(Product::class, 'pid');
     }
 
     /**
@@ -37,6 +27,6 @@ class ProductCategory extends Model
 
     public function category()
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo(Category::class, 'id');
     }
 }
