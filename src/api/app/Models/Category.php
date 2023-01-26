@@ -10,6 +10,8 @@ class Category extends Model
     use HasFactory;
     // define table name
     protected $table = 'category';
+    // define primary key
+    protected $primaryKey = 'id';
     /**
      * Get the product_category for the category.
      */
