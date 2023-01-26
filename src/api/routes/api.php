@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TestController;
+use App\Http\Controllers\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,5 +17,19 @@ use App\Http\Controllers\TestController;
 */
 
 Route::middleware(['api'])->group(function () {
-    Route::get('/test', [TestController::class, 'test']);
+    Route::get('/test', [TestController::class, 'test']); 
+
+    
+
 });
+
+
+    
+    //Product
+    Route::get('/get-store-by-id/{id}', [ProductController::class, 'getStoreById']);
+    Route::get('/find-product-by-id/{id}', [ProductController::class, 'findProductById']);
+
+
+
+
+

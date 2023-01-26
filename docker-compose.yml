@@ -31,7 +31,6 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - ./postgres_data:/var/lib/postgresql/data:delegated
       - ./dockerfiles/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql:delegated
     environment:
       POSTGRES_USER: postgres
@@ -64,7 +63,7 @@ services:
 
   composer:
     user: ${UID:-1000}:${GID:-1000}
-    image: composer:2.1.11
+    image: composer:2.5.1
     volumes:
       - ./src/api:/var/www/api:delegated
     working_dir: /var/www/api

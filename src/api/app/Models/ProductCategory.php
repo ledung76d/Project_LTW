@@ -12,12 +12,21 @@ class ProductCategory extends Model
     // define primary key
     protected $primaryKey = 'pid';
 
+    /** 
+     * Primary key associated with the table.
+     */
+
+    
+
+
+
+
 
     /**
      * Get the product that owns the product_category.
      */
 
-    public function products()
+    public function product()
     {
         return $this->belongsTo(Product::class);
     }
@@ -26,7 +35,7 @@ class ProductCategory extends Model
      * Get the category that owns the product_category.
      */
 
-    public function categories()
+    public function category()
     {
         return $this->belongsTo(Category::class);
     }

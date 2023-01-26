@@ -16,6 +16,7 @@ class Product extends Model
         'quantity',
     ];
     protected $table = 'product';
+
     // define primary key
     protected $primaryKey = 'pid';
     /**
@@ -44,4 +45,10 @@ class Product extends Model
     {
         return $this->belongsTo(Store::class);
     }
+
+    
+
+    
+     
+
 }

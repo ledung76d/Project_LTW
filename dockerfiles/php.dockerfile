@@ -1,4 +1,4 @@
-FROM php:8.0-fpm-alpine
+FROM php:8.1-fpm-alpine
 
 ARG UID
 ARG GID
@@ -34,8 +34,7 @@ RUN apk add --no-cache \
 
 # Install PHP extensions
 RUN docker-php-ext-configure gd --enable-gd --with-freetype --with-jpeg --with-webp
-RUN docker-php-ext-install gd
-RUN docker-php-ext-install pdo pdo_pgsql pgsql
+RUN docker-php-ext-install gd pdo pdo_pgsql pgsql
 
 RUN mkdir -p /usr/src/php/ext/redis \
     && curl -L https://github.com/phpredis/phpredis/archive/5.3.4.tar.gz | tar xvz -C /usr/src/php/ext/redis --strip 1 \
