@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\ProductCategory;
 use App\Models\Store;
 use App\Models\ProductCategory;
 use Illuminate\Http\Request;
@@ -80,21 +81,29 @@ class ProductController extends Controller
     }
 
     
-    public function getCategoryById($id){
+    public function getCategoryById(Request $request){
+        $id = $request->id;
         $category = ProductCategory::with('category')->where('pid',$id)->get();
         return response()->json($category);     
     }
 
-    public function getStoreById($id){
+    public function getStoreById(Request $request){
+        $id = $request->id;
+
         $store = Store::find($id);
         return response()->json($store);
     }
 
-    public function findProductById($id)
+    public function findProductById(Request $request)
     {
+        $id = $request->id;
         $product = Product::find($id);
-        return response()->json($product);
+        return response()->json([
+            'status' => 'success',
+            'data' => $product
+        ], 200);
     }
+
 
     public function getProductBySid($sid){
         $product = Product::where('sid', $sid)->get();
@@ -104,9 +113,6 @@ class ProductController extends Controller
             'data' => $product,
         ], 200);
     }
-    
-
-
 
     public function findProductByStoreId($id)
     {
