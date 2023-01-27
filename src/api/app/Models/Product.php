@@ -16,13 +16,16 @@ class Product extends Model
         'quantity',
     ];
     protected $table = 'product';
+
+    // define primary key
+    protected $primaryKey = 'pid';
     /**
      * Get the order that owns the product.
      */
 
     public function order()
     {
-        return $this->belongsToMany(order::class);
+        return $this->belongsToMany(Order::class);
     }
 
     /**
@@ -31,7 +34,7 @@ class Product extends Model
 
     public function product_category()
     {
-        return $this->hasMany(product_category::class);
+        return $this->hasMany(ProductCategory::class);
     }
 
     /**
@@ -40,6 +43,12 @@ class Product extends Model
 
     public function store()
     {
-        return $this->belongsTo(store::class);
+        return $this->belongsTo(Store::class);
     }
+
+    
+
+    
+     
+
 }

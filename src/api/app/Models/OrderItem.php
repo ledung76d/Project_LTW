@@ -16,16 +16,15 @@ class OrderItem extends Model
         'price',
     ];
 
-    
     /* get the order that owns the order_item */
     public function order()
     {
-        return $this->belongsTo(order::class);
+        return $this->belongsTo(Order::class, 'order_id');
     }
 
     /* get the product that owns the order_item */
     public function product()
     {
-        return $this->belongsTo(product::class);
+        return $this->belongsTo(Product::class, 'pid');
     }
 }

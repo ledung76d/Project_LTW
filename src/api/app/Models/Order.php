@@ -13,6 +13,8 @@ class Order extends Model
         'user_id',
     ];
     protected $table = 'order';
+    // define primary key
+    protected $primaryKey = 'order_id';
     /**
      * Get the user that owns the order.
      */
@@ -27,6 +29,6 @@ class Order extends Model
 
     public function order_items()
     {
-        return $this->hasMany(order_item::class);
+        return $this->hasMany(OrderItem::class);
     }
 }

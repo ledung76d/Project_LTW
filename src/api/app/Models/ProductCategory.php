@@ -10,22 +10,26 @@ class ProductCategory extends Model
     use HasFactory;
     protected $table = 'product_category';
 
+    /** 
+     * Primary key associated with the table.
+     */
+   
 
     /**
      * Get the product that owns the product_category.
      */
 
-    public function products()
+    public function product()
     {
-        return $this->belongsTo(product::class);
+        return $this->belongsTo(Product::class,'pid');
     }
 
     /**
      * Get the category that owns the product_category.
      */
 
-    public function categories()
+    public function category()
     {
-        return $this->belongsTo(category::class);
+        return $this->belongsTo(Category::class,'category_id');
     }
 }
