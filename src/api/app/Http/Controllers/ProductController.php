@@ -3,9 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
-use App\Models\ProductCategory;
-use App\Models\Category;
 use App\Models\Store;
+use App\Models\ProductCategory;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -70,14 +69,12 @@ class ProductController extends Controller
 
         $pid = ProductCategory::select('pid')
         ->join('category', 'category.id', '=', 'product_category.category_id');
-        if($category){
-            $pid = $pid->where('category.title', 'like', '%'.$category.'%');
+        if ($category) {
+            $pid = $pid->where('category.title', 'like', $category);
         }
         $product = Product::whereIn('pid', $pid)->get();
         return response()->json([
             'status' => 'success',
-            'test' => $request->path(),
-            'category' => $category,
             'products' => $product,
         ], 200);
     }
@@ -89,12 +86,12 @@ class ProductController extends Controller
     }
 
     public function getStoreById($id){
-       
         $store = Store::find($id);
         return response()->json($store);
     }
-   
-    public function findProductById($id){
+
+    public function findProductById($id)
+    {
         $product = Product::find($id);
         return response()->json($product);
     }
@@ -111,5 +108,17 @@ class ProductController extends Controller
 
 
 
+    public function findProductByStoreId($id)
+    {
+        $products = Product::where('sid', $id)->get();
+        return response()->json($products);
+    }
 
+
+    public function deleteProductByPId($pid)
+    {
+        $product = Product::find($pid);
+        $product->delete();
+        return response()->json($product);
+    }
 }
