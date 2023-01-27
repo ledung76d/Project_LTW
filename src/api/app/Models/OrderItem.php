@@ -9,8 +9,13 @@ class OrderItem extends Model
 {
     use HasFactory;
     protected $table = 'order_item';
-    // define primary key
-    // protected $primaryKey = 'order_id';
+    protected $fillable = [
+        'order_id',
+        'pid',
+        'quantity',
+        'price',
+    ];
+
     /* get the order that owns the order_item */
     public function order()
     {
