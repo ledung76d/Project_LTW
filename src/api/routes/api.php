@@ -25,9 +25,12 @@ Route::middleware(['api'])->group(function () {
 });
 
     //Product
+    Route::get('/get-product', [ProductController::class, 'getProductByCategory']);
     Route::get('/get-category-by-id', [ProductController::class, 'getCategoryById']);
     Route::get('/get-store-by-id', [ProductController::class, 'getStoreById']);
     Route::get('/find-product-by-id', [ProductController::class, 'findProductById']);
+    
+    Route::get('/get-product-by-sid/{sid}', [ProductController::class, 'getProductBySid']);
 
     Route::get('/find-product-by-store-id/{id}', [ProductController::class, 'findProductByStoreId']);
     Route::get('/delete-product-by-pid/{id}', [ProductController::class, 'deleteProductByPId']);
