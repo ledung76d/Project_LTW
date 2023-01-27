@@ -82,6 +82,12 @@ class ProductController extends Controller
         ], 200);
     }
 
+    
+    public function getCategoryById($id){
+        $category = ProductCategory::with('category')->where('pid',$id)->get();
+        return response()->json($category);     
+    }
+
     public function getStoreById($id){
        
         $store = Store::find($id);

@@ -10,16 +10,16 @@ class OrderItem extends Model
     use HasFactory;
     protected $table = 'order_item';
     // define primary key
-    protected $primaryKey = 'order_id';
+    // protected $primaryKey = 'order_id';
     /* get the order that owns the order_item */
     public function order()
     {
-        return $this->belongsTo(Order::class);
+        return $this->belongsTo(Order::class, 'order_id');
     }
 
     /* get the product that owns the order_item */
     public function product()
     {
-        return $this->belongsTo(Product::class);
+        return $this->belongsTo(Product::class, 'pid');
     }
 }
