@@ -26,9 +26,11 @@ Route::middleware(['api'])->group(function () {
 
     
     //Product
+    Route::get('/get-product', [ProductController::class, 'getProductByCategory']);
     Route::get('/get-store-by-id/{id}', [ProductController::class, 'getStoreById']);
     Route::get('/find-product-by-id/{id}', [ProductController::class, 'findProductById']);
-
+    
+    Route::get('/get-product-by-sid/{sid}', [ProductController::class, 'getProductBySid']);
 
 
 

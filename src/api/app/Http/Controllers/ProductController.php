@@ -64,6 +64,24 @@ class ProductController extends Controller
     {
         //
     }
+
+    public function getProductByCategory(Request $request) {
+        $category = $request->category;
+
+        $pid = ProductCategory::select('pid')
+        ->join('category', 'category.id', '=', 'product_category.category_id');
+        if($category){
+            $pid = $pid->where('category.title', 'like', '%'.$category.'%');
+        }
+        $product = Product::whereIn('pid', $pid)->get();
+        return response()->json([
+            'status' => 'success',
+            'test' => $request->path(),
+            'category' => $category,
+            'products' => $product,
+        ], 200);
+    }
+
     public function getStoreById($id){
        
         $store = Store::find($id);
@@ -75,7 +93,14 @@ class ProductController extends Controller
         return response()->json($product);
     }
 
-
+    public function getProductBySid($sid){
+        $product = Product::where('sid', $sid)->get();
+        
+        return response()->json([
+            'status' => 'success',
+            'data' => $product,
+        ], 200);
+    }
     
 
 
