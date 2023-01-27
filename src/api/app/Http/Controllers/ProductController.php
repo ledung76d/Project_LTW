@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\Store;
+use App\Models\ProductCategory;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -63,12 +64,27 @@ class ProductController extends Controller
         //
     }
 
+    public function getProductByCategory(Request $request) {
+        $category = $request->category;
+
+        $pid = ProductCategory::select('pid')
+        ->join('category', 'category.id', '=', 'product_category.category_id');
+        if ($category) {
+            $pid = $pid->where('category.title', 'like', $category);
+        }
+        $product = Product::whereIn('pid', $pid)->get();
+        return response()->json([
+            'status' => 'success',
+            'products' => $product,
+        ], 200);
+    }
+
     
     public function getCategoryById($id){
         $category = ProductCategory::with('category')->where('pid',$id)->get();
         return response()->json($category);     
     }
-    
+
     public function getStoreById($id){
         $store = Store::find($id);
         return response()->json($store);
@@ -79,6 +95,17 @@ class ProductController extends Controller
         $product = Product::find($id);
         return response()->json($product);
     }
+
+    public function getProductBySid($sid){
+        $product = Product::where('sid', $sid)->get();
+        
+        return response()->json([
+            'status' => 'success',
+            'data' => $product,
+        ], 200);
+    }
+    
+
 
 
     public function findProductByStoreId($id)
