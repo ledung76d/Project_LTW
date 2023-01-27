@@ -24,8 +24,7 @@ Route::middleware(['api'])->group(function () {
 });
 
 
-    
-    //Product
+    Route::get('/get-category-by-id/{id}', [ProductController::class, 'getCategoryById']);
     Route::get('/get-store-by-id/{id}', [ProductController::class, 'getStoreById']);
     Route::get('/find-product-by-id/{id}', [ProductController::class, 'findProductById']);
 
