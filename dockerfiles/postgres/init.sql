@@ -6,24 +6,20 @@ drop table IF EXISTS "order";
 drop table IF EXISTS "product_category";
 drop table IF EXISTS "category";
 drop table IF EXISTS "product";
-drop table IF EXISTS "user";
+drop table IF EXISTS "users";
 drop table IF EXISTS "store";
 
 -- Create user
-CREATE TABLE "user" (
-	cid serial NOT NULL,
-	user_name VARCHAR ( 50 ) UNIQUE NOT NULL,
-	pass_word VARCHAR ( 255 ) NOT NULL,
-	role_id SMALLINT NOT NULL DEFAULT 0,
-	last_login TIMESTAMP NULL DEFAULT NULL,
-	phone CHAR(10) NOT NULL,
-	address VARCHAR ( 255 ) NOT NULL,
-	first_name VARCHAR (15) NOT NULL,
-	last_name VARCHAR (15) NOT NULL,
-	image text,
+CREATE TABLE "users" (
+	id VARCHAR ( 50 ) NOT NULL,
+	name VARCHAR ( 50 ) NOT NULL,
+    email VARCHAR ( 50 ) unique NOT NULL,
+	phone CHAR(10),
+	address VARCHAR ( 255 ),
+	picture text,
 	created_at TIMESTAMP NOT NULL,
-	update_at TIMESTAMP NOt NULL,
-	CONSTRAINT PK_Person PRIMARY KEY ("cid")
+	updated_at TIMESTAMP NOt NULL,
+	CONSTRAINT PK_Person PRIMARY KEY ("id")
 );
 
 CREATE TABLE "store"(
@@ -73,14 +69,14 @@ CREATE TABLE "product_category"(
 
 CREATE TABLE "order"(
     order_id VARCHAR ( 50 ) NOT NULL,
-    cid INT NOT NULL,
+    cid VARCHAR ( 50 ) NOT NULL,
     "status" VARCHAR ( 255 ) NOT NULL,
     total decimal(7,2) NOT NULL DEFAULT 0,
     created_at TIMESTAMP NOT NULL,
     phone CHAR(10) NOT NULL,
     address VARCHAR ( 255 ) NOT NULL,
     delivery VARCHAR ( 255 ) NOT NULL,
-    FOREIGN KEY ("cid") REFERENCES "user" ("cid") ON DELETE CASCADE,
+    FOREIGN KEY ("cid") REFERENCES "users" ("id") ON DELETE CASCADE,
     CONSTRAINT PK_order PRIMARY KEY ("order_id")
 );
 

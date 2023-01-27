@@ -19,24 +19,22 @@ use App\Http\Controllers\StoreController;
 */
 
 Route::middleware(['api'])->group(function () {
-    Route::get('/test', [TestController::class, 'test']); 
-
-    
+    Route::get('/test', [TestController::class, 'test']);     
 
 });
 
-    //Product
-    Route::get('/get-product', [ProductController::class, 'getProductByCategory']);
-    Route::get('/get-category-by-id', [ProductController::class, 'getCategoryById']);
-    Route::get('/find-product-by-id', [ProductController::class, 'findProductById']);
-    
-    Route::get('/get-product-by-sid/{sid}', [ProductController::class, 'getProductBySid']);
+//Product
+Route::get('/get-product', [ProductController::class, 'getProductByCategory']);
+Route::get('/get-category-by-id', [ProductController::class, 'getCategoryById']);
+Route::get('/find-product-by-id', [ProductController::class, 'findProductById']);
 
-    Route::get('/find-product-by-store-id/{id}', [ProductController::class, 'findProductByStoreId']);
-    Route::get('/delete-product-by-pid/{id}', [ProductController::class, 'deleteProductByPId']);
+Route::get('/get-product-by-sid/{sid}', [ProductController::class, 'getProductBySid']);
 
-    //Category
-    Route::get('/get-store-by-id', [StoreController::class, 'getStoreById']);
+Route::get('/find-product-by-store-id/{id}', [ProductController::class, 'findProductByStoreId']);
+Route::get('/delete-product-by-pid/{id}', [ProductController::class, 'deleteProductByPId']);
+
+//Category
+Route::get('/get-store-by-id', [StoreController::class, 'getStoreById']);
 
 
 
