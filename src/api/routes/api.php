@@ -6,6 +6,7 @@ use App\Http\Controllers\TestController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\StoreController;
+use App\Http\Controllers\OrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,7 +20,9 @@ use App\Http\Controllers\StoreController;
 */
 
 Route::middleware(['api'])->group(function () {
-    Route::get('/test', [TestController::class, 'test']);     
+    Route::get('/test', [TestController::class, 'test']);  
+    //Order
+    Route::post('/save-order', [OrderController::class, 'saveOrder']);   
 
 });
 

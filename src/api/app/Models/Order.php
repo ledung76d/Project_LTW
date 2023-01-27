@@ -10,7 +10,14 @@ class Order extends Model
     use HasFactory;
 
     protected $fillable = [
+        
         'user_id',
+        'order_id',
+        'total',
+        'status',
+        'phone',
+        'address',
+        
     ];
     protected $table = 'order';
     // define primary key
