@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,8 +29,10 @@ Route::middleware(['api'])->group(function () {
     //Product
     Route::get('/get-store-by-id/{id}', [ProductController::class, 'getStoreById']);
     Route::get('/find-product-by-id/{id}', [ProductController::class, 'findProductById']);
+    Route::get('/find-product-by-store-id/{id}', [ProductController::class, 'findProductByStoreId']);
+    Route::get('/delete-product-by-pid/{id}', [ProductController::class, 'deleteProductByPId']);
 
-
-
+    //Category
+    Route::get('/get-all-category', [CategoryController::class, 'getAllCategory']);
 
 
