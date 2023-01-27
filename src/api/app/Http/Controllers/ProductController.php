@@ -79,13 +79,7 @@ class ProductController extends Controller
         ], 200);
     }
 
-    
-    public function getCategoryById(Request $request) {
-        $id = $request->id;
-        $category = ProductCategory::with('category')->where('pid',$id)->get();
-        return response()->json($category);
-    }
-
+  
     public function findProductById(Request $request)
     {
         $id = $request->id;
