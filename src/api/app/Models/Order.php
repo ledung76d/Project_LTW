@@ -12,12 +12,13 @@ class Order extends Model
     protected $fillable = [
         
         'user_id',
+        'cid',
         'order_id',
         'total',
         'status',
         'phone',
         'address',
-        
+        'delivery'
     ];
     protected $table = 'order';
     // define primary key

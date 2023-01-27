@@ -9,22 +9,17 @@ class OrderController extends Controller
 {
     public function saveOrder(Request $request)
     {
-       
-
-
         $user = Auth::user();
         if($user){
             try {
                 $order = Order::create([
                     'order_id' => $request->orderId,
-                    'cid' => $user->id,        
+                    'cid' => $user->id,
                     'status' => $request->status,
                     'total' => $request->total,
                     'phone' => $request->phone,
                     'address' => $request->address,
                     'delivery' => $request->delivery,
-                      
-                    
                 ]);
                 return response()->json([
                     'status' => 'success',
@@ -36,6 +31,11 @@ class OrderController extends Controller
                     'message' => $th->getMessage()
                 ], 500);
             }
-}
-}
+        } else {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'User not found'
+            ], 404);
+        }
+    }
 }
