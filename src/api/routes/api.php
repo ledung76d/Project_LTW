@@ -32,7 +32,6 @@ Route::middleware(['api'])->group(function () {
     Route::get('/find-product-by-store-id/{id}', [ProductController::class, 'findProductByStoreId']);
     Route::get('/delete-product-by-pid/{id}', [ProductController::class, 'deleteProductByPId']);
 
-    //Category
-    Route::get('/get-all-category', [CategoryController::class, 'getAllCategory']);
+  
 
 
