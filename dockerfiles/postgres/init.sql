@@ -72,10 +72,11 @@ CREATE TABLE "order"(
     cid VARCHAR ( 50 ) NOT NULL,
     "status" VARCHAR ( 255 ) NOT NULL,
     total decimal(7,2) NOT NULL DEFAULT 0,
-    created_at TIMESTAMP NOT NULL,
-    phone CHAR(10) NOT NULL,
-    address VARCHAR ( 255 ) NOT NULL,
+    phone CHAR(10) ,
+    address VARCHAR ( 255 ) ,
     delivery VARCHAR ( 255 ) NOT NULL,
+    updated_at TIMESTAMP NOT NULL,
+    created_at TIMESTAMP NOT NULL,
     FOREIGN KEY ("cid") REFERENCES "users" ("id") ON DELETE CASCADE,
     CONSTRAINT PK_order PRIMARY KEY ("order_id")
 );
