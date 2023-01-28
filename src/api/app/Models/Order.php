@@ -23,6 +23,8 @@ class Order extends Model
     protected $table = 'order';
     // define primary key
     protected $primaryKey = 'order_id';
+    // disable auto increment
+    public $incrementing = false;
     /**
      * Get the user that owns the order.
      */
