@@ -18,15 +18,13 @@ class StoreResource extends JsonResource
     {
         return [
             'sid' => $this->sid,
-            'userName' => $this->user_name,
-            'passWord' => $this->pass_word,
             'address' => $this->address,
             'phone' => $this->phone,
             'storeName' => $this->store_name,
             'content' => $this->content,
             'createdAt' => $this->created_at,
             'updatedAt' => $this->update_at,
-            'img' => $this->img,
+            'img' => $this->picture,
         ];
     }
 }

@@ -47,8 +47,8 @@ class LoginAdmin extends Component {
         }
         else {
             //Thanh cong
-            this.props.processLogout()
-            this.props.adminLoginSuccess(data.admin)
+            // this.props.processLogout()
+            this.props.adminLoginSuccess(data.store)
             let { navigate } = this.props;
             //const redirectPath = '/system/user-manage';
             navigate('/admin');
@@ -73,35 +73,35 @@ class LoginAdmin extends Component {
                                 <img src={LogoShop} className='login-logo' />
                             </div>
                             <div className='col-12 text-contentlogin'>
-                                Login to admin
+                                Register as Shop
                             </div>
 
 
                             <div className='col-12 form-group login-input'>
                                 <label>
-                                    <span>Email</span></label>
-                                <input type='email' className='form-control login-input--text' placeholder='Enter you username'
+                                    <span>Store name</span></label>
+                                <input type='email' className='form-control login-input--text' placeholder='Enter your store name'
                                     value={this.state.username}
                                     onChange={(event) => this.handleOnChangeUsername(event)}
                                 />
                             </div>
                             <div className='col-12 form-group login-input'>
                                 <label className='login-input-password'>
-                                    <span>Password</span>
-                                    <span className='forgot-password'>Forgot password?</span>
+                                    <span>Phone</span>
+                                    {/* <span className='forgot-password'>Forgot password?</span> */}
                                 </label>
                                 <div className='custom-input-password'>
-                                    <input type={this.state.isShowPassword ? 'text' : 'password'} className='form-control login-input--text' placeholder='Enter you password'
+                                    <input type={'text'} className='form-control login-input--text' placeholder='Enter your phone'
                                         value={this.state.password}
                                         onChange={(event) => this.handleOnChangePassword(event)}
                                     />
-                                    <span
+                                    {/* <span
                                         onClick={() => this.setState({
                                             isShowPassword: !this.state.isShowPassword,
                                         })}
                                     >
                                         <i className={this.state.isShowPassword ? 'far fa-eye' : 'far fa-eye-slash'}></i>
-                                    </span>
+                                    </span> */}
                                 </div>
                             </div>
                             <button className='btn-login btn-login-normal' onClick={() => this.handleLogin()}
@@ -109,7 +109,7 @@ class LoginAdmin extends Component {
                             <div className='col-12'>
                                 <span style={{ color: 'red' }}>{this.state.message}</span>
                             </div>
-                            <div className='col-12  login-orther'>
+                            {/* <div className='col-12  login-orther'>
                                 <span className='text-orther-login '>
                                     <span>Or</span>
                                 </span>
@@ -119,7 +119,7 @@ class LoginAdmin extends Component {
                             <div className='login-register-user '>
                                 <span>Don't have any account? </span>
                                 <a>Register as Shop</a>
-                            </div>
+                            </div> */}
                         </div>
                     </div>
                 </div>

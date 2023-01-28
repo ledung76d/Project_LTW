@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { push } from "connected-react-router";
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter, ButtonToolbar } from 'reactstrap';
+import { Modal } from 'reactstrap';
 import * as actions from "../../store/actions";
 import './ViewProduct.scss'
-import Apple from '../../assets/images/Apples.jpg'
 import ViewProductDetail from './ViewProductDetail';
+
 class ViewProduct extends Component {
     constructor(props) {
         super(props);
