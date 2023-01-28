@@ -72,4 +72,21 @@ class OrderController extends Controller
 
         
     }
+
+    public function findOrderByUserId(Request $request)
+    {
+        $user = Auth::user();
+        if($user){
+            $order = Order::where('cid', $user->id)->get();
+            $orderRes = OrderResource::collection($order);
+            return response()->json(
+                $orderRes
+            , 200);
+        } else {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'User not found'
+            ], 404);
+        }
+    }
 }
