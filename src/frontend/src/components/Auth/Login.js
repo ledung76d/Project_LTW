@@ -6,6 +6,7 @@ import './Login.scss';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import ViewProduct from '../Product/ViewProduct';
 import { handleLogin } from '../../services/userService'
+import { handleGetStoreById } from '../../services/productService';
 import 'bootstrap'
 import LogoShop from '../../assets/images/PickBazar.png';
 import {
@@ -92,8 +93,17 @@ class Login extends Component {
     }
     
     handleUserLogin = async (userInfo) => {
-        this.props.adminProcessLogout()
         this.props.userLoginSuccess(userInfo)
+        try {
+            const res = await handleGetStoreById(userInfo.id);
+            if (res.status === "success") {
+                this.props.adminLoginSuccess(res.store);
+            } else {
+                this.props.adminProcessLogout();
+            }
+        } catch (error) {
+            console.log(error);
+        }
         this.setState({
             modal: !this.state.modal
         })
@@ -113,6 +123,7 @@ class Login extends Component {
 
     handleLogoutButton = () => {
         this.props.processLogout()
+        this.props.adminProcessLogout()
     }
 
     handleOnMouseOut = () => {
@@ -258,7 +269,8 @@ const mapDispatchToProps = dispatch => {
         userLoginSuccess: (userInfo) => dispatch(actions.userLoginSuccess(userInfo)),
         userLoginFail: () => dispatch(actions.userLoginFail()),
         processLogout: () => dispatch(actions.processLogout()),
-        adminProcessLogout: () => dispatch(actions.adminProcessLogout())
+        adminLoginSuccess: (userInfo) => dispatch(actions.adminLoginSuccess(userInfo)),
+        adminProcessLogout: () => dispatch(actions.adminProcessLogout()),
     };
 };
 

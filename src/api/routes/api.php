@@ -23,6 +23,7 @@ Route::middleware(['api'])->group(function () {
     Route::get('/test', [TestController::class, 'test']);  
     //Order
     Route::post('/save-order', [OrderController::class, 'saveOrder']);   
+    Route::post('/admin/register', [StoreController::class, 'register']);
 
 });
 

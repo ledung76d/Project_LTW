@@ -29,7 +29,7 @@ class Home extends React.Component {
 
   async componentDidMount() {
     let data = await handleGetProductByCategory("Fruits & Vegetables");
-    console.log(data);
+    console.log("Hello", data);
     this.setState({
       products: data.products,
     });
@@ -44,7 +44,6 @@ class Home extends React.Component {
   };
 
   render() {
-    const { isLoggedIn } = this.props;
     //let linkToRedirect = isLoggedIn ? '/system/user-manage' : '/login';
     //let linkToRedirect = '/'
     let arrProducts = this.state.products;
@@ -62,7 +61,7 @@ class Home extends React.Component {
             </div>
             <div className=" item-container">
               <div className="item-container-product">
-                {arrProducts.map((item, index) => {
+                {arrProducts?.map((item, index) => {
                   return <ViewProduct product={item} key={uuidv4()} />;
                 })}
               </div>
