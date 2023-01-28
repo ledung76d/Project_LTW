@@ -25,6 +25,7 @@ Route::middleware(['api'])->group(function () {
     Route::post('/save-order', [OrderController::class, 'saveOrder']); 
     Route::get('/find-order-by-id', [OrderController::class, 'findOrderById']);
     Route::post('/save-to-order-item', [OrderController::class, 'saveToOrderItem']);
+    Route::get('/find-order-by-userid', [OrderController::class, 'findOrderByUserId']);
   
     
 
