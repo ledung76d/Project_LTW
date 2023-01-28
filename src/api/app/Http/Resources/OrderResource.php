@@ -4,6 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
+use App\Http\Resources\OrderItemResource;
 class OrderResource extends JsonResource
 {
     /**
@@ -22,6 +23,13 @@ class OrderResource extends JsonResource
             'phone' => $this->phone,
             'address' => $this->address,
             'delivery' => $this->delivery,
+            'updatedAt' => $this->updated_at,
+            'createdAt' => $this->created_at,
+
+            // 'orderItems' => OrderItemResource::collection($this->orderItems),
+            'pid' => $this->pid,
+            'quantity' => $this->quantity,
+            'price' => $this->price,
           
             
         ];

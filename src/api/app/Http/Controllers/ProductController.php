@@ -85,8 +85,7 @@ class ProductController extends Controller
         $id = $request->id;
         $product = Product::find($id);
         return response()->json([
-            'status' => 'success',
-            'data' => $product
+            $product
         ], 200);
     }
 

@@ -85,6 +85,8 @@ CREATE TABLE "order_item" (
     pid INT NOT NULL,
     price decimal(7,2) NOT NULL DEFAULT 0,
     quantity INT NOT NULL DEFAULT 0,
+    updated_at TIMESTAMP NOT NULL,
+    created_at TIMESTAMP NOT NULL,
     FOREIGN KEY ("order_id") REFERENCES "order" ("order_id") ON DELETE CASCADE,
     FOREIGN KEY ("pid") REFERENCES "product" ("pid") ON DELETE CASCADE,
     CONSTRAINT PK_order_item PRIMARY KEY ("order_id", "pid")

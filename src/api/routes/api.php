@@ -22,9 +22,12 @@ use App\Http\Controllers\OrderController;
 Route::middleware(['api'])->group(function () {
     Route::get('/test', [TestController::class, 'test']);  
     //Order
-    Route::post('/save-order', [OrderController::class, 'saveOrder']);   
+    Route::post('/save-order', [OrderController::class, 'saveOrder']); 
+    Route::get('/find-order-by-id', [OrderController::class, 'findOrderById']);
+    Route::post('/save-to-order-item', [OrderController::class, 'saveToOrderItem']);
+    Route::get('/find-order-by-userid', [OrderController::class, 'findOrderByUserId']);
+    // Admin
     Route::post('/admin/register', [StoreController::class, 'register']);
-
 });
 
 //Product
@@ -39,6 +42,7 @@ Route::get('/delete-product-by-pid/{id}', [ProductController::class, 'deleteProd
 
 //Category
 Route::get('/get-store-by-id', [StoreController::class, 'getStoreById']);
+
 
 
 

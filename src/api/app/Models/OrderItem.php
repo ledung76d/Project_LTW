@@ -15,7 +15,8 @@ class OrderItem extends Model
         'quantity',
         'price',
     ];
-
+    protected $primaryKey = null;
+    public $incrementing = false;
     /* get the order that owns the order_item */
     public function order()
     {
