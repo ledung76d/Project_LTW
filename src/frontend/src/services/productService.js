@@ -1,43 +1,43 @@
 import axios from '../axios'
 
-let handleGetProductByCategory = (category) => {
+const handleGetProductByCategory = async (category) => {
   let link = '/api/get-product?category=' + encodeURIComponent(category)
   return axios.get(link)
 }
 
-let handleGetCategoryById = (id) => {
+const handleGetCategoryById = async (id) => {
   return axios.get(`/api/get-category-by-id?id=${id}`)
 }
 
-let handleGetStoreById = (id) => {
+const handleGetStoreById = async (id) => {
   return axios.get(`/api/get-store-by-id?id=${id}`)
 }
 
-let handleSaveToOrderItem = (item) => {
+const handleSaveToOrderItem = async (item) => {
   return axios.post('/api/save-to-order-item', item)
 }
 
-let handleFindOrderById = (id) => {
+const handleFindOrderById = async (id) => {
   return axios.get('/api/find-order-by-id?id=' + encodeURIComponent(id))
 }
 
-let handleFindProductById = (id) => {
+const handleFindProductById = async (id) => {
   return axios.get(`/api/find-product-by-id?id=${id}`)
 }
 
-let handleGetProductByStoreId = (sid)=>{
+const handleGetProductByStoreId = async (sid)=>{
   return axios.get(`/api/get-product-by-storeId?sid=${sid}`)
 }
 
-let deleteProductById = (pid)=>{
+const deleteProductById = async (pid)=>{
   return axios.post('/api/delete-product-by-pid',{pid: pid})
 }
 
-let handleGetAllCategory = ()=>{
+const handleGetAllCategory = async ()=>{
     return axios.get('/api/get-all-category')
 }
 
-let handleSearchProductByName  = (name)=>{
+const handleSearchProductByName = async (name)=>{
   return axios.get(`/api/search-by-name?name=${name}`)
 }
 

@@ -12,6 +12,17 @@ class Store extends Model
 
     // define primary key
     protected $primaryKey = 'sid';
+
+    // define fillable
+    protected $fillable = [
+        'sid',
+        'address',
+        'phone',
+        'store_name',
+        'content',
+        'picture',
+    ];
+
     /**
      * Get the products for the store.
      */

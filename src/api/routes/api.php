@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\StoreController;
+use App\Http\Controllers\OrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,19 +20,29 @@ use App\Http\Controllers\CategoryController;
 */
 
 Route::middleware(['api'])->group(function () {
-    Route::get('/test', [TestController::class, 'test']); 
-
-    
-
+    Route::get('/test', [TestController::class, 'test']);  
+    //Order
+    Route::post('/save-order', [OrderController::class, 'saveOrder']); 
+    Route::get('/find-order-by-id', [OrderController::class, 'findOrderById']);
+    Route::post('/save-to-order-item', [OrderController::class, 'saveToOrderItem']);
+    Route::get('/find-order-by-userid', [OrderController::class, 'findOrderByUserId']);
+    // Admin
+    Route::post('/admin/register', [StoreController::class, 'register']);
 });
 
+//Product
+Route::get('/get-product', [ProductController::class, 'getProductByCategory']);
+Route::get('/get-category-by-id', [CategoryController::class, 'getCategoryById']);
+Route::get('/find-product-by-id', [ProductController::class, 'findProductById']);
 
-    
-    //Product
-    Route::get('/get-store-by-id/{id}', [ProductController::class, 'getStoreById']);
-    Route::get('/find-product-by-id/{id}', [ProductController::class, 'findProductById']);
-    Route::get('/find-product-by-store-id/{id}', [ProductController::class, 'findProductByStoreId']);
-    Route::get('/delete-product-by-pid/{id}', [ProductController::class, 'deleteProductByPId']);
+Route::get('/get-product-by-sid/{sid}', [ProductController::class, 'getProductBySid']);
 
-    //Category
-    Route::get('/get-all-category', [CategoryController::class, 'getAllCategory']);
+Route::get('/find-product-by-store-id/{id}', [ProductController::class, 'findProductByStoreId']);
+Route::get('/delete-product-by-pid/{id}', [ProductController::class, 'deleteProductByPId']);
+
+//Category
+Route::get('/get-store-by-id', [StoreController::class, 'getStoreById']);
+Route::get('/get-all-category', [CategoryController::class, 'getAllCategory']);
+
+
+

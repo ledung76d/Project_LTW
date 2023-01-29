@@ -11,7 +11,7 @@ class TestController extends Controller
     {
         $user = Auth::user();
         return response()->json([
-            'message' => 'Hello,'
+            'message' => 'Hello, ' . $user->name . '!',
         ], 200);
     }
 }
