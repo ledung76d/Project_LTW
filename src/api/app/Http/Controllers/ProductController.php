@@ -107,10 +107,15 @@ class ProductController extends Controller
     }
 
 
-    public function deleteProductByPId($pid)
+    public function deleteProductByPId(Request $request)
     {
-        $product = Product::find($pid);
-        $product->delete();
-        return response()->json($product);
+        $pid = $request->pid;
+        $product = Product::where('pid', $pid)->delete();
+        return response()->json([
+            'status' => 'success',
+            'data' => $product,
+        ], 200);
     }
+    
+        
 }
