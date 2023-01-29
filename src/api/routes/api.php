@@ -42,7 +42,7 @@ Route::get('/delete-product-by-pid/{id}', [ProductController::class, 'deleteProd
 
 //Category
 Route::get('/get-store-by-id', [StoreController::class, 'getStoreById']);
-
+Route::get('/get-all-category', [CategoryController::class, 'getAllCategory']);
 
 
 
