@@ -9,6 +9,7 @@ import { push } from "connected-react-router";
 import { handleGetOrderByUserId } from "../../services/userService";
 import { v4 as uuidv4 } from "uuid";
 import BillHeader from "./BillHeader";
+import NavUser from "../UserLogin/NavUser";
 
 class MyOders extends React.Component {
   constructor(props) {
@@ -21,9 +22,7 @@ class MyOders extends React.Component {
   }
 
   async componentDidMount() {
-    //console.log('CID: ',this.props.userInfo.cid)
     let data = await handleGetOrderByUserId(this.props.userInfo.cid);
-    console.log(data);
     this.setState({
       order: data.reverse(),
     });
@@ -50,66 +49,7 @@ class MyOders extends React.Component {
         <div className="MyOders">
           <div className="slogan-content">
             <div className="san">
-              <div className="userLogin">
-                <div className="user__wallet">
-                  <h3 className="user__wallet-title">Wallet</h3>
-                  <div className="user__wallet-list">
-                    <div className="user__wallet-list-item">
-                      <span>Total Points</span>
-                      <span>0</span>
-                    </div>
-                    <div className="user__wallet-list-item">
-                      <span>Points Used</span>
-                      <span>0</span>
-                    </div>
-                    <div className="user__wallet-list-item">
-                      <span>Available Points</span>
-                      <span>0</span>
-                    </div>
-                  </div>
-                </div>
-                <div className="user_sidebar">
-                  <ul className="user_sidebar-list">
-                    <li className="user_sidebar-list-item">
-                      <Link
-                        to={"/profile"}
-                        className="user_sidebar-list-item-link"
-                      >
-                        <span>Profile</span>
-                      </Link>
-                    </li>
-                    <li className="user_sidebar-list-item">
-                      <Link
-                        to={"/change-password"}
-                        className="user_sidebar-list-item-link "
-                      >
-                        <span>Change Password</span>
-                      </Link>
-                    </li>
-                    <li className="user_sidebar-list-item">
-                      <Link
-                        to={"/my-order"}
-                        className="user_sidebar-list-item-link user_sidebar-list-item-link-profile"
-                      >
-                        <span>My Orders</span>
-                      </Link>
-                    </li>
-                    <li className="user_sidebar-list-item">
-                      <a className="user_sidebar-list-item-link">My Refunds</a>
-                    </li>
-                    <li className="user_sidebar-list-item">
-                      <a className="user_sidebar-list-item-link">Need Help</a>
-                    </li>
-                  </ul>
-                  <div
-                    className="user_sidebar-logout"
-                    onClick={() => this.handleLogout()}
-                  >
-                    <a className="user_sidebar-logout-link">Logout</a>
-                  </div>
-                </div>
-              </div>
-
+              <NavUser />
               <div className="Infor">
                 <div className="Orders">
                   <div className="List-Order">
