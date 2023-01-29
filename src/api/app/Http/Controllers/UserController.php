@@ -105,4 +105,19 @@ class UserController extends Controller
             'message' => 'User not found'
         ], 404);
     }
+
+    public function getUserInfoByCid(Request $request)
+    {
+        $cid = $request->cid;
+        $user = User::where('id', $cid)->first();
+
+        
+            return response()->json(
+                
+                 [$user]
+            , 200);
+        
+        
+        
+    }
 }
