@@ -163,7 +163,14 @@
     color      : #374151;
     font-size  : 14px;
     line-height: 20px;
+    height: 64px;
+    border: none;
+  
   }
+  .item-address:focus-visible {
+    outline: none;
+  }
+  
 
   .item-delivery {
     display        : flex;
