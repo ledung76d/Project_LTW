@@ -131,7 +131,7 @@ class StoreController extends Controller
             'title' => $request->title,
             'price' => $request->price,
             'quantity' => $request->quantity,
-            'sid' => $user->id,
+            'sid' => Auth::user()->id,
             'discount' => $request->discount,
             'img' => $request->img,
             'content' => $request->content,
