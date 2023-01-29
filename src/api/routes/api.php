@@ -40,7 +40,7 @@ Route::get('/get-product', [ProductController::class, 'getProductByCategory']);
 Route::get('/get-category-by-id', [CategoryController::class, 'getCategoryById']);
 Route::get('/find-product-by-id', [ProductController::class, 'findProductById']);
 
-Route::get('/get-product-by-sid/{sid}', [ProductController::class, 'getProductBySid']);
+Route::get('/get-product-by-sid', [ProductController::class, 'getProductBySid']);
 
 Route::get('/find-product-by-store-id/{id}', [ProductController::class, 'findProductByStoreId']);
 Route::get('/delete-product-by-pid/{id}', [ProductController::class, 'deleteProductByPId']);

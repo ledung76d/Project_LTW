@@ -90,7 +90,8 @@ class ProductController extends Controller
     }
 
 
-    public function getProductBySid($sid){
+    public function getProductBySid(Request $request){
+        $sid = $request->sid;
         $product = Product::where('sid', $sid)->get();
         
         return response()->json([

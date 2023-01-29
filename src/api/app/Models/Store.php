@@ -12,6 +12,7 @@ class Store extends Model
 
     // define primary key
     protected $primaryKey = 'sid';
+    public $incrementing = false;
 
     // define fillable
     protected $fillable = [
