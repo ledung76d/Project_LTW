@@ -15,7 +15,8 @@ use Illuminate\Support\Facades\Auth;
 
 class StoreController extends Controller
 {
-    public function register(Request $request) {
+    public function register(Request $request)
+    {
         $user = Auth::user();
         $store = Store::find($user->sid);
         if (!$user) {
@@ -45,7 +46,8 @@ class StoreController extends Controller
     }
 
 
-    public function getStoreById(Request $request) {
+    public function getStoreById(Request $request)
+    {
         $id = $request->id;
         $store = Store::find($id);
         if (!$store) {
@@ -63,46 +65,47 @@ class StoreController extends Controller
         ], 200);
     }
 
-    public function getOrderBySid(Request $request) {
-       
+    public function getOrderBySid(Request $request)
+    {
+
         $sid = $request->sid;
         $orderId = Order::select('order.order_id')->distinct()
-        ->join('order_item', 'order.order_id', '=', 'order_item.order_id')
-        ->join('product', 'order_item.pid', '=', 'product.pid')
-        ->where('sid', $sid)->get();
+            ->join('order_item', 'order.order_id', '=', 'order_item.order_id')
+            ->join('product', 'order_item.pid', '=', 'product.pid')
+            ->where('sid', $sid)->get();
         $order = Order::whereIn('order_id', $orderId)->get();
         $orderRes = OrderResource::collection($order);
         return response()->json(
             $orderRes
         );
+    }
 
-    } 
-    
-    
-    public function getOrderItemBySidOrderId(Request $request) {
-        
+
+    public function getOrderItemBySidOrderId(Request $request)
+    {
+
         $sid = $request->sid;
         $orderId = $request->orderId;
         $orderItem = OrderItem::select('order.order_id', 'order_item.price', 'order_item.quantity', 'order_item.pid', 'product.title', 'product.img')
-        ->join('order', 'order_item.order_id', '=', 'order.order_id')
-        ->join('product', 'order_item.pid', '=', 'product.pid')
-        ->where('sid', $sid)
-        ->where('order.order_id', $orderId)
-        ->get();
+            ->join('order', 'order_item.order_id', '=', 'order.order_id')
+            ->join('product', 'order_item.pid', '=', 'product.pid')
+            ->where('sid', $sid)
+            ->where('order.order_id', $orderId)
+            ->get();
         $orderItemRes = OrderItemResource::collection($orderItem);
 
         return response()->json(
             $orderItemRes,
 
         );
-
     }
 
-    public function changeOrderStatus(Request $request) {
-        
+    public function changeOrderStatus(Request $request)
+    {
+
         $orderId = $request->orderId;
         $status = $request->status;
-      
+
         $order = Order::where('order_id', $orderId)->update(['status' => $status]);
         return response()->json([
             'status' => 'success',
@@ -111,22 +114,27 @@ class StoreController extends Controller
         ], 200);
     }
 
-    public function getProductByStoreId(Request $request){
-       
+    public function getProductByStoreId(Request $request)
+    {
+
         $sid = $request->sid;
         $product = Product::where('sid', $sid)->get();
-        
+
         return response()->json(
-            
-            [ 'products' => $product
-], 200        );
+
+            [
+                'products' => $product
+            ],
+            200
+        );
     }
 
-    public function addNewProductByStore(Request $request){
-        
-        
+    public function addNewProductByStore(Request $request)
+    {
+
+
         $product = Product::create([
-             
+
 
             'title' => $request->title,
             'price' => $request->price,
@@ -136,7 +144,7 @@ class StoreController extends Controller
             'img' => $request->img,
             'content' => $request->content,
             'unit' => $request->unit,
-        
+
         ]);
         return response()->json([
             'status' => 'success',
@@ -144,19 +152,32 @@ class StoreController extends Controller
         ], 200);
     }
 
-    
-    public function total30days($query){
+
+    public function total30days($query)
+    {
         $sid = $query->sid;
         $total = OrderItem::selectRaw('sum(order_item.price * order_item.quantity) as total')
-        ->join('order', 'order_item.order_id', '=', 'order.order_id')
-        ->join('product', 'order_item.pid', '=', 'product.pid')
-        ->where('sid', $sid)
-        ->where('order.created_at', '>=', now()->subDays(30))
-        ->get();
+            ->join('order', 'order_item.order_id', '=', 'order.order_id')
+            ->join('product', 'order_item.pid', '=', 'product.pid')
+            ->where('sid', $sid)
+            ->where('order.created_at', '>=', now()->subDays(30))
+            ->get();
         return response()->json(
-            $total
+            $total, 200
         );
     }
 
+    public function handleOrder30day($query)
+    {
+        $sid = $query->sid;
+        $total = Order::selectRaw('count(order.order_id) as total')
+            ->join('order', 'order_item.order_id', '=', 'order.order_id')
+            ->join('product', 'order_item.pid', '=', 'product.pid')
+            ->where('sid', $sid)
+            ->where('order.created_at', '>=', now()->subDays(30));
+        return response()->json(
+            $total, 200
+        );
     
+    }
 }
