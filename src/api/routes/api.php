@@ -37,7 +37,7 @@ Route::middleware(['api'])->group(function () {
     //User
     Route::get('/user/get-info-user', [UserController::class, 'getInfoUser']);
     Route::post('/user/save-info-user', [UserController::class, 'saveInfoUser']);
-    
+    Route::get('/get-userinfo-by-cid', [UserController::class, 'getUserInfoByCId']);
 });
 
 //Product

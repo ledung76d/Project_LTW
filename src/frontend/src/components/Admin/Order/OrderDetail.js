@@ -65,7 +65,7 @@ class OrderDetail extends React.Component {
                                 <div className="OrderDetail-customer-title">Customer</div>
                                 <div className="OrderDetail-customer">
                                     <span className="order-text--bold">Name:</span>
-                                    <span>{this.state.khachHang?.firstName} {this.state.khachHang?.lastName}</span>
+                                    <span>{this.state.khachHang?.name} </span>
                                 </div>
                                 <div className="OrderDetail-customer">
                                     <span className="order-text--bold">Telephone:</span>

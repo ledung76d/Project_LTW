@@ -122,5 +122,25 @@ class StoreController extends Controller
 ], 200        );
     }
 
-    
+    public function addNewProductByStore(Request $request){
+        
+        
+        $product = Product::create([
+             
+
+            'title' => $request->title,
+            'price' => $request->price,
+            'quantity' => $request->quantity,
+            'sid' => $user->id,
+            'discount' => $request->discount,
+            'img' => $request->img,
+            'content' => $request->content,
+            'unit' => $request->unit,
+        
+        ]);
+        return response()->json([
+            'status' => 'success',
+            'data' => $product,
+        ], 200);
+    }
 }
