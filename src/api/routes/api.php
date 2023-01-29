@@ -7,6 +7,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\StoreController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,6 +29,10 @@ Route::middleware(['api'])->group(function () {
     Route::get('/find-order-by-userid', [OrderController::class, 'findOrderByUserId']);
     // Admin
     Route::post('/admin/register', [StoreController::class, 'register']);
+
+    //User
+    Route::get('/user/get-info-user', [UserController::class, 'getInfoUser']);
+    Route::post('/user/save-info-user', [UserController::class, 'saveInfoUser']);
 });
 
 //Product
