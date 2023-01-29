@@ -34,6 +34,11 @@ Route::middleware(['api'])->group(function () {
     Route::post('/change-order-status', [StoreController::class, 'changeOrderStatus']);
     Route::get('/get-product-by-storeId', [StoreController::class, 'getProductByStoreId']);
     Route::post('/add-new-product-by-store', [StoreController::class, 'addNewProductByStore']);
+
+    // /api/total30day?sid=1
+    Route::get('/total30day/{query}', [StoreController::class, 'total30day']);
+    
+
     //User
     Route::get('/user/get-info-user', [UserController::class, 'getInfoUser']);
     Route::post('/user/save-info-user', [UserController::class, 'saveInfoUser']);
