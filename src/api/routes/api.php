@@ -29,23 +29,28 @@ Route::middleware(['api'])->group(function () {
     Route::get('/find-order-by-userid', [OrderController::class, 'findOrderByUserId']);
     // Admin
     Route::post('/admin/register', [StoreController::class, 'register']);
-
+    Route::get('/admin/get-order-by-sid', [StoreController::class, 'getOrderBySid']);
+    Route::get('/get-order-item-by-sid-orderid', [StoreController::class, 'getOrderItemBySidOrderId']);
+    Route::post('/change-order-status', [StoreController::class, 'changeOrderStatus']);
+    Route::get('/get-product-by-storeId', [StoreController::class, 'getProductByStoreId']);
+    Route::post('/add-new-product-by-store', [StoreController::class, 'addNewProductByStore']);
     //User
     Route::get('/user/get-info-user', [UserController::class, 'getInfoUser']);
     Route::post('/user/save-info-user', [UserController::class, 'saveInfoUser']);
+    
 });
 
 //Product
 Route::get('/get-product', [ProductController::class, 'getProductByCategory']);
 Route::get('/get-category-by-id', [CategoryController::class, 'getCategoryById']);
 Route::get('/find-product-by-id', [ProductController::class, 'findProductById']);
-
 Route::get('/get-product-by-sid', [ProductController::class, 'getProductBySid']);
+
 
 Route::get('/find-product-by-store-id/{id}', [ProductController::class, 'findProductByStoreId']);
 Route::get('/delete-product-by-pid/{id}', [ProductController::class, 'deleteProductByPId']);
 
-//Category
+//Store
 Route::get('/get-store-by-id', [StoreController::class, 'getStoreById']);
 Route::get('/get-all-category', [CategoryController::class, 'getAllCategory']);
 
