@@ -23,7 +23,7 @@ class StoreResource extends JsonResource
             'storeName' => $this->store_name,
             'content' => $this->content,
             'createdAt' => $this->created_at,
-            'updatedAt' => $this->update_at,
+            'updatedAt' => $this->updated_at,
             'img' => $this->picture,
         ];
     }

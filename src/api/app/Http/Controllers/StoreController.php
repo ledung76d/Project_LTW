@@ -143,4 +143,21 @@ class StoreController extends Controller
             'data' => $product,
         ], 200);
     }
+
+    public function updateProductByStore(Request $request){
+        $pid = $request->pid;
+        $product = Product::where('pid', $pid)->update([
+            'title' => $request->title,
+            'price' => $request->price,
+            'quantity' => $request->quantity,
+            'discount' => $request->discount,
+            'img' => $request->img,
+            'content' => $request->content,
+            'unit' => $request->unit,
+        ]);
+        return response()->json([
+            'status' => 'success',
+            'data' => $product,
+        ], 200);
+    }
 }
