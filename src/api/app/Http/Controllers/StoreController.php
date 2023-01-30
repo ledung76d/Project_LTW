@@ -163,7 +163,8 @@ class StoreController extends Controller
             ->where('order.created_at', '>=', now()->subDays(30))
             ->get();
         return response()->json(
-            $total, 200
+            $total,
+            200
         );
     }
 
@@ -175,11 +176,27 @@ class StoreController extends Controller
             ->join('order', 'order_item.order_id', '=', 'order.order_id')
             ->join('product', 'order_item.pid', '=', 'product.pid')
             ->where('sid', $sid)
-            ->where('order.created_at', '>=', now()->subDays(30));
+            ->where('order.created_at', '>=', now()->subDays(30))
+            ->get();
+
         return response()->json(
-            $total, 200
+            $total,
+            200
         );
-    
+    }
+
+    public function totalrevenue($query)
+    {
+        $sid = $query->sid;
+        $total = OrderItem::selectRaw('sum(order_item.price * order_item.quantity) as total')
+            ->join('order', 'order_item.order_id', '=', 'order.order_id')
+            ->join('product', 'order_item.pid', '=', 'product.pid')
+            ->where('sid', $sid)
+            ->get();
+        return response()->json(
+            $total,
+            200
+        );
     }
 
     public function updateProductByStore(Request $request){
