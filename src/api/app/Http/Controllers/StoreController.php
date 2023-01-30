@@ -153,11 +153,12 @@ class StoreController extends Controller
     }
 
 
-    
-    public function total30day() {
+
+    public function total30day()
+    {
         $user = Auth::user();
 
-    
+
         if ($user) {
             $sid = $user->id;
             $total = OrderItem::selectRaw('sum(order_item.price * order_item.quantity) as total')
@@ -170,7 +171,7 @@ class StoreController extends Controller
                 $total,
                 200
             );
-        }else {
+        } else {
             return response()->json(
                 [
                     'status' => 'fail',
@@ -181,20 +182,31 @@ class StoreController extends Controller
         }
     }
 
-    public function handleOrder30day($query)
+    public function handleOrder30day()
     {
-        $sid = $query->sid;
-        $total = Order::selectRaw('count(order.order_id) as total')
-            ->join('order', 'order_item.order_id', '=', 'order.order_id')
-            ->join('product', 'order_item.pid', '=', 'product.pid')
-            ->where('sid', $sid)
-            ->where('order.created_at', '>=', now()->subDays(30))
-            ->get();
+        $user = Auth::user();
+        if ($user) {
+            $sid = $user->id;
+            $total = Order::selectRaw('count(order.order_id) as total')
+                ->join('order', 'order_item.order_id', '=', 'order.order_id')
+                ->join('product', 'order_item.pid', '=', 'product.pid')
+                ->where('sid', $sid)
+                ->where('order.created_at', '>=', now()->subDays(30))
+                ->get();
 
-        return response()->json(
-            $total,
-            200
-        );
+            return response()->json(
+                $total,
+                200
+            );
+        } else {
+            return response()->json(
+                [
+                    'status' => 'fail',
+                    'error' => 'store not found',
+                ],
+                404
+            );
+        }
     }
 
     public function totalrevenue($query)
@@ -211,7 +223,8 @@ class StoreController extends Controller
         );
     }
 
-    public function updateProductByStore(Request $request){
+    public function updateProductByStore(Request $request)
+    {
         $pid = $request->pid;
         $product = Product::where('pid', $pid)->update([
             'title' => $request->title,
@@ -227,9 +240,10 @@ class StoreController extends Controller
             'data' => $product,
         ], 200);
     }
-    public function searchByFilter(Request $request){
-       
-      
+    public function searchByFilter(Request $request)
+    {
+
+
         $sid = $request->sid;
         $name = $request->name;
         $category = $request->category;
@@ -240,15 +254,14 @@ class StoreController extends Controller
         else if ($sortBy === 'discount') $tmp = 'product.discount;';
         else if ($sortBy === 'quantity') $tmp = 'product.quantity;';
         else $tmp = 'product.title;';
-        if($category==='none'){
+        if ($category === 'none') {
             $product = Product::selectRaw('distinct *, product.title as title')
-                
+
                 ->where('sid', $sid)
                 ->where('product.title', 'like', '%' . $name . '%')
                 ->orderByRaw($tmp)
                 ->get();
-        }
-        else{
+        } else {
             $product = Product::selectRaw('distinct *, product.title as title')
                 ->join('product_category', 'product_category.pid', '=', 'product.pid')
                 ->join('category', 'category.id', '=', 'product_category.category_id')
@@ -258,10 +271,10 @@ class StoreController extends Controller
                 ->orderByRaw($tmp)
                 ->get();
         }
-        
+
         return response()->json(
-             $product
-            
+            $product
+
         );
     }
 }
