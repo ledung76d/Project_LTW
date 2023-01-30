@@ -14,7 +14,7 @@
 
 .analysis__container {
     width      : 1560px;
-
+    margin-top: 74px;
     .analysis__header {
         display              : grid;
         grid-template-columns: repeat(4, minmax(0, 1fr));
