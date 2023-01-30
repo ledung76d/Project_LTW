@@ -66,4 +66,5 @@ Route::get('/get-store-by-id', [StoreController::class, 'getStoreById']);
 Route::get('/get-all-category', [CategoryController::class, 'getAllCategory']);
 
 
-
+// ProductCategory
+Route::post('/add-product-category', [ProductController::class, 'addProductCategory']);
