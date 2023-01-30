@@ -38,7 +38,7 @@ Route::middleware(['api'])->group(function () {
 
 
     // /api/total30day?sid=1
-    Route::get('/total30day/{query}', [StoreController::class, 'total30day']);
+    Route::get('/total30day', [StoreController::class, 'total30day']);
     Route::get('/handleOrder30day/{query}', [StoreController::class, 'handleOrder30day']);
     Route::get('/totalrevenue/{query}', [StoreController::class, 'totalrevenue']);
     Route::post('/update-product-by-store', [StoreController::class, 'updateProductByStore']);
@@ -47,7 +47,7 @@ Route::middleware(['api'])->group(function () {
     Route::get('/user/get-info-user', [UserController::class, 'getInfoUser']);
     Route::post('/user/save-info-user', [UserController::class, 'saveInfoUser']);
     Route::get('/get-userinfo-by-cid', [UserController::class, 'getUserInfoByCId']);
-    Route::get('/total30day', [UserController::class, 'total30day']);
+    // Route::get('/total30day', [UserController::class, 'total30day']);
     
 });
 
