@@ -34,6 +34,7 @@ Route::middleware(['api'])->group(function () {
     Route::post('/change-order-status', [StoreController::class, 'changeOrderStatus']);
     Route::get('/get-product-by-storeId', [StoreController::class, 'getProductByStoreId']);
     Route::post('/add-new-product-by-store', [StoreController::class, 'addNewProductByStore']);
+    Route::post('/search-by-filter', [StoreController::class, 'searchByFilter']);
 
 
     // /api/total30day?sid=1

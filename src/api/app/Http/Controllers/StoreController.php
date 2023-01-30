@@ -215,5 +215,41 @@ class StoreController extends Controller
             'data' => $product,
         ], 200);
     }
-
+    public function searchByFilter(Request $request){
+       
+      
+        $sid = $request->sid;
+        $name = $request->name;
+        $category = $request->category;
+        $sortBy = $request->sortBy;
+        $tmp = '';
+        if ($sortBy === 'name') $tmp = 'product.title;';
+        else if ($sortBy === 'price') $tmp = 'product.price;';
+        else if ($sortBy === 'discount') $tmp = 'product.discount;';
+        else if ($sortBy === 'quantity') $tmp = 'product.quantity;';
+        else $tmp = 'product.title;';
+        if($category==='none'){
+            $product = Product::selectRaw('distinct *, product.title as title')
+                
+                ->where('sid', $sid)
+                ->where('product.title', 'like', '%' . $name . '%')
+                ->orderByRaw($tmp)
+                ->get();
+        }
+        else{
+            $product = Product::selectRaw('distinct *, product.title as title')
+                ->join('product_category', 'product_category.pid', '=', 'product.pid')
+                ->join('category', 'category.id', '=', 'product_category.category_id')
+                ->where('sid', $sid)
+                ->where('product.title', 'like', '%' . $name . '%')
+                ->where('category.title', $category)
+                ->orderByRaw($tmp)
+                ->get();
+        }
+        
+        return response()->json(
+             $product
+            
+        );
+    }
 }

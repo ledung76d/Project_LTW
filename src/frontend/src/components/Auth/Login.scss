@@ -25,13 +25,13 @@
 
 .login-background {
 
-    height: 450px;
+    height: 500px;
     position: relative;
     border-radius: 10px;
 
     .login-container {
         display: inline;
-        max-width: 480px;
+        max-width: 500px;
         background-color: #fff;
         border-radius: 10px;
         margin: auto;
@@ -50,6 +50,7 @@
                 position: relative;
                 .login-logo {
                     height: 30px;
+                    margin-bottom: 40px;
                 }
                 //css login icon
                 .login-close{
@@ -200,7 +201,7 @@
                     font-size: 16px;
                     font-weight: 500;
                     opacity: 0.9;
-                    margin-bottom: 8px;
+                    margin-bottom: 24px;
                     .firebaseui-idp-text{
                         font-size: 20px;
                     }
