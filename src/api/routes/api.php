@@ -56,7 +56,7 @@ Route::get('/get-product', [ProductController::class, 'getProductByCategory']);
 Route::get('/get-category-by-id', [CategoryController::class, 'getCategoryById']);
 Route::get('/find-product-by-id', [ProductController::class, 'findProductById']);
 Route::get('/get-product-by-sid', [ProductController::class, 'getProductBySid']);
-
+Route::get('/search-by-name', [ProductController::class, 'searchByName']);
 
 Route::get('/find-product-by-store-id/{id}', [ProductController::class, 'findProductByStoreId']);
 Route::post('/delete-product-by-pid', [ProductController::class, 'deleteProductByPId']);
