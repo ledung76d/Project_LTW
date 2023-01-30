@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import "./Analysis.scss";
 import Chart from "./Chart";
 import adminService from "../../../services/adminService";
+import * as actions from "../../../store/actions";
+import { connect } from "react-redux";
 class Analysis extends React.Component {
   constructor(props) {
     super(props);
@@ -18,19 +20,20 @@ class Analysis extends React.Component {
     let data = await adminService.handleTotal30day();
     let data1 = await adminService.handleOrder30day();
     let data2 = await adminService.handleTotalRevenue();
-    // console.log("test data2", data2);
-    // let data3 = await adminService.handleGetProductBySid(1);
+    let data3 = await adminService.handleGetProductBySid(
+      this.props.adminInfo.sid
+    );
+    console.log("test", data3);
     this.setState({
       total30day: data[0].total,
-      // order30day: data1["COUNT(orderId)"],
-      // totalRevenue: data2["SUM(total)"],
-      // countNumber: data3.length,
+      order30day: data1[0].total,
+      totalRevenue: data2[0].total,
+      countNumber: data3.data.length,
     });
   }
 
   async componentWillMount() {
     // this.getchartData(); // this should be this.getChartData();
-
     this.setState({
       chartData: {
         labels: [
@@ -259,4 +262,18 @@ class Analysis extends React.Component {
   }
 }
 
-export default Analysis;
+const mapStateToProps = (state) => {
+  return {
+    started: state.app.started,
+    isLoggedIn: state.admin.isLoggedIn,
+    adminInfo: state.admin.adminInfo,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    changeAppMode: (payload) => dispatch(actions.changeAppMode(payload)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Analysis);
