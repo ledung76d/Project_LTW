@@ -187,8 +187,8 @@ class StoreController extends Controller
         $user = Auth::user();
         if ($user) {
             $sid = $user->id;
-            $total = Order::selectRaw('count(order.order_id) as total')
-                ->join('order', 'order_item.order_id', '=', 'order.order_id')
+            $total = Order::selectRaw('count(distinct \'order.order_id\') as total')
+                ->join('order_item', 'order.order_id', '=', 'order_item.order_id')
                 ->join('product', 'order_item.pid', '=', 'product.pid')
                 ->where('sid', $sid)
                 ->where('order.created_at', '>=', now()->subDays(30))
@@ -209,18 +209,29 @@ class StoreController extends Controller
         }
     }
 
-    public function totalrevenue($query)
+    public function totalrevenue()
     {
-        $sid = $query->sid;
-        $total = OrderItem::selectRaw('sum(order_item.price * order_item.quantity) as total')
-            ->join('order', 'order_item.order_id', '=', 'order.order_id')
-            ->join('product', 'order_item.pid', '=', 'product.pid')
-            ->where('sid', $sid)
-            ->get();
-        return response()->json(
-            $total,
-            200
-        );
+        $user = Auth::user();
+        if ($user) {
+            $sid = $user->id;
+            $total = OrderItem::selectRaw('sum(order_item.price * order_item.quantity) as total')
+                ->join('order', 'order_item.order_id', '=', 'order.order_id')
+                ->join('product', 'order_item.pid', '=', 'product.pid')
+                ->where('sid', $sid)
+                ->get();
+            return response()->json(
+                $total,
+                200
+            );
+        } else {
+            return response()->json(
+                [
+                    'status' => 'fail',
+                    'error' => 'store not found',
+                ],
+                404
+            );
+        }
     }
 
     public function updateProductByStore(Request $request)
