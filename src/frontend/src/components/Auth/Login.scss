@@ -25,7 +25,7 @@
 
 .login-background {
 
-    height: 750px;
+    height: 450px;
     position: relative;
     border-radius: 10px;
 
@@ -49,7 +49,7 @@
                 font-size: 24px;
                 position: relative;
                 .login-logo {
-                    height: 20px;
+                    height: 30px;
                 }
                 //css login icon
                 .login-close{
@@ -183,10 +183,27 @@
             }
 
             .social-login {
-
-                .btn-login--google {
-                    background-color: #3574de;
-                    margin: 0 0 8px 0;
+                .firebaseui-card-content{
+                    padding: 0;
+                }
+                
+                button {
+                    justify-content: left;
+                    align-items: center;
+                    display: flex;
+                    padding: 22px;
+                    min-width: 360px;
+                    border-radius: 4px;
+                    outline: none;
+                    border: none;
+                    color: white;
+                    font-size: 16px;
+                    font-weight: 500;
+                    opacity: 0.9;
+                    margin-bottom: 8px;
+                    .firebaseui-idp-text{
+                        font-size: 20px;
+                    }
                 }
 
                 .btn-login--mobile {

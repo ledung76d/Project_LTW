@@ -272,7 +272,7 @@ class Profile extends Component {
                     this.setState({ modalAddress: !this.state.modalAddress })
                   }
                 >
-                  + Add
+                  + Update
                 </button>
               </div>
               <div className="profile__address">
@@ -318,7 +318,7 @@ class Profile extends Component {
                 className="profile__update-contact-btn"
                 onClick={() => this.handleSendOTP()}
               >
-                Send OTP
+                Change
               </button>
             </div>
             {this.state.message && (
