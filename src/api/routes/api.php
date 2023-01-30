@@ -38,7 +38,7 @@ Route::middleware(['api'])->group(function () {
 
     // /api/total30day?sid=1
     Route::get('/total30day/{query}', [StoreController::class, 'total30day']);
-    
+    Route::get('/handleOrder30day/{query}', [StoreController::class, 'handleOrder30day']);
 
     Route::post('/update-product-by-store', [StoreController::class, 'updateProductByStore']);
 
