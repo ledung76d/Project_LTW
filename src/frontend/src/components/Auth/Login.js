@@ -16,7 +16,6 @@ import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import { getAuth, signInWithPopup, OAuthProvider } from "firebase/auth";
 
-
 // Configure Firebase.
 const config = {
   apiKey: "AIzaSyDMSeYEPU24SqM_Nj_5NTzNXf1rVv-Zrf0",
@@ -182,12 +181,13 @@ class Login extends Component {
                   <Link to="/my-order" className="dropdown-item">
                     My orders
                   </Link>
-                  <div
+                  <Link
+                    to="/"
                     className="dropdown-item"
                     onClick={() => this.handleLogoutButton()}
                   >
                     Logout
-                  </div>
+                  </Link>
                 </div>
               </div>
             </>
