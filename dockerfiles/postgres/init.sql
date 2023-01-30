@@ -42,7 +42,7 @@ CREATE TABLE "product"(
     quantity INT NOT NULL DEFAULT 0,
     "sid" VARCHAR ( 50 ) NOT NULL,
     created_at TIMESTAMP NOT NULL,
-	update_at TIMESTAMP NOT NULL,
+	updated_at TIMESTAMP NOT NULL,
     discount INT NOT NULL DEFAULT 0,
     img text not null,
     content text NULL DEFAULT NULL,
@@ -123,7 +123,7 @@ values ('Fruits & Vegetables'),('Fruits'),('Vegetables'),
 -- Fruit & Vegetables 1-52
 
 -- Fruits 1-28
--- insert into "product" (title, price, quantity, sid, created_at, update_at, discount, img, content, unit)
+-- insert into "product" (title, price, quantity, sid, created_at, updated_at, discount, img, content, unit)
 -- values ('Apples',2,18,'i1p6rcRoUSMj1g8XvZnkKIB2D7r2',NOW(),NOW(),20,'https://pickbazar-react-rest.vercel.app/_next/image?url=https%3A%2F%2Fpickbazarlaravel.s3.ap-southeast-1.amazonaws.com%2F572%2Fapple-1.png&w=640&q=75','An apple is a sweet, edible fruit produced by an apple tree (Malus domestica). Apple trees are ... The skin of ripe apples is generally red, yellow, green, pink, or russetted, though many bi- or tri-colored cultivars may be found.','1lb'),
 -- ('Blueberries',3,30,'i1p6rcRoUSMj1g8XvZnkKIB2D7r2',NOW(),NOW(),0,'https://pickbazar-react-rest.vercel.app/_next/image?url=https%3A%2F%2Fpickbazarlaravel.s3.ap-southeast-1.amazonaws.com%2F579%2FBluberries-2.png&w=640&q=75','Blueberries are perennial flowering plants with blue or purple berries. They are classified in the section Cyanococcus within the genus Vaccinium. Vaccinium also includes cranberries, bilberries, huckleberries and Madeira blueberries. Commercial blueberries—both wild and cultivated —are all native to North America.','1lb'),
 -- ('Clementines',3,50,'i1p6rcRoUSMj1g8XvZnkKIB2D7r2',NOW(),NOW(),17,'https://pickbazar-react-rest.vercel.app/_next/image?url=https%3A%2F%2Fpickbazarlaravel.s3.ap-southeast-1.amazonaws.com%2F589%2FClementines-1.png&w=640&q=75','clementine is a tangor, a citrus fruit hybrid between a willowleaf mandarin orange and a sweet orange, named for its late 19th-century discoverer. The exterior is a deep orange colour with a smooth, glossy appearance.','1lb'),
@@ -155,7 +155,7 @@ values ('Fruits & Vegetables'),('Fruits'),('Vegetables'),
 -- ;
 
 
-insert into "product" (title, price, quantity, sid, created_at, update_at, discount, img, content, unit)
+insert into "product" (title, price, quantity, sid, created_at, updated_at, discount, img, content, unit)
 values ('Apples',2,18,'i1p6rcRoUSMj1g8XvZnkKIB2D7r2',NOW(),NOW(),20,'https://pickbazar-react-rest.vercel.app/_next/image?url=https%3A%2F%2Fpickbazarlaravel.s3.ap-southeast-1.amazonaws.com%2F572%2Fapple-1.png&w=640&q=75','An apple is a sweet, edible fruit produced by an apple tree (Malus domestica). Apple trees are ... The skin of ripe apples is generally red, yellow, green, pink, or russetted, though many bi- or tri-colored cultivars may be found.','1lb'),
 ('Blueberries',3,30,'i1p6rcRoUSMj1g8XvZnkKIB2D7r2',NOW(),NOW(),0,'https://pickbazar-react-rest.vercel.app/_next/image?url=https%3A%2F%2Fpickbazarlaravel.s3.ap-southeast-1.amazonaws.com%2F579%2FBluberries-2.png&w=640&q=75','Blueberries are perennial flowering plants with blue or purple berries. They are classified in the section Cyanococcus within the genus Vaccinium. Vaccinium also includes cranberries, bilberries, huckleberries and Madeira blueberries. Commercial blueberries—both wild and cultivated —are all native to North America.','1lb'),
 ('Clementines',3,50,'i1p6rcRoUSMj1g8XvZnkKIB2D7r2',NOW(),NOW(),17,'https://pickbazar-react-rest.vercel.app/_next/image?url=https%3A%2F%2Fpickbazarlaravel.s3.ap-southeast-1.amazonaws.com%2F589%2FClementines-1.png&w=640&q=75','clementine is a tangor, a citrus fruit hybrid between a willowleaf mandarin orange and a sweet orange, named for its late 19th-century discoverer. The exterior is a deep orange colour with a smooth, glossy appearance.','1lb'),
@@ -187,7 +187,7 @@ values ('Apples',2,18,'i1p6rcRoUSMj1g8XvZnkKIB2D7r2',NOW(),NOW(),20,'https://pic
 ;
 
   -- Vegetables 29-52
-insert into "product" (title, price, quantity, sid, created_at, update_at, discount, img, content, unit)
+insert into "product" (title, price, quantity, sid, created_at, updated_at, discount, img, content, unit)
 values ('Mix Vegetable Platter',4,100,'i1p6rcRoUSMj1g8XvZnkKIB2D7r2',NOW(),NOW(),20,'https://pickbazar-react-rest.vercel.app/_next/image?url=https%3A%2F%2Fpickbazarlaravel.s3.ap-southeast-1.amazonaws.com%2F20%2FVeggiePlatter.jpg&w=640&q=75','Spinach (Spinacia oleracea) is a leafy green flowering plant native to central and western Asia. It is of the order Caryophyllales, family Amaranthaceae, subfamily Chenopodioideae. Its leaves are a common edible vegetable consumed either fresh.','0.5lb'),
 ('Baby Spinach',0.6,10,'i1p6rcRoUSMj1g8XvZnkKIB2D7r2',NOW(),NOW(),0,'https://pickbazar-react-rest.vercel.app/_next/image?url=https%3A%2F%2Fpickbazarlaravel.s3.ap-southeast-1.amazonaws.com%2F575%2Fbaby-spinach-1.png&w=640&q=75','Spinach (Spinacia oleracea) is a leafy green flowering plant native to central and western Asia. It is of the order Caryophyllales, family Amaranthaceae, subfamily Chenopodioideae. Its leaves are a common edible vegetable consumed either fresh.','2lb'),
 ('Brussels Sprout',5,17,'i1p6rcRoUSMj1g8XvZnkKIB2D7r2',NOW(),NOW(),40,'https://pickbazar-react-rest.vercel.app/_next/image?url=https%3A%2F%2Fpickbazarlaravel.s3.ap-southeast-1.amazonaws.com%2F581%2FBrussels-Sprout-1.png&w=640&q=75','The Brussels sprout is a member of the Gemmifera Group of cabbages, grown for its edible buds. The leaf vegetables are typically 1.5–4.0 cm in diameter and look like miniature cabbages. The Brussels sprout has long been popular in Brussels, Belgium, and may have gained its name there.','1lb'),
@@ -217,7 +217,7 @@ values ('Mix Vegetable Platter',4,100,'i1p6rcRoUSMj1g8XvZnkKIB2D7r2',NOW(),NOW()
 -- Meat & Fish 53-81
 
 -- Fish  53-56
-insert into "product" (title, price, quantity, sid, created_at, update_at, discount, img, content, unit)
+insert into "product" (title, price, quantity, sid, created_at, updated_at, discount, img, content, unit)
 values ('Signature Salmon',4.95,50,'i1p6rcRoUSMj1g8XvZnkKIB2D7r2',NOW(),NOW(),0,'https://pickbazar-react-rest.vercel.app/_next/image?url=https%3A%2F%2Fpickbazarlaravel.s3.ap-southeast-1.amazonaws.com%2F183%2FSignatureSalmon_fstp4m.jpg&w=640&q=75','Salmon is a common food classified as an oily fish with a rich content of protein and omega-3 fatty acids','1lb'),
 ('Cod Fillet',10,50,'i1p6rcRoUSMj1g8XvZnkKIB2D7r2',NOW(),NOW(),25,'https://pickbazar-react-rest.vercel.app/_next/image?url=https%3A%2F%2Fpickbazarlaravel.s3.ap-southeast-1.amazonaws.com%2F184%2Fcodfillet_u0mti1.jpg&w=640&q=75','Cod is the common name for the demersal fish genus Gadus, belonging to the family Gadidae. Cod is also used as part of the common name for a number of other fish species, and some species suggested to belong to genus Gadus are not called cod.','1lb'),
 ('Swordfish Fillet',10,50,'i1p6rcRoUSMj1g8XvZnkKIB2D7r2',NOW(),NOW(),25,'https://pickbazar-react-rest.vercel.app/_next/image?url=https%3A%2F%2Fpickbazarlaravel.s3.ap-southeast-1.amazonaws.com%2F185%2Fswordfish_smniuv.jpg&w=640&q=75','The swordfish meat has a very delicate flavour, meaty and mild. Swordfish, also known as broadbills, is an oily fish similar to tuna, chunky meat without bones.','1.5lb'),
@@ -227,7 +227,7 @@ values ('Signature Salmon',4.95,50,'i1p6rcRoUSMj1g8XvZnkKIB2D7r2',NOW(),NOW(),0,
 
 -- Meat 57 - 81
 
-insert into "product" (title, price, quantity, sid, created_at, update_at, discount, img, content, unit)
+insert into "product" (title, price, quantity, sid, created_at, updated_at, discount, img, content, unit)
 values ('Fresh Beef',6,50,'i1p6rcRoUSMj1g8XvZnkKIB2D7r2',NOW(),NOW(),0,'https://pickbazar-react-rest.vercel.app/_next/image?url=https%3A%2F%2Fpickbazarlaravel.s3.ap-southeast-1.amazonaws.com%2F188%2Fbeef_xkxhnb.jpg&w=640&q=75','Meat is animal flesh that is eaten as food. Humans have hunted and killed animals for meat since prehistoric times. The advent of civilization allowed the domestication of animals such as chickens, sheep, rabbits, pigs and cattle.','1lb'),
 ('Sliced Turkey Breast',8.5,50,'i1p6rcRoUSMj1g8XvZnkKIB2D7r2',NOW(),NOW(),12,'https://pickbazar-react-rest.vercel.app/_next/image?url=https%3A%2F%2Fpickbazarlaravel.s3.ap-southeast-1.amazonaws.com%2F189%2Fsliced_turkey_breast_szb8jg.jpg&w=640&q=75','Meat is animal flesh that is eaten as food. Humans have hunted and killed animals for meat since prehistoric times. The advent of civilization allowed the domestication of animals such as chickens, sheep, rabbits, pigs and cattle.','1lb'),
 ('Chicken Thighs',7.89,49,'i1p6rcRoUSMj1g8XvZnkKIB2D7r2',NOW(),NOW(),0,'https://pickbazar-react-rest.vercel.app/_next/image?url=https%3A%2F%2Fpickbazarlaravel.s3.ap-southeast-1.amazonaws.com%2F190%2Fchicken_thigh_yrdfwh.jpg&w=640&q=75','Meat is animal flesh that is eaten as food. Humans have hunted and killed animals for meat since prehistoric times. The advent of civilization allowed the domestication of animals such as chickens, sheep, rabbits, pigs and cattle.','5lb'),
@@ -254,7 +254,7 @@ values ('Fresh Beef',6,50,'i1p6rcRoUSMj1g8XvZnkKIB2D7r2',NOW(),NOW(),0,'https://
 ('Lamb Chops',11.95,50,'i1p6rcRoUSMj1g8XvZnkKIB2D7r2',NOW(),NOW(),0,'https://pickbazar-react-rest.vercel.app/_next/image?url=https%3A%2F%2Fpickbazarlaravel.s3.ap-southeast-1.amazonaws.com%2F1240%2FLamb-%25285%2529.jpg&w=640&q=75','Lamb, hogget, and mutton, generically sheep meat, are the meat of domestic sheep , Ovis aries. A sheep in its first year may be a lamb and its meat is additionally lamb. The meat from sheep in their second year is hogget. Older sheep meat is mutton. Generally, “hogget” and “sheep meat” aren’t employed by consumers outside New Zealand, South Africa and Australia.','2lbs')
 ;
 
-insert into "product" (title, price, quantity, sid, created_at, update_at, discount, img, content, unit)
+insert into "product" (title, price, quantity, sid, created_at, updated_at, discount, img, content, unit)
 -- Snacks 82-195
 
 -- Nuts & Biscuits 82-101
@@ -443,7 +443,7 @@ values
 ;
 
 
-insert into "product" (title, price, quantity, sid, created_at, update_at, discount, img, content, unit)
+insert into "product" (title, price, quantity, sid, created_at, updated_at, discount, img, content, unit)
 values 
 
 -- Pet Care 246- 263
@@ -538,7 +538,7 @@ values
 ;
 
 -- Cooking 312-362
-insert into "product" (title, price, quantity, sid, created_at, update_at, discount, img, content, unit)
+insert into "product" (title, price, quantity, sid, created_at, updated_at, discount, img, content, unit)
 values 
 -- Oil 312-324
 ('Daisy Corn Oil',8,50,'i1p6rcRoUSMj1g8XvZnkKIB2D7r2',NOW(),NOW(),0,'https://pickbazar-react-rest.vercel.app/_next/image?url=https%3A%2F%2Fpickbazarlaravel.s3.ap-southeast-1.amazonaws.com%2F331%2Foil_daisy.jpg&w=640&q=75','An oil is any nonpolar chemical substance that is a viscous liquid at ambient temperatures and is both hydrophobic (does not mix with water, literally water fearing) and lipophilic (mixes with other oils, literally fat loving). Oils have a high carbon and hydrogen content and are usually flammable and surface.','5lb'),

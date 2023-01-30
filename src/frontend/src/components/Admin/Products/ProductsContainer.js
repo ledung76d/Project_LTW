@@ -94,7 +94,7 @@ class ProductsContainer extends Component {
   addFile = async (file) => {
     console.log(file)
     this.setState({
-      files: file.map((file) =>
+      files: file?.map((file) =>
         Object.assign(file, {
           preview: URL.createObjectURL(file),
         })
@@ -126,7 +126,8 @@ class ProductsContainer extends Component {
       discount: Number.parseInt(this.state.details.discount),
       price: Number.parseFloat(this.state.details.price),
       quantity: Number.parseInt(this.state.details.quantity),
-      img: this.state.tmpImg,
+      // img: this.state.tmpImg,
+      img: 'https://toigingiuvedep.vn/wp-content/uploads/2022/01/anh-meo-cute.jpg',
       sid: this.props.adminInfo.sid
     }
     console.log('Add: ', product)
@@ -255,7 +256,7 @@ class ProductsContainer extends Component {
                   <th>Actions</th>
                 </tr>
               </thead>
-              {this.state.products.map((product) => (
+              {this.state.products?.map((product) => (
                 <ProductList
                   key={uuidv4()}
                   info={product}
