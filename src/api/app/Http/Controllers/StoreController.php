@@ -144,6 +144,7 @@ class StoreController extends Controller
         ], 200);
     }
 
+
     
     public function total30days($query){
         $sid = $query->sid;
@@ -158,5 +159,22 @@ class StoreController extends Controller
         );
     }
 
-    
+
+    public function updateProductByStore(Request $request){
+        $pid = $request->pid;
+        $product = Product::where('pid', $pid)->update([
+            'title' => $request->title,
+            'price' => $request->price,
+            'quantity' => $request->quantity,
+            'discount' => $request->discount,
+            'img' => $request->img,
+            'content' => $request->content,
+            'unit' => $request->unit,
+        ]);
+        return response()->json([
+            'status' => 'success',
+            'data' => $product,
+        ], 200);
+    }
+
 }

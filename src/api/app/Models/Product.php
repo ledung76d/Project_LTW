@@ -20,6 +20,7 @@ class Product extends Model
         'img',
         'content',
         'unit',
+   
     ];
     protected $table = 'product';
 

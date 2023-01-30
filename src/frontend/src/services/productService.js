@@ -30,7 +30,7 @@ const handleGetProductByStoreId = async (sid)=>{
 }
 
 const deleteProductById = async (pid)=>{
-  return axios.post('/api/delete-product-by-pid',{pid: pid})
+  return axios.post(`/api/delete-product-by-pid?pid=${pid}`)
 }
 
 const handleGetAllCategory = async ()=>{
