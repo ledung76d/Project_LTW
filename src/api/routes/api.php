@@ -35,15 +35,19 @@ Route::middleware(['api'])->group(function () {
     Route::get('/get-product-by-storeId', [StoreController::class, 'getProductByStoreId']);
     Route::post('/add-new-product-by-store', [StoreController::class, 'addNewProductByStore']);
 
+
     // /api/total30day?sid=1
     Route::get('/total30day/{query}', [StoreController::class, 'total30day']);
     Route::get('/handleOrder30day/{query}', [StoreController::class, 'handleOrder30day']);
     Route::get('/totalrevenue/{query}', [StoreController::class, 'totalrevenue']);
-    
+    Route::post('/update-product-by-store', [StoreController::class, 'updateProductByStore']);
+
     //User
     Route::get('/user/get-info-user', [UserController::class, 'getInfoUser']);
     Route::post('/user/save-info-user', [UserController::class, 'saveInfoUser']);
     Route::get('/get-userinfo-by-cid', [UserController::class, 'getUserInfoByCId']);
+    Route::get('/total30day', [UserController::class, 'total30day']);
+    
 });
 
 //Product
@@ -54,7 +58,7 @@ Route::get('/get-product-by-sid', [ProductController::class, 'getProductBySid'])
 
 
 Route::get('/find-product-by-store-id/{id}', [ProductController::class, 'findProductByStoreId']);
-Route::get('/delete-product-by-pid/{id}', [ProductController::class, 'deleteProductByPId']);
+Route::post('/delete-product-by-pid', [ProductController::class, 'deleteProductByPId']);
 
 //Store
 Route::get('/get-store-by-id', [StoreController::class, 'getStoreById']);

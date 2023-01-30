@@ -200,13 +200,9 @@ class ProductList extends Component {
               </div>
             </div>
             <div className='gr-cate'>
-              <div className='header'>
-                <h3>Detail</h3>
-                <p>
-                  Edit your product description and necessary information from
-                  here
-                </p>
-              </div>
+              
+              
+              
               <div className='form-gr'>
                 <Form.Group>
                   <Form.Label>Category</Form.Label>
