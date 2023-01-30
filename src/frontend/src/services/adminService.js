@@ -118,7 +118,7 @@ const adminService = {
     });
   },
 
-  handleTotal30day(sid) {
+  handleTotal30day() {
     return axios(`/api/total30day`, {
       method: "GET",
       headers: {
@@ -128,8 +128,8 @@ const adminService = {
     });
   },
 
-  handleOrder30day(sid) {
-    return axios(`/api/handleOrder30day?${sid}`, {
+  handleOrder30day() {
+    return axios(`/api/handleOrder30day`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -138,8 +138,8 @@ const adminService = {
     });
   },
 
-  handleTotalRevenue(sid) {
-    return axios(`/api/totalrevenue?sid=${sid}`, {
+  handleTotalRevenue() {
+    return axios(`/api/totalrevenue`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

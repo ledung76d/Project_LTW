@@ -16,15 +16,15 @@ class Analysis extends React.Component {
   }
   async componentDidMount() {
     let data = await adminService.handleTotal30day();
-    console.log("Toi o day", data);
     let data1 = await adminService.handleOrder30day();
     let data2 = await adminService.handleTotalRevenue();
-    let data3 = await adminService.handleGetProductBySid(1);
+    // console.log("test data2", data2);
+    // let data3 = await adminService.handleGetProductBySid(1);
     this.setState({
-      total30day: data["SUM(total)"],
-      order30day: data1["COUNT(orderId)"],
-      totalRevenue: data2["SUM(total)"],
-      countNumber: data3.length,
+      total30day: data[0].total,
+      // order30day: data1["COUNT(orderId)"],
+      // totalRevenue: data2["SUM(total)"],
+      // countNumber: data3.length,
     });
   }
 
@@ -72,14 +72,13 @@ class Analysis extends React.Component {
   }
 
   render() {
-    console.log("Oi o day roi");
     return (
       <>
         <div className="analysis__container">
           <div className="analysis__header">
             <div className="analysis__header-total">
               <div className="total-title">
-                <span className="total-title--bold">Total Revenue </span>
+                <span className="total-title--bold">Total Revenue ss</span>
                 {/* <span className='total-title--gray'>(Last 30 Days)</span> */}
               </div>
               <div className="analysis__header-logo">
