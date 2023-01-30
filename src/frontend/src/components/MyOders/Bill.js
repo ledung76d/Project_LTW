@@ -22,40 +22,30 @@ class Bill extends React.Component {
     if (orderId === null) return;
     let data = await handleFindOrderById(orderId);
     let tempArr = [];
-    data.forEach((item) => {
-      let tempItem = this.getProduct(item.pid);
-      tempItem.then((product) => {
-        let temp = { ...product[0] };
-        temp.quantity = item.quantity;
-        temp.price = item.price;
-        tempArr.push(temp);
-      });
-    });
-    console.log("tempArr: componentDidMount ", tempArr);
+    await Promise.all(
+      data.map(async (item) => {
+        const tempItem = await handleFindProductById(item.pid);
+        tempArr.push(tempItem[0]);
+      })
+    );
     this.setState({
       arr: tempArr,
     });
   }
 
   async componentWillReceiveProps(nextProps) {
-    console.log("nextProps: ", nextProps);
     if (nextProps.orderId !== this.props.orderId) {
-      console.log("nextProps:??", nextProps.orderId, " ", this.props.orderId);
-
       let orderId = nextProps.orderId;
       //console.log('OrderId: ',this.props)
       let data = await handleFindOrderById(orderId);
       //console.log('Get order from db: ',data)
       let tempArr = [];
-      data.forEach((item) => {
-        let tempItem = this.getProduct(item.pid);
-        tempItem.then((product) => {
-          let temp = { ...product[0] };
-          temp.quantity = item.quantity;
-          temp.price = item.price;
-          tempArr.push(temp);
-        });
-      });
+      await Promise.all(
+        data.map(async (item) => {
+          const tempItem = await handleFindProductById(item.pid);
+          tempArr.push(tempItem[0]);
+        })
+      );
       this.setState({
         arr: tempArr,
       });
@@ -63,8 +53,6 @@ class Bill extends React.Component {
   }
 
   render() {
-    console.log("Check arr: ", this.props);
-    console.log("Check arr: ", this.state.arr);
     return (
       <>
         <div className="Container_Items">
