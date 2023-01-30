@@ -25,7 +25,10 @@ class Bill extends React.Component {
     await Promise.all(
       data.map(async (item) => {
         const tempItem = await handleFindProductById(item.pid);
-        tempArr.push(tempItem[0]);
+        let temp = { ...tempItem[0] };
+        temp.quantity = item.quantity;
+        temp.price = item.price;
+        tempArr.push(temp);
       })
     );
     this.setState({

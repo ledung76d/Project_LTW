@@ -105,7 +105,7 @@
                         height: 100%;
                         border: 1px solid rgba(209, 207, 207, 0.836);
                         background-color: #fff;
-                        padding: 25px;
+                        padding: 25px 0 25px 25px;
 
                         h3 {
                             text-align: left;
@@ -127,7 +127,7 @@
 
                             .force-overflow {
                                 min-height: 450px;
-
+                                margin-right: 25px;
                                 .navlink {
                                     text-decoration: none;
                                     color: black;
