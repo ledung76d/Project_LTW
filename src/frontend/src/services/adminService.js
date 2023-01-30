@@ -147,6 +147,17 @@ const adminService = {
       },
     });
   },
+
+  handleUpdateStoreInfo(data) {
+    return axios("/api/update-store-info", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+      data: JSON.stringify(data),
+    });
+  }
 };
 
 export default adminService;

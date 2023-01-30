@@ -117,5 +117,14 @@ class ProductController extends Controller
         ], 200);
     }
     
+    public function searchByName(Request $request)
+    {
+        $name = $request->name;
+        $product = Product::where('title', 'like', '%'.$name.'%')->get();
+        return response()->json(
+            
+            $product,
+         200);
+    }
         
 }

@@ -35,6 +35,7 @@ Route::middleware(['api'])->group(function () {
     Route::get('/get-product-by-storeId', [StoreController::class, 'getProductByStoreId']);
     Route::post('/add-new-product-by-store', [StoreController::class, 'addNewProductByStore']);
     Route::post('/search-by-filter', [StoreController::class, 'searchByFilter']);
+    Route::post('/update-store-info', [StoreController::class, 'updateStoreInfo']);
 
 
     // /api/total30day?sid=1
@@ -56,7 +57,7 @@ Route::get('/get-product', [ProductController::class, 'getProductByCategory']);
 Route::get('/get-category-by-id', [CategoryController::class, 'getCategoryById']);
 Route::get('/find-product-by-id', [ProductController::class, 'findProductById']);
 Route::get('/get-product-by-sid', [ProductController::class, 'getProductBySid']);
-
+Route::get('/search-by-name', [ProductController::class, 'searchByName']);
 
 Route::get('/find-product-by-store-id/{id}', [ProductController::class, 'findProductByStoreId']);
 Route::post('/delete-product-by-pid', [ProductController::class, 'deleteProductByPId']);

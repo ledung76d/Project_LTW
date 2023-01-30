@@ -288,4 +288,20 @@ class StoreController extends Controller
 
         );
     }
+
+    public function updateStoreInfo(Request $request){
+        $sid = $request->sid;
+        $store = Store::where('sid', $sid)->update([
+            'name' => $request->name,
+            'address' => $request->address,
+            'phone' => $request->phone,
+            'email' => $request->email,
+            'img' => $request->img,
+            'description' => $request->description,
+        ]);
+        return response()->json([
+            'status' => 'success',
+            'data' => $store,
+        ], 200);
+    }
 }
