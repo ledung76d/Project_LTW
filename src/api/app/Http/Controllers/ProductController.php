@@ -121,10 +121,10 @@ class ProductController extends Controller
     {
         $name = $request->name;
         $product = Product::where('title', 'like', '%'.$name.'%')->get();
-        return response()->json([
-            'status' => 'success',
-            'data' => $product,
-        ], 200);
+        return response()->json(
+            
+            $product,
+         200);
     }
         
 }
