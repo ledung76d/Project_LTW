@@ -242,8 +242,6 @@ resource "kubernetes_deployment_v1" "backend" {
   ]
 }
 
-
-
 resource "kubernetes_service" "backend" {
   metadata {
     name      = "${var.org_name}-laravel"
@@ -267,6 +265,20 @@ resource "kubernetes_service" "backend" {
 }
 
 ################# Deploy React-Nginx App ##################################
+
+
+resource "kubernetes_config_map" "react-env" {
+  metadata {
+    name      = "react-env"
+    namespace = kubernetes_namespace_v1.app.metadata.0.name
+  }
+
+  data = {
+    "REACT_APP_BACKEND_URL" = "https://${var.domain_name}/api",
+    "REACT_APP_FIREBASE_API_KEY" = var.firebase_api_key,
+    "REACT_APP_FIREBASE_AUTH_DOMAIN" = var.firebase_auth_domain,
+  }
+}
 
 resource "kubernetes_deployment_v1" "frontend" {
   metadata {
@@ -297,18 +309,6 @@ resource "kubernetes_deployment_v1" "frontend" {
         container {
           image = "quanganhquanganh/pick-bazar-frontend:2af538d52d55070ad22cd91924af015fccba0dea-dev"
           name  = "react"
-          env {
-            name  = "REACT_APP_BACKEND_URL"
-            value = "http://${kubernetes_service.backend.metadata[0].name}.${kubernetes_namespace_v1.app.metadata[0].name}.svc.cluster.local:8080"
-          }
-          env {
-            name  = "REACT_APP_FIREBASE_API_KEY"
-            value = var.firebase_api_key
-          }
-          env {
-            name  = "REACT_APP_FIREBASE_AUTH_DOMAIN"
-            value = var.firebase_auth_domain
-          }
 
           port {
             container_port = "8080"
@@ -328,6 +328,12 @@ resource "kubernetes_deployment_v1" "frontend" {
 
           security_context {
             allow_privilege_escalation = false
+          }
+
+          env_from {
+            config_map_ref {
+              name = kubernetes_config_map.react-env.metadata[0].name
+            }
           }
         }
       }
