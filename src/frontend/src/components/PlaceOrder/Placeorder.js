@@ -35,10 +35,7 @@ class PlaceOrder extends Component {
   }
 
   async componentDidMount() {
-    
-    
     //console.log(this.props.match.params.id)
-    
   }
 
   render() {

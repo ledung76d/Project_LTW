@@ -57,36 +57,35 @@ class OrderDetail extends React.Component {
                         <td>
                           <span>{item.title}</span>
                         </td>
-                            <td>{item.quantity}</td>
-                            <td>{item.price}$</td>
-                        </tr>
-                      )
-                    })}
+                        <td>{item.quantity}</td>
+                        <td>{item.price}$</td>
+                      </tr>
+                    );
+                  })}
                 </tbody>
-            </table>
-        </div>
-        <div className="OrderDetail__footer">
-            <div className="Customer" >
+              </table>
+            </div>
+            <div className="OrderDetail__footer">
+              <div className="Customer">
                 <div className="OrderDetail-customer-title">Customer</div>
                 <div className="OrderDetail-customer">
-                    <span className="order-text--bold">Name:</span>
-                    <span>{this.state.khachHang?.name} </span>
+                  <span className="order-text--bold">Name:</span>
+                  <span>{this.state.khachHang?.name} </span>
                 </div>
                 <div className="OrderDetail-customer">
-                    <span className="order-text--bold">Telephone:</span>
-                    <span>{this.state.khachHang?.phone}</span>
+                  <span className="order-text--bold">Telephone:</span>
+                  <span>{this.state.khachHang?.phone}</span>
                 </div>
                 <div className="OrderDetail-address">
-                    <span className="order-text--bold">Shipping Address:</span>
-                    <span>{this.state.khachHang?.address}</span>
+                  <span className="order-text--bold">Shipping Address:</span>
+                  <span>{this.state.khachHang?.address}</span>
                 </div>
+              </div>
 
-            </div>
-
-            <div className="bill">
+              <div className="bill">
                 <div className="OrderDetail-bill">
-                    <span className="OrderDetail-bill-title">Sub total</span>
-                    <span className="OrderDetail-bill-price">${order.total}</span>
+                  <span className="OrderDetail-bill-title">Sub total</span>
+                  <span className="OrderDetail-bill-price">${order.total}</span>
                 </div>
                 {/* <div className="OrderDetail-bill">
                     <span className="OrderDetail-bill-title">Discount</span>

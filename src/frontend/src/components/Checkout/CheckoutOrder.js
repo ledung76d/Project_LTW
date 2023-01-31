@@ -1,7 +1,7 @@
-import React, { Component } from 'react'
-import NavigatorBar from '../NAV/NavigatorBar'
-import Checkout from './Checkout'
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import React, { Component } from "react";
+import NavigatorBar from "../NAV/NavigatorBar";
+import Checkout from "./Checkout";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 class CheckoutOrder extends Component {
   render() {
@@ -12,8 +12,8 @@ class CheckoutOrder extends Component {
       </>
       //   <Provider store={store}>
       //   </Provider>
-    )
+    );
   }
 }
 
-export default CheckoutOrder
+export default CheckoutOrder;

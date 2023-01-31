@@ -1,14 +1,14 @@
-import actionTypes from './actionTypes';
+import actionTypes from "./actionTypes";
 
 export const adminLoginSuccess = (adminInfo) => ({
-    type: actionTypes.ADMIN_LOGIN_SUCCESS,
-    adminInfo: adminInfo
-})
+  type: actionTypes.ADMIN_LOGIN_SUCCESS,
+  adminInfo: adminInfo,
+});
 
 export const adminLoginFail = () => ({
-    type: actionTypes.ADMIN_LOGIN_FAIL
-})
+  type: actionTypes.ADMIN_LOGIN_FAIL,
+});
 
 export const adminProcessLogout = () => ({
-    type: actionTypes.ADMIN_PROCESS_LOGOUT
-})
+  type: actionTypes.ADMIN_PROCESS_LOGOUT,
+});

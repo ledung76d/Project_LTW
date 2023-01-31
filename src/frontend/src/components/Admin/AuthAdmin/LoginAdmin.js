@@ -57,73 +57,79 @@ class LoginAdmin extends Component {
     this.props.changeAppMode("adminMode");
   }
 
-    handleLogin = async () => {
-        let userName = this.state.username
-        let passWord = this.state.password
-        let data = await adminService.login(userName, passWord)
-        console.log(data)
-        if (data.err !== 4) {
-            this.setState({
-                err: data.err,
-                message: data.message
-            })
-        }
-        else {
-            //Thanh cong
-            // this.props.processLogout()
-            this.props.adminLoginSuccess(data.store)
-            let { navigate } = this.props;
-            //const redirectPath = '/system/user-manage';
-            navigate('/admin');
-        }
+  handleLogin = async () => {
+    let userName = this.state.username;
+    let passWord = this.state.password;
+    let data = await adminService.login(userName, passWord);
+    console.log(data);
+    if (data.err !== 4) {
+      this.setState({
+        err: data.err,
+        message: data.message,
+      });
+    } else {
+      //Thanh cong
+      // this.props.processLogout()
+      this.props.adminLoginSuccess(data.store);
+      let { navigate } = this.props;
+      //const redirectPath = '/system/user-manage';
+      navigate("/admin");
+    }
 
     return (
-            <>
-              <div className='login-admin' >
+      <>
+        <div className="login-admin">
+          <div className="login-container">
+            <div className="login-content">
+              <div className="col-12  text-login">
+                <img src={LogoShop} className="login-logo" />
+              </div>
+              <div className="col-12 text-contentlogin">Register as Shop</div>
 
-                <div className='login-container' >
-                  <div className='login-content'>
-                    <div className='col-12  text-login'>
-                        <img src={LogoShop} className='login-logo' />
-                    </div>
-                    <div className='col-12 text-contentlogin'>
-                        Register as Shop
-                    </div>
-
-
-                    <div className='col-12 form-group login-input'>
-                        <label>
-                            <span>Store name</span></label>
-                        <input type='email' className='form-control login-input--text' placeholder='Enter your store name'
-                            value={this.state.username}
-                            onChange={(event) => this.handleOnChangeUsername(event)}
-                        />
-                    </div>
-                    <div className='col-12 form-group login-input'>
-                        <label className='login-input-password'>
-                            <span>Phone</span>
-                            {/* <span className='forgot-password'>Forgot password?</span> */}
-                        </label>
-                        <div className='custom-input-password'>
-                            <input type={'text'} className='form-control login-input--text' placeholder='Enter your phone'
-                                value={this.state.password}
-                                onChange={(event) => this.handleOnChangePassword(event)}
-                            />
-                            {/* <span
+              <div className="col-12 form-group login-input">
+                <label>
+                  <span>Store name</span>
+                </label>
+                <input
+                  type="email"
+                  className="form-control login-input--text"
+                  placeholder="Enter your store name"
+                  value={this.state.username}
+                  onChange={(event) => this.handleOnChangeUsername(event)}
+                />
+              </div>
+              <div className="col-12 form-group login-input">
+                <label className="login-input-password">
+                  <span>Phone</span>
+                  {/* <span className='forgot-password'>Forgot password?</span> */}
+                </label>
+                <div className="custom-input-password">
+                  <input
+                    type={"text"}
+                    className="form-control login-input--text"
+                    placeholder="Enter your phone"
+                    value={this.state.password}
+                    onChange={(event) => this.handleOnChangePassword(event)}
+                  />
+                  {/* <span
                                 onClick={() => this.setState({
                                     isShowPassword: !this.state.isShowPassword,
                                 })}
                             >
                                 <i className={this.state.isShowPassword ? 'far fa-eye' : 'far fa-eye-slash'}></i>
                             </span> */}
-                        </div>
-                    </div>
-                    <button className='btn-login btn-login-normal' onClick={() => this.handleLogin()}
-                    >Login</button>
-                    <div className='col-12'>
-                        <span style={{ color: 'red' }}>{this.state.message}</span>
-                    </div>
-                    {/* <div className='col-12  login-orther'>
+                </div>
+              </div>
+              <button
+                className="btn-login btn-login-normal"
+                onClick={() => this.handleLogin()}
+              >
+                Login
+              </button>
+              <div className="col-12">
+                <span style={{ color: "red" }}>{this.state.message}</span>
+              </div>
+              {/* <div className='col-12  login-orther'>
                         <span className='text-orther-login '>
                             <span>Or</span>
                         </span>
@@ -134,12 +140,12 @@ class LoginAdmin extends Component {
                         <span>Don't have any account? </span>
                         <a>Register as Shop</a>
                     </div> */}
-                </div>
             </div>
+          </div>
         </div>
       </>
     );
-  }
+  };
 }
 
 const mapStateToProps = (state) => {

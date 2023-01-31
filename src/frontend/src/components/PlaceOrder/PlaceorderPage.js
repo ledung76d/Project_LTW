@@ -1,6 +1,6 @@
-import React, { Component } from 'react'
-import NavigatorBar from '../NAV/NavigatorBar'
-import PlaceOrder from './Placeorder'
+import React, { Component } from "react";
+import NavigatorBar from "../NAV/NavigatorBar";
+import PlaceOrder from "./Placeorder";
 
 export default class PlaceorderPage extends Component {
   render() {
@@ -9,6 +9,6 @@ export default class PlaceorderPage extends Component {
         {/* <NavigatorBar /> */}
         <PlaceOrder />
       </>
-    )
+    );
   }
 }
