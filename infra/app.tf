@@ -242,7 +242,7 @@ resource "kubernetes_config_map" "react-env" {
   }
 
   data = {
-    "REACT_APP_BACKEND_URL" = "https://${var.domain_name}/api",
+    "REACT_APP_BACKEND_URL" = "https://${var.domain}/api",
     "REACT_APP_FIREBASE_API_KEY" = var.firebase_api_key,
     "REACT_APP_FIREBASE_AUTH_DOMAIN" = var.firebase_auth_domain,
   }
