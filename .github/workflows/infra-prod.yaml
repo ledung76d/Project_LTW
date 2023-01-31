@@ -30,8 +30,7 @@ jobs:
           running-workflow-name: pick-bazar-app-prod
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           wait-interval: 30
-          timeout: 600
-        continue-on-error: true
+          allowed-conclusion: success,skipped,cancelled
 
       - name: Checkout
         uses: actions/checkout@v2
