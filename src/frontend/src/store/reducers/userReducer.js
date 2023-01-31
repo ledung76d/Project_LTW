@@ -33,13 +33,15 @@ const appReducer = (state = initialState, action) => {
       };
 
     case actionTypes.CHANGE_FLA:
-      let tmp = state.userInfo;
-      tmp.firstName = action.payload.firstName;
-      tmp.lastName = action.payload.lastName;
-      tmp.image = action.payload.image;
+      
       return {
         ...state,
-        userInfo: tmp,
+        userInfo: {
+          ...state.userInfo,
+          firstName: action.payload.firstName,
+          lastName: action.payload.lastName,
+          image: action.payload.image,
+        },
       };
 
     default:
