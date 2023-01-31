@@ -29,7 +29,6 @@ class Home extends React.Component {
 
   async componentDidMount() {
     let data = await handleGetProductByCategory("Fruits & Vegetables");
-    console.log("Hello", data);
     this.setState({
       products: data.products,
     });

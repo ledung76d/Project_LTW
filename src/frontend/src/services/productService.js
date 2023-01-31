@@ -1,4 +1,4 @@
-import axios from '../axios'
+import axios from "../axios";
 
 const handleGetProductByCategory = async (category) => {
   let link = '/api/get-product?category=' + encodeURIComponent(category)
@@ -52,4 +52,4 @@ export {
   deleteProductById,
   handleGetAllCategory,
   handleSearchProductByName,
-}
+};

@@ -69,3 +69,10 @@ Route::get('/get-all-category', [CategoryController::class, 'getAllCategory']);
 
 // ProductCategory
 Route::post('/add-product-category', [ProductController::class, 'addProductCategory']);
+
+// For probe
+Route::get('/health', function () {
+    return response()->json([
+        'status' => 'OK'
+    ]);
+});

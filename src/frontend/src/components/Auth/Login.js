@@ -14,12 +14,11 @@ import Register from "./Register";
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
-import { getAuth, signInWithPopup, OAuthProvider } from "firebase/auth";
 
 // Configure Firebase.
 const config = {
-  apiKey: "AIzaSyDMSeYEPU24SqM_Nj_5NTzNXf1rVv-Zrf0",
-  authDomain: "pickbazar-c589c.firebaseapp.com",
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
 };
 firebase.initializeApp(config);
 

@@ -73,7 +73,7 @@ class NavigatorBar extends Component {
                 <ul className="header__navlist-list">
                   <li className="header__navbar-item">
                     <Link to={"/admin"} className="header__navbar-item-link">
-                      <span>My shops</span>
+                      <span>My shop</span>
                     </Link>
                   </li>
                   <li className="header__navbar-item">
