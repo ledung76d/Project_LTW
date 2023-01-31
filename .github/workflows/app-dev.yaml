@@ -63,7 +63,7 @@ jobs:
 
   docker:
     runs-on: ubuntu-latest
-    needs: [react-test, laravel-test]
+    needs: [react-test]
     if: github.event_name == 'push'
     steps:
       - name: Check out code
