@@ -85,8 +85,8 @@ jobs:
       - name: Build and push Docker image for frontend
         uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
         with:
-          context: .
-          file: ./src/frontend/Dockerfile
+          context: ./src/frontend
+          file: Dockerfile
           push: true
           tags: |
             ${{ env.FRONTEND_TAG }}:${{ github.sha }}-dev
@@ -97,8 +97,8 @@ jobs:
       - name: Build and push Docker image for laravel
         uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
         with:
-          context: .
-          file: ./src/api/Dockerfile
+          context: ./src/api
+          file: Dockerfile
           push: true
           tags: |
             ${{ env.LARAVEL_TAG }}:${{ github.sha }}-dev

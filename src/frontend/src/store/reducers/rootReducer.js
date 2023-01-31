@@ -27,18 +27,11 @@ const userPersistConfig = {
   whitelist: ["isLoggedIn", "userInfo"],
 };
 
-const cartPeristConfig = {
-  ...persistCommonConfig,
-  key: "cart",
-  whitelist: ["numberCart", "Carts"],
-};
-
 export default (history) =>
   combineReducers({
     router: connectRouter(history),
     user: persistReducer(userPersistConfig, userReducer),
     admin: persistReducer(adminPersistConfig, adminReducer),
-    //cart: persistReducer(cartPeristConfig, cartReducer),
     cart: cartReducer,
     app: appReducer,
   });
