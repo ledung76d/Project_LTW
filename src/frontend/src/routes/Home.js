@@ -36,7 +36,6 @@ class Home extends React.Component {
 
   searchProduct = async (name) => {
     let data = await handleSearchProductByName(name);
-    console.log(data);
     this.setState({
       products: data,
     });
