@@ -94,38 +94,6 @@ YAML
 
 }
 
-################# ConfigMap for Nginx ReactJS App ####################
-
-resource "kubernetes_config_map" "nginx-config" {
-  metadata {
-    name      = "nginx-config"
-    namespace = kubernetes_namespace_v1.app.metadata.0.name
-  }
-
-  data = {
-    "nginx.conf" = <<EOF
-    server {
-      listen 8080;
-      keepalive_timeout 65;
-      error_log /var/log/nginx/error.log;
-      access_log /var/log/nginx/access.log;
-
-      location / {
-          root   /usr/share/nginx/html;
-          index  index.html index.htm;
-          try_files $uri $uri/ /index.html;
-      }
-
-      error_page   500 502 503 504  /50x.html;
-
-      location = /50x.html {
-          root   /usr/share/nginx/html;
-      }
-    }
-    EOF
-  }
-}
-
 ################# Deploy Application ##################################
 
 resource "kubernetes_deployment_v1" "backend" {
@@ -274,7 +242,7 @@ resource "kubernetes_config_map" "react-env" {
   }
 
   data = {
-    "REACT_APP_BACKEND_URL" = "https://${var.domain_name}/api",
+    "REACT_APP_BACKEND_URL" = "https://${var.domain}/api",
     "REACT_APP_FIREBASE_API_KEY" = var.firebase_api_key,
     "REACT_APP_FIREBASE_AUTH_DOMAIN" = var.firebase_auth_domain,
   }
