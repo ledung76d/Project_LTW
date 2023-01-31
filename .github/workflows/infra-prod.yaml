@@ -22,19 +22,9 @@ jobs:
       run:
         working-directory: "infra"
     steps:
-      - name: Wait for app-prod workflow to finish, if running
-        uses: lewagon/wait-on-check-action@v1.2.0
-        id: wait-for-app-prod
-        with:
-          ref: ${{ github.ref }}
-          running-workflow-name: pick-bazar-app-prod
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
-          wait-interval: 30
-          allowed-conclusion: success,skipped,cancelled
-
       - name: Checkout
         uses: actions/checkout@v2
-
+      
       - name: Uncomment Terraform Cloud Backend Configuration file
         id: uncomment
         run: sed -i 's/^#*//' backend.tf
