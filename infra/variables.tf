@@ -43,3 +43,18 @@ variable "assume_role_account_id" {
   description = "ID Of the Account which needs to be assumed to run terraform"
   type        = string
 }
+
+variable "firebase_api_key" {
+  description = "Firebase API Key"
+  type        = string
+}
+
+variable "firebase_auth_domain" {
+  description = "Firebase Auth Domain"
+  type        = string
+}
+
+variable "google_cloud_project" {
+  description = "Google Cloud Project"
+  type        = string
+}
