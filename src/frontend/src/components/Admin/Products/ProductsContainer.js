@@ -22,6 +22,10 @@ import * as actions from "../../../store/actions";
 import Multiselect from "multiselect-react-dropdown";
 import { cloudinaryUpload } from "../../../services/userService";
 import adminService from "../../../services/adminService";
+import Axios from "axios";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 class ProductsContainer extends Component {
   constructor(props) {
     super(props);
@@ -59,13 +63,21 @@ class ProductsContainer extends Component {
   }
 
   onChangeInputImage = async (e) => {
-    let uploadData = new FormData();
-    
-    uploadData.append("file", e.target.files[0], "file");
-    let tmp = await cloudinaryUpload(uploadData);
-    //console.log('Link',tmp)
-    this.setState({
-      tmpImg: tmp.secure_url,
+    const cloudinaryEnv = {
+      cloud_name: process.env.REACT_APP_CLOUDINARY_CLOUD_NAME,
+      upload_preset: process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET,
+    };
+    let formData = new FormData();
+    formData.append("file", e.target.files[0], "file");
+    formData.append("upload_preset", cloudinaryEnv.upload_preset);
+
+    Axios.post(
+      `https://api.cloudinary.com/v1_1/${cloudinaryEnv.cloud_name}/image/upload`,
+      formData
+    ).then((res) => {
+      this.setState({
+        tmpImg: res.data.secure_url,
+      });
     });
   };
 
@@ -125,26 +137,48 @@ class ProductsContainer extends Component {
     //   this.state.details['img'] = this.state.files[0].preview
     // }
     //console.log('ID: ',nextPid.Auto_increment)
-    let product = {
-      ...this.state.details,
-      discount: Number.parseInt(this.state.details.discount),
-      price: Number.parseFloat(this.state.details.price),
-      quantity: Number.parseInt(this.state.details.quantity),
-      img: this.state.tmpImg,
-      sid: this.props.adminInfo.sid,
-    };
-    console.log("Add: ", product);
-    let insertedId = await adminService.handleAddNewProductByStore(product);
-    for (let i = 0; i < this.state.listCategory.length; i++) {
-      let temp = {
-        categoryId: this.state.listCategory[i].id,
-        pid: insertedId.insertId,
+    try {
+      let product = {
+        ...this.state.details,
+        discount: Number.parseInt(this.state.details.discount),
+        price: Number.parseFloat(this.state.details.price),
+        quantity: Number.parseInt(this.state.details.quantity),
+        img: this.state.tmpImg,
+        sid: this.props.adminInfo.sid,
       };
-      setTimeout(() => adminService.handleAddProductCategory(temp), 100);
+      console.log("Add: ", product);
+      let insertedId = await adminService.handleAddNewProductByStore(product);
+      for (let i = 0; i < this.state.listCategory.length; i++) {
+        let temp = {
+          categoryId: this.state.listCategory[i].id,
+          pid: insertedId.insertId,
+        };
+        setTimeout(() => adminService.handleAddProductCategory(temp), 100);
+      }
+      //this.state.data[this.state.data.length - 1].push(this.state.details)
+      setTimeout(() => this.fetchProducts(this.props.adminInfo.sid), 100);
+      this.handleCloseAddProduct();
+      this.setState({ showAddProduct: !this.state.showAddProduct });
+      toast.success("Add product success!", {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    } catch (error) {
+      toast.error("You must login to buy something!", {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     }
-    //this.state.data[this.state.data.length - 1].push(this.state.details)
-    setTimeout(() => this.fetchProducts(this.props.adminInfo.sid), 100);
-    this.handleCloseAddProduct();
   };
 
   handlePage = (e) => {
@@ -344,14 +378,14 @@ class ProductsContainer extends Component {
                     disabled
                     readOnly
                   /> */}
-                  <Multiselect
+                  {/* <Multiselect
                     options={this.state?.category} // Options to display in the dropdown
                     selectedValues={this.state.selectedValue} // Preselected value to persist in dropdown
                     onSelect={this.onSelect} // Function will trigger on select event
                     onRemove={this.onRemove} // Function will trigger on remove event
                     displayValue="title" // Property name to display in the dropdown options
                     placeholder="Select product category"
-                  />
+                  /> */}
                   <Form.Label>Name</Form.Label>
                   <Form.Control
                     type="text"

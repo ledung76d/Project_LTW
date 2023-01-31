@@ -1,17 +1,17 @@
-import React, { Component } from 'react'
-import './PlaceOrder.scss'
-import { Link, withRouter } from 'react-router-dom'
-import { v4 as uuidv4 } from 'uuid'
+import React, { Component } from "react";
+import "./PlaceOrder.scss";
+import { Link, withRouter } from "react-router-dom";
+import { v4 as uuidv4 } from "uuid";
 import {
   handleFindOrderById,
   handleFindProductById,
-} from '../../services/productService'
+} from "../../services/productService";
 class PlaceOrder extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       orderItem: null,
-      orderId: '',
+      orderId: "",
       createdAt: null,
       total: null,
       address: null,
@@ -20,144 +20,193 @@ class PlaceOrder extends Component {
       delivery: null,
       status: null,
       arr: [],
-    }
+    };
   }
 
   makeid(length) {
-    var result = '';
-    var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var result = "";
+    var characters =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     var charactersLength = characters.length;
     for (var i = 0; i < length; i++) {
-      result += characters.charAt(Math.floor(Math.random() *
-        charactersLength));
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
     }
     return result;
   }
 
   async componentDidMount() {
-    
-    
+    let data = await handleFindOrderById(this.props.match.params.id);
+    //console.log('Data',data)
+    //Gan them push vao de tranh th data = null
+    if (data.length === 0) {
+      this.props.history.push("/");
+      return;
+    }
+    const findID = async (id) => {
+      const item = await handleFindProductById(id);
+      return item;
+    };
+
+    // const tempArr = data.map(async (item) => {
+    //   let product = await handleFindProductById(item.pid)
+    //   product.quantity = item.quantity
+    //   product.price = item.price
+    //   console.log(product)
+    //   arr.push(product)
+    //   return product
+    // })
+
+    setTimeout(() => {
+      data.forEach((item) => {
+        let product = findID(item.pid);
+        product
+          .then((data) => {
+            const info = { ...data[0] };
+            info.quantity = item.quantity;
+            info.price = item.price;
+            console.log("info", info);
+            this.setState({ arr: [info, ...this.state.arr] });
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      });
+    }, 2000);
+
+    // console.log('Arr', arr)
+    // console.log('Data', data)
+    this.setState({
+      orderItem: data,
+      orderId: data[0].orderId,
+      createdAt: data[0].createdAt,
+      total: data[0].total,
+      address: data[0].address,
+      phone: data[0].phone,
+      delivery: data[0].delivery,
+      status: data[0].status,
+      // arr: arr,
+    });
+
     //console.log(this.props.match.params.id)
-    
   }
 
   render() {
-    console.log('Render: ', this.state.arr)
+    console.log("Render: ", this.state.arr);
     return (
-      <section className='ph-page'>
-        <div className='ph-container'>
-          <div className='ph-status'>
-            <div className='status'>
-              <h6 className='status-title'>Status: </h6>
-              <div className='status-order'>
+      <section className="ph-page">
+        <div className="ph-container">
+          <div className="ph-status">
+            <div className="status">
+              <h6 className="status-title">Status: </h6>
+              <div className="status-order">
                 <p>{this.state.status}</p>
               </div>
             </div>
-            <Link to='/'>Back to Home</Link>
+            <Link to="/">Back to Home</Link>
             {/* <a href=''>Back to Home</a> */}
           </div>
-          <div className='ph-order'>
-            <div className='order-info'>
-              <h3 className='info-title'>Order Number</h3>
-              <p className='info-content'>{this.state.orderId}</p>
+          <div className="ph-order">
+            <div className="order-info">
+              <h3 className="info-title">Order Number</h3>
+              <p className="info-content">{this.state.orderId}</p>
             </div>
-            <div className='order-info'>
-              <h3 className='info-title'>Date</h3>
-              <p className='info-content'>
-                {new Date(this.state.createdAt).toLocaleDateString('en-US', {
-                  year: 'numeric',
-                  month: 'long',
-                  day: 'numeric',
+            <div className="order-info">
+              <h3 className="info-title">Date</h3>
+              <p className="info-content">
+                {new Date(this.state.createdAt).toLocaleDateString("en-US", {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
                 })}
               </p>
             </div>
-            <div className='order-info'>
-              <h3 className='info-title'>Total</h3>
-              <p className='info-content'>${this.state.total}</p>
+            <div className="order-info">
+              <h3 className="info-title">Total</h3>
+              <p className="info-content">${this.state.total}</p>
             </div>
-            <div className='order-info'>
-              <h3 className='info-title'>Payment Method</h3>
-              <p className='info-content'>cod</p>
+            <div className="order-info">
+              <h3 className="info-title">Payment Method</h3>
+              <p className="info-content">cod</p>
             </div>
           </div>
-          <div className='ph-details'>
-            <div className='total-amount'>
-              <h2 className='detail-heading'>Total Amount</h2>
-              <div className='mb-15'>
-                <strong className='detail-body'>Sub Total</strong>
-                <span className='detail-info pl-62'>${this.state.total}</span>
+          <div className="ph-details">
+            <div className="total-amount">
+              <h2 className="detail-heading">Total Amount</h2>
+              <div className="mb-15">
+                <strong className="detail-body">Sub Total</strong>
+                <span className="detail-info pl-62">${this.state.total}</span>
               </div>
-              <div className='mb-15'>
-                <strong className='detail-body'>Shipping Charge</strong>
-                <span className='detail-info'>$0.00</span>
+              <div className="mb-15">
+                <strong className="detail-body">Shipping Charge</strong>
+                <span className="detail-info">$0.00</span>
               </div>
               {/* <div className='mb-15'>
                 <strong className='detail-body'>Discount</strong>
                 <span className='detail-info pl-66'>$0.00</span>
               </div> */}
-              <div className='mb-15'>
-                <strong className='detail-body'>Total</strong>
-                <span className='detail-info pl-91'>${this.state.total}</span>
+              <div className="mb-15">
+                <strong className="detail-body">Total</strong>
+                <span className="detail-info pl-91">${this.state.total}</span>
               </div>
             </div>
-            <div className='order-details'>
-              <h2 className='detail-heading'>Order Details</h2>
-              <div className='mb-15'>
-                <strong className='detail-body'>Total Item</strong>
-                <span className='detail-info pl-40'>
+            <div className="order-details">
+              <h2 className="detail-heading">Order Details</h2>
+              <div className="mb-15">
+                <strong className="detail-body">Total Item</strong>
+                <span className="detail-info pl-40">
                   {this.state.arr.reduce(
                     (totalItem, item) => totalItem + item.quantity,
                     0
-                  )}{' '}
+                  )}{" "}
                   Items
                 </span>
               </div>
-              <div className='mb-15'>
-                <strong className='detail-body'>Delivery Time</strong>
-                <span className='detail-info'>11:00 AM - 2:00 PM</span>
+              <div className="mb-15">
+                <strong className="detail-body">Delivery Time</strong>
+                <span className="detail-info">11:00 AM - 2:00 PM</span>
               </div>
-              <div className='mb-15'>
-                <strong className='detail-body'>Shipping Address</strong>
-                <div className='ship'>
-                  <span className='detail-address'>{this.state.address}</span>
+              <div className="mb-15">
+                <strong className="detail-body">Shipping Address</strong>
+                <div className="ship">
+                  <span className="detail-address">{this.state.address}</span>
                 </div>
               </div>
             </div>
           </div>
-          <table className='table bgc-grey'>
+          <table className="table bgc-grey">
             <thead>
               <tr>
-                <th className='w-58'>Item</th>
+                <th className="w-58">Item</th>
                 <th>Quantity</th>
                 <th>Price</th>
               </tr>
             </thead>
           </table>
-          <div className='ph-items overflow-auto'>
-            <table className='table table-borderless'>
+          <div className="ph-items overflow-auto">
+            <table className="table table-borderless">
               <tbody>
                 {this.state.arr.map((item) => {
                   //console.log('Item', item)
                   return (
                     <tr key={uuidv4()}>
                       <td>
-                        <div className='list-items'>
+                        <div className="list-items">
                           <img src={item.img} alt={item.title} />
-                          <div className='item-info'>
-                            <span className='item-name'>
-                              {item.title} x{' '}
-                              <span className='item-unit'>{item.unit}</span>
+                          <div className="item-info">
+                            <span className="item-name">
+                              {item.title} x{" "}
+                              <span className="item-unit">{item.unit}</span>
                             </span>
-                            <span className='item-price'>${item.price}</span>
+                            <span className="item-price">${item.price}</span>
                           </div>
                         </div>
                       </td>
                       <td>{item.quantity}</td>
-                      <td className='text-center'>
+                      <td className="text-center">
                         ${(item.price * item.quantity).toFixed(2)}
                       </td>
                     </tr>
-                  )
+                  );
                 })}
               </tbody>
             </table>
@@ -222,8 +271,8 @@ class PlaceOrder extends Component {
           </div> */}
         </div>
       </section>
-    )
+    );
   }
 }
 
-export default withRouter(PlaceOrder)
+export default withRouter(PlaceOrder);

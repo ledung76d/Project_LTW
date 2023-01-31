@@ -1,74 +1,79 @@
-import React, { Component } from 'react'
-import { Modal, Button, Form } from 'react-bootstrap'
-import ImageUpload from './ImageUpload'
-import { v4 as uuidv4 } from 'uuid'
-import { deleteProductById, handleGetCategoryById } from '../../../services/productService'
-import { cloudinaryUpload } from '../../../services/userService'
-import { connect } from 'react-redux';
+import React, { Component } from "react";
+import { Modal, Button, Form } from "react-bootstrap";
+import ImageUpload from "./ImageUpload";
+import { v4 as uuidv4 } from "uuid";
+import {
+  deleteProductById,
+  handleGetCategoryById,
+} from "../../../services/productService";
+import { cloudinaryUpload } from "../../../services/userService";
+import { connect } from "react-redux";
 import * as actions from "../../../store/actions";
-import adminService from '../../../services/adminService'
+import adminService from "../../../services/adminService";
+import Axios from "axios";
+
 class ProductList extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       files: [], // lưu props của ảnh
       showEdit: false, // hiện ẩn modal edit
       showDelete: false, // hiện ẩn modal edit
       details: { ...this.props.info }, // lưu các props của 1 sản phẩm
-      listCategory: null
-    }
+      listCategory: null,
+    };
   }
 
   async componentDidMount() {
-    let data = await handleGetCategoryById(this.state.details.pid)
+    let data = await handleGetCategoryById(this.state.details.pid);
     //console.log(data.category)
     this.setState({
-      listCategory: data.category
-    })
+      listCategory: data.category,
+    });
   }
 
   componentWillUnmount() {
     // Make sure to revoke the data uris to avoid memory leaks
-    this.state.files.forEach((file) => URL.revokeObjectURL(file.preview))
+    this.state.files.forEach((file) => URL.revokeObjectURL(file.preview));
   }
 
   addFile = (file) => {
-    console.log(file)
+    console.log(file);
     this.setState({
       files: file.map((file) =>
         Object.assign(file, {
           preview: URL.createObjectURL(file),
         })
       ),
-    })
-  }
+    });
+  };
 
-  handleCloseEdit = () => this.setState({ showEdit: false })
-  handleOpenEdit = () => this.setState({ showEdit: true })
+  handleCloseEdit = () => this.setState({ showEdit: false });
+  handleOpenEdit = () => this.setState({ showEdit: true });
 
-  handleCloseDelete = () => this.setState({ showDelete: false })
-  handleOpenDelete = () => this.setState({ showDelete: true })
+  handleCloseDelete = () => this.setState({ showDelete: false });
+  handleOpenDelete = () => this.setState({ showDelete: true });
 
   deleteProducts = (id) => {
-    this.handleOpenDelete()
+    this.handleOpenDelete();
     //console.log(id)
-  }
+  };
 
   editProducts = (id) => {
-    this.handleOpenEdit()
-    console.log(id)
-  }
+    this.handleOpenEdit();
+    console.log(id);
+  };
 
   onPreviewDrop = (files) => {
     this.setState({
       files: this.state.files.concat(files),
-    })
-  }
+    });
+  };
 
   handleClickBack = () => {
-    this.setState({ details: {} })
-    this.handleCloseEdit()
-  }
+    this.setState({ details: {} });
+    this.handleCloseEdit();
+  };
 
   handleClickUpdate = async () => {
     // this.props.info['title'] = this.state.details['title']
@@ -84,40 +89,51 @@ class ProductList extends Component {
       discount: Number.parseInt(this.state.details.discount),
       price: Number.parseFloat(this.state.details.price),
       quantity: Number.parseInt(this.state.details.quantity),
-    }
-    await adminService.handleUpdateProductByStore(product)
-    this.reRenderList()
-    this.handleCloseEdit()
-  }
+    };
+    await adminService.handleUpdateProductByStore(product);
+    this.reRenderList();
+    this.handleCloseEdit();
+  };
 
   handleClickCancel = () => {
-    this.handleCloseDelete()
-  }
+    this.handleCloseDelete();
+  };
 
   handleClickDelete = async () => {
     //console.log(this.props.info)
-    await deleteProductById(this.props.info.pid)
-    this.reRenderList()
-    this.handleCloseDelete()
-  }
+    await deleteProductById(this.props.info.pid);
+    this.reRenderList();
+    this.handleCloseDelete();
+  };
 
   //Render lai cac san pham sau khi sua xoa
   reRenderList = () => {
-    this.props.updateChange(this.props.sid)
-  }
+    this.props.updateChange(this.props.sid);
+  };
 
   onChangeInputImage = async (e) => {
-    let uploadData = new FormData()
-    uploadData.append('file', e.target.files[0], "file")
-    let tmp = await cloudinaryUpload(uploadData)
+    const cloudinaryEnv = {
+      cloud_name: process.env.REACT_APP_CLOUDINARY_CLOUD_NAME,
+      upload_preset: process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET,
+    };
+    let formData = new FormData();
+    formData.append("file", e.target.files[0], "file");
+    formData.append("upload_preset", cloudinaryEnv.upload_preset);
+
+    Axios.post(
+      `https://api.cloudinary.com/v1_1/${cloudinaryEnv.cloud_name}/image/upload`,
+      formData
+    ).then((res) => {
+      this.setState({
+        details: {
+          ...this.state.details,
+          img: res.data.secure_url,
+        },
+      });
+    });
+
     //console.log('Link',tmp)
-    this.setState({
-      details: {
-        ...this.state.details,
-        img: tmp.secure_url
-      }
-    })
-  }
+  };
 
   render() {
     const {
@@ -129,7 +145,7 @@ class ProductList extends Component {
       unit,
       content,
       discount,
-    } = this.props.info
+    } = this.props.info;
 
     return (
       <>
@@ -148,14 +164,14 @@ class ProductList extends Component {
             </td>
             <td>
               <i
-                className='far fa-trash-alt'
+                className="far fa-trash-alt"
                 onClick={() => this.deleteProducts(id)}
-              ></i>{' '}
+              ></i>{" "}
               {/* icon delete */}
               <i
-                className='far fa-edit'
+                className="far fa-edit"
                 onClick={() => this.editProducts(id)}
-              ></i>{' '}
+              ></i>{" "}
               {/* icon edit */}
             </td>
           </tr>
@@ -165,45 +181,49 @@ class ProductList extends Component {
         <Modal
           show={this.state.showEdit}
           onHide={this.handleCloseEdit}
-          backdrop='static'
+          backdrop="static"
           keyboard={false}
-          size='xl'
-          aria-labelledby='contained-modal-title-vcenter'
+          size="xl"
+          aria-labelledby="contained-modal-title-vcenter"
           centered
         >
           <Modal.Header>
-            <Modal.Title id='contained-modal-title-vcenter'>
+            <Modal.Title id="contained-modal-title-vcenter">
               Edit Product
             </Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <div className='upload-img-container'>
-              <div className='profile__infor-avatar'>
-                <label htmlFor="avatar" className='profile__infor-avatar-title'>
+            <div className="upload-img-container">
+              <div className="profile__infor-avatar">
+                <label htmlFor="avatar" className="profile__infor-avatar-title">
                   <i className="fas fa-cloud-upload-alt avatar_upload-icon"></i>
                   <br />
-                  <span className='avatar-title-bold'>UpLoad an image</span>
+                  <span className="avatar-title-bold">UpLoad an image</span>
                   &nbsp; or drag and drop
                   <br></br>
                   <span>PNG, JPG</span>
                 </label>
 
-                <input type="file"
-                  id="avatar" name="avatar"
+                <input
+                  type="file"
+                  id="avatar"
+                  name="avatar"
                   accept="image/png, image/jpeg"
-                  className='profile__infor-avatar-input'
+                  className="profile__infor-avatar-input"
                   onChange={(e) => this.onChangeInputImage(e)}
                 />
               </div>
-              <div className='avatar-img'>
-                <img src={this.state.details.img} alt='' width="100" height="100" />
+              <div className="avatar-img">
+                <img
+                  src={this.state.details.img}
+                  alt=""
+                  width="100"
+                  height="100"
+                />
               </div>
             </div>
-            <div className='gr-cate'>
-              
-              
-              
-              <div className='form-gr'>
+            <div className="gr-cate">
+              <div className="form-gr">
                 <Form.Group>
                   <Form.Label>Category</Form.Label>
                   {/* <Form.Control
@@ -212,14 +232,14 @@ class ProductList extends Component {
                     disabled
                     readOnly
                   /> */}
-                  <div className='item-categories-tag'>
+                  <div className="item-categories-tag">
                     {this.state.listCategory?.map((item, index) => {
-                      return <span key={index}>{item.title}</span>
+                      return <span key={index}>{item.title}</span>;
                     })}
                   </div>
                   <Form.Label>Name</Form.Label>
                   <Form.Control
-                    type='text'
+                    type="text"
                     defaultValue={name}
                     onChange={(e) =>
                       this.setState({
@@ -232,7 +252,7 @@ class ProductList extends Component {
                   />
                   <Form.Label>Unit</Form.Label>
                   <Form.Control
-                    type='text'
+                    type="text"
                     defaultValue={unit}
                     onChange={(e) =>
                       this.setState({
@@ -245,9 +265,9 @@ class ProductList extends Component {
                   />
                   <Form.Label>Description</Form.Label>
                   <Form.Control
-                    as='textarea'
+                    as="textarea"
                     defaultValue={content}
-                    className='description'
+                    className="description"
                     onChange={(e) =>
                       this.setState({
                         details: {
@@ -259,7 +279,7 @@ class ProductList extends Component {
                   />
                   <Form.Label>Price</Form.Label>
                   <Form.Control
-                    type='text'
+                    type="text"
                     defaultValue={price}
                     onChange={(e) =>
                       this.setState({
@@ -272,21 +292,20 @@ class ProductList extends Component {
                   />
                   <Form.Label>Sale Price</Form.Label>
                   <Form.Control
-                    type='text'
-                    defaultValue={
-                      discount
-                    }
+                    type="text"
+                    defaultValue={discount}
                     onChange={(e) =>
                       this.setState({
                         details: {
                           ...this.state.details,
                           discount: e.target.value,
                         },
-                      })}
+                      })
+                    }
                   />
                   <Form.Label>Quantity</Form.Label>
                   <Form.Control
-                    type='text'
+                    type="text"
                     defaultValue={quantity}
                     onChange={(e) =>
                       this.setState({
@@ -302,10 +321,10 @@ class ProductList extends Component {
             </div>
           </Modal.Body>
           <Modal.Footer>
-            <Button variant='secondary btn-back' onClick={this.handleClickBack}>
+            <Button variant="secondary btn-back" onClick={this.handleClickBack}>
               Back
             </Button>
-            <Button variant='success' onClick={this.handleClickUpdate}>
+            <Button variant="success" onClick={this.handleClickUpdate}>
               Update Products
             </Button>
           </Modal.Footer>
@@ -315,43 +334,41 @@ class ProductList extends Component {
         <Modal
           show={this.state.showDelete}
           onHide={this.handleCloseDelete}
-          aria-labelledby='contained-modal-title-vcenter'
+          aria-labelledby="contained-modal-title-vcenter"
           centered
-          dialogClassName='modal-delete'
+          dialogClassName="modal-delete"
         >
-          <Modal.Body className='modal-body-delete'>
-            <i className='far fa-trash-alt'></i>
-            <h3>Delete {this.props.info['title']}</h3>
+          <Modal.Body className="modal-body-delete">
+            <i className="far fa-trash-alt"></i>
+            <h3>Delete {this.props.info["title"]}</h3>
             <p>Are you sure, you want to delete?</p>
-            <div className='modal-btn-delete'>
-              <Button variant='success' onClick={this.handleClickCancel}>
+            <div className="modal-btn-delete">
+              <Button variant="success" onClick={this.handleClickCancel}>
                 Cancel
               </Button>
-              <Button variant='danger' onClick={this.handleClickDelete}>
+              <Button variant="danger" onClick={this.handleClickDelete}>
                 Delete
               </Button>
             </div>
           </Modal.Body>
         </Modal>
       </>
-    )
+    );
   }
 }
 
-
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     started: state.app.started,
     isLoggedIn: state.admin.isLoggedIn,
-    adminInfo: state.admin.adminInfo
+    adminInfo: state.admin.adminInfo,
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    changeAppMode: (payload) => dispatch(actions.changeAppMode(payload))
+    changeAppMode: (payload) => dispatch(actions.changeAppMode(payload)),
   };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductList);
-
