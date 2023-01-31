@@ -22,6 +22,17 @@ jobs:
       run:
         working-directory: "infra"
     steps:
+      - name: Wait for app-prod workflow to finish, if running
+        uses: lewagon/wait-on-check-action@v1.2.0
+        id: wait-for-app-prod
+        with:
+          ref: ${{ github.ref }}
+          check-name: 'Build and push Docker image'
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          wait-interval: 30
+          timeout: 600
+        continue-on-error: true
+
       - name: Checkout
         uses: actions/checkout@v2
 
