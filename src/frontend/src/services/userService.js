@@ -43,7 +43,8 @@ let handleGetOrderByUserId = (cid) => {
 };
 
 let cloudinaryUpload = (fileToUpload) => {
-  return axios("/cloudinary-upload", {
+  console.log(fileToUpload);
+  return axios("/api/cloudinary-upload", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

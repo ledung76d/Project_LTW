@@ -60,6 +60,7 @@ class ProductsContainer extends Component {
 
   onChangeInputImage = async (e) => {
     let uploadData = new FormData();
+    
     uploadData.append("file", e.target.files[0], "file");
     let tmp = await cloudinaryUpload(uploadData);
     //console.log('Link',tmp)
@@ -129,8 +130,7 @@ class ProductsContainer extends Component {
       discount: Number.parseInt(this.state.details.discount),
       price: Number.parseFloat(this.state.details.price),
       quantity: Number.parseInt(this.state.details.quantity),
-      // img: this.state.tmpImg,
-      img: "https://toigingiuvedep.vn/wp-content/uploads/2022/01/anh-meo-cute.jpg",
+      img: this.state.tmpImg,
       sid: this.props.adminInfo.sid,
     };
     console.log("Add: ", product);

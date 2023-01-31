@@ -65,10 +65,11 @@ class ProductCategoryController extends Controller
 
     public function addProductCategory(Request $request)
     {
-        $productCategory = new ProductCategory();
-        $productCategory-> pid = $request->pid;
-        $productCategory-> category_id = $request->category_id;
-        $productCategory->save();
+        $productCategory = ProductCategory::create([
+            'category_id' => $request->categoryId,
+            'pid' => $request->pid,
+        ]);
+       
         return response()->json($productCategory);
     }
 }

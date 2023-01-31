@@ -2,9 +2,12 @@
     "name": "laravel/laravel",
     "type": "project",
     "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
+    "keywords": [
+        "framework",
+        "laravel"
+    ],
     "license": "MIT",
-    "repositories":[
+    "repositories": [
         {
             "type": "vcs",
             "url": "https://github.com/quanganhquanganh/firebase-authentication"
@@ -16,7 +19,8 @@
         "laravel/framework": "^9.19",
         "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7",
-        "quanganhquanganh/firebase-authentication": "dev-master"
+        "quanganhquanganh/firebase-authentication": "dev-master",
+        "cloudinary/cloudinary_php": "^2"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

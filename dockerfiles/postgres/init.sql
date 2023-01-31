@@ -61,7 +61,9 @@ CREATE TABLE "category"(
 CREATE TABLE "product_category"(
     "pid" INT NOT NULL,
     category_id INT NOT NULL,
-    CONSTRAINT FK_categorys FOREIGN KEY ("category_id") REFERENCES "category" ("id") ON DELETE CASCADE,
+    created_at TIMESTAMP NOT NULL DEFAULT now(),
+    updated_at TIMESTAMP NOT NULL DEFAULT now(),
+    FOREIGN KEY ("category_id") REFERENCES "category" ("id") ON DELETE CASCADE,
     FOREIGN KEY ("pid") REFERENCES "product" ("pid") ON DELETE CASCADE,
     CONSTRAINT PK_product_category PRIMARY KEY ("pid", "category_id")
 );

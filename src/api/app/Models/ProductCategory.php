@@ -16,15 +16,16 @@ class ProductCategory extends Model
     /** 
      * Primary key associated with the table.
      */
-   
 
+    protected $primaryKey = null;
+    public $incrementing = false;
     /**
      * Get the product that owns the product_category.
      */
 
     public function product()
     {
-        return $this->belongsTo(Product::class,'pid');
+        return $this->belongsTo(Product::class, 'pid');
     }
 
     /**
@@ -33,6 +34,6 @@ class ProductCategory extends Model
 
     public function category()
     {
-        return $this->belongsTo(Category::class,'category_id');
+        return $this->belongsTo(Category::class, 'category_id');
     }
 }

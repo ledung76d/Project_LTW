@@ -6,6 +6,7 @@ use App\Models\Product;
 use App\Models\ProductCategory;
 use App\Models\Store;
 use Illuminate\Http\Request;
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 
 class ProductController extends Controller
 {
@@ -126,5 +127,13 @@ class ProductController extends Controller
             $product,
          200);
     }
-        
+    
+    public function cloudinaryUpload($request){
+        $image = $request->file('file');
+        $uploadedFileUrl = Cloudinary::upload($request->file('file')->getRealPath())->getSecurePath();
+        return response()->json([
+            'status' => 'success',
+            'data' => $uploadedFileUrl,
+        ], 200);
+    }
 }
