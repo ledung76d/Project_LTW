@@ -27,7 +27,7 @@ jobs:
         id: wait-for-app-prod
         with:
           ref: ${{ github.ref }}
-          check-name: 'Build and push Docker image'
+          running-workflow-name: pick-bazar-app-prod
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           wait-interval: 30
           timeout: 600
