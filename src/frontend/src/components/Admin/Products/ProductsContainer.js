@@ -378,14 +378,14 @@ class ProductsContainer extends Component {
                     disabled
                     readOnly
                   /> */}
-                  {/* <Multiselect
+                  <Multiselect
                     options={this.state?.category} // Options to display in the dropdown
                     selectedValues={this.state.selectedValue} // Preselected value to persist in dropdown
                     onSelect={this.onSelect} // Function will trigger on select event
                     onRemove={this.onRemove} // Function will trigger on remove event
                     displayValue="title" // Property name to display in the dropdown options
                     placeholder="Select product category"
-                  /> */}
+                  />
                   <Form.Label>Name</Form.Label>
                   <Form.Control
                     type="text"
