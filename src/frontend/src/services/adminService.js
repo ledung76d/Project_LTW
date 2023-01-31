@@ -7,7 +7,7 @@ const adminService = {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Bearer " + localStorage.getItem("token"),
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
       data: JSON.stringify({
         storeName: userName,
@@ -21,7 +21,7 @@ const adminService = {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Bearer " + localStorage.getItem("token"),
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
     });
   },
@@ -31,7 +31,7 @@ const adminService = {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Bearer " + localStorage.getItem("token"),
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
       params: {
         orderId: orderId,
@@ -45,7 +45,7 @@ const adminService = {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Bearer " + localStorage.getItem("token"),
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
       data: JSON.stringify({
         orderId: orderId,
@@ -59,7 +59,7 @@ const adminService = {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Bearer " + localStorage.getItem("token"),
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
     });
   },
@@ -69,7 +69,7 @@ const adminService = {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Bearer " + localStorage.getItem("token"),
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
       data: JSON.stringify(data),
     });
@@ -80,7 +80,7 @@ const adminService = {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Bearer " + localStorage.getItem("token"),
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
     });
   },
@@ -90,7 +90,7 @@ const adminService = {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Bearer " + localStorage.getItem("token"),
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
       data: JSON.stringify(data),
     });
@@ -101,7 +101,7 @@ const adminService = {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Bearer " + localStorage.getItem("token"),
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
       data: JSON.stringify(data),
     });
@@ -112,7 +112,7 @@ const adminService = {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Bearer " + localStorage.getItem("token"),
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
       data: JSON.stringify(data),
     });
@@ -123,7 +123,7 @@ const adminService = {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Bearer " + localStorage.getItem("token"),
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
     });
   },
@@ -133,7 +133,7 @@ const adminService = {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Bearer " + localStorage.getItem("token"),
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
     });
   },
@@ -143,7 +143,7 @@ const adminService = {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Bearer " + localStorage.getItem("token"),
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
     });
   },
@@ -153,11 +153,11 @@ const adminService = {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Bearer " + localStorage.getItem("token"),
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
       data: JSON.stringify(data),
     });
-  }
+  },
 };
 
 export default adminService;

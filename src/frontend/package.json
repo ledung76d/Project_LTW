@@ -53,6 +53,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint --ext .js,.jsx,.ts,.tsx src/; exit 0",
+    "lint:fix": "eslint --fix --ext .js,.jsx,.ts,.tsx src/; exit 0",
     "lint:report": "eslint --output-file eslint_report.json --format json src; exit 0"
   },
   "eslintConfig": {

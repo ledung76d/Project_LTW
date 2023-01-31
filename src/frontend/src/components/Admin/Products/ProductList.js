@@ -209,8 +209,8 @@ class ProductList extends Component {
                 />
               </div>
             </div>
-            <div className='gr-cate'>
-              <div className='form-gr'>
+            <div className="gr-cate">
+              <div className="form-gr">
                 <Form.Group>
                   <Form.Label>Category</Form.Label>
                   {/* <Form.Control

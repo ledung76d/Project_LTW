@@ -60,23 +60,6 @@ jobs:
         with:
           verboseMode: true
         continue-on-error: true
-      - name: "Lint Results"
-        uses: actions/github-script@v6
-        if: github.event_name == 'pull_request'
-        with:
-          github-token: ${{secrets.GITHUB_TOKEN}}
-          script: |
-            const output = `## Laravel Results
-            <details><summary>Show Laravel Results</summary>
-            ${{ steps.pint.outputs.stdout }}
-            </details>
-            *Pusher: @${{ github.actor }}, Action: \`${{ github.event_name }}\`*`;
-            github.rest.issues.createComment ({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: output
-            })
 
   docker:
     runs-on: ubuntu-latest
