@@ -114,6 +114,15 @@ jobs:
           sed -i "s|image = \"${{ env.FRONTEND_TAG }}:.*\"|image = \"${{ env.FRONTEND_TAG }}:${{ github.sha }}\"|g" infra/app.tf
           sed -i "s|image = \"${{ env.LARAVEL_TAG }}:.*\"|image = \"${{ env.LARAVEL_TAG }}:${{ github.sha }}\"|g" infra/app.tf
       
+      - uses: dorny/paths-filter@v2
+        id: filter
+        with:
+          filters: |
+            infra:
+              - 'infra/**'
+            readme:
+              - '**/README.md'
+      
       - name: Commit the changes
         uses: EndBug/add-and-commit@v9
         with:
@@ -121,3 +130,11 @@ jobs:
           author_email: "quanganhdb2510@gmail.com"
           message: "BOT: Update the images' tags in app.tf [skip ci]"
           add: "infra/app.tf"
+
+      - name: Run infra-prod workflow
+        if : (steps.filter.outputs.infra == 'true' && steps.filter.outputs.readme != 'true') == false
+        uses: benc-uk/workflow-dispatch@v1
+        with:
+          workflow: infra-prod.yaml
+          token: ${{ secrets.GITHUB_TOKEN }}
+          inputs: '{"sha": "${{ github.sha }}"}'
