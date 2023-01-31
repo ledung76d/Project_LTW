@@ -1,5 +1,4 @@
 import axios from "../axios";
-import * as queryString from "query-string";
 
 const adminService = {
   login(userName, passWord) {
