@@ -86,7 +86,7 @@ jobs:
         uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
         with:
           context: ./src/frontend
-          file: Dockerfile
+          file: ./src/frontend/Dockerfile
           push: true
           tags: |
             ${{ env.FRONTEND_TAG }}:${{ github.sha }}-dev
@@ -98,7 +98,7 @@ jobs:
         uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
         with:
           context: ./src/api
-          file: Dockerfile
+          file: ./src/api/Dockerfile
           push: true
           tags: |
             ${{ env.LARAVEL_TAG }}:${{ github.sha }}-dev
