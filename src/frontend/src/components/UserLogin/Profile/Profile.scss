@@ -14,7 +14,6 @@
     background-color: var(--gray-color);
    
     display: flex;
-    padding: 40px 20px;
 
     .userLogin {
         margin: 56px 32px 56px 56px;
@@ -216,27 +215,28 @@
 
             }
 
-            .profile__infor-btn {
-                display: flex;
-                justify-content: right;
+           
+        }
+        .profile__infor-btn {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            .profile__infor-btn--save {
+                background-color: var(--green-color);
+                border: none;
+                color: var(--white-color);
+                height: 48px;
+                padding: 0 20px;
+                border-radius: 4px;
+                font-size: 16px;
+                font-weight: 600;
+                width: 100%;
+            }
 
-                .profile__infor-btn--save {
-                    background-color: var(--green-color);
-                    border: none;
-                    color: var(--white-color);
-                    height: 48px;
-                    padding: 0 20px;
-                    border-radius: 4px;
-                    font-size: 16px;
-                    font-weight: 600;
-                }
-
-                .profile__infor-btn--save:hover {
-                    background-color: #03866c;
-                }
+            .profile__infor-btn--save:hover {
+                background-color: #03866c;
             }
         }
-
         .profile__contact {
             border-radius: 4px;
             border: 1px solid rgba(0, 0, 0, 0.1);
@@ -263,13 +263,15 @@
             }
 
             .profile__contact-phone {
+                height: 46px;
                 border-radius: 4px;
                 background-color: var(--gray-color);
                 padding: 16px;
                 margin-bottom: 0;
                 // width: 30%;
                 border: 1px solid #fff;
-
+                display: flex;
+                align-items: center;
                 span {
                     font-size: 14px;
                     font-weight: 600;
@@ -294,10 +296,8 @@
                 padding: 16px;
                 border-radius: 4px;
                 width: 100%;
-                margin-right: 20px;
                 cursor: pointer;
                 border: 1px solid #fff;
-                margin-top: 12px;
 
                 .profile__address-title {
                     font-weight: 600;
@@ -316,6 +316,7 @@
     .profile__update-contact-title {
         text-align: center;
         font-weight: 600;
+        font-size: 24px;
 
 
     }
@@ -324,8 +325,8 @@
         display: flex;
 
         .profile__update-contact-input {
-            width: 60%;
-            margin-left: 34px;
+            width: 100%;
+            padding-left: 14px;
             border-radius: 8px 0 0 8px;
             border: 1px solid rgba(0, 0, 0, 0.1);
         }
@@ -350,6 +351,13 @@
 
     }
 
+    .error-phone {
+        color: red;
+        font-size: 12px;
+        margin-top: 8px;
+        margin-left: 8px;
+    }
+
 }
 
 .form__address {
@@ -358,7 +366,7 @@
     flex-direction: column;
 
     .form__address-title {
-        font-size: 18px;
+        font-size: 24px;
         font-weight: 600;
         text-align: center;
         color: var(--black-color);
@@ -463,7 +471,7 @@
             .profile__address{
                 flex-direction: row;
                 .profile__address-bill{
-                    width: 40%;
+                    width: 100%;
                 }
             }
     }

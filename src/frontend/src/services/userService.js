@@ -1,39 +1,75 @@
-import axios from '../axios'
+import axios from "../axios";
 
-let handleLogin = (email,passWord)=>{
-    return axios.post('/api/login',{
-        userName: email,
-        passWord:passWord
-    })
-}
+let handleGetInfoUser = () => {
+  return axios("/api/user/get-info-user", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
+  });
+};
 
+let handleSaveInfoUser = (data) => {
+  return axios("/api/user/save-info-user", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
+    data: JSON.stringify(data),
+  });
+};
 
-let handleSaveOrder = (order)=>{
-    return axios.post('/api/save-order',order)
-}
+let handleSaveOrder = (order) => {
+  return axios("/api/save-order", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
+    data: JSON.stringify(order),
+  });
+};
 
-let handleGetOrderByUserId = (cid)=>{
-    return axios.get(`/api/find-order-by-userid?id=${cid}`)
-}
-
-
-let handleChangePassWord = (data)=>{
-    return axios.post('/api/change-password',data)
-}
+let handleGetOrderByUserId = (cid) => {
+  return axios(`/api/find-order-by-userid?id=${cid}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
+  });
+};
 
 let cloudinaryUpload = (fileToUpload) => {
-    return axios.post('/cloudinary-upload', fileToUpload)
-    // .then(res => res.data)
-    // .catch(err => console.log(err))
-}
+  return axios("/cloudinary-upload", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
+    data: JSON.stringify(fileToUpload),
+  });
+  // .then(res => res.data)
+  // .catch(err => console.log(err))
+};
 
-let changeFLA = (data)=>{
-    return axios.post('/api/change-fla',data)
-}
+let handleGetUserInfoByCid = (cid) => {
+  return axios(`/api/get-userinfo-by-cid?cid=${cid}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
+  });
+};
 
-
-let handleGetUserInfoByCid = (cid)=>{
-    return axios.get(`/api/get-userinfo-by-cid?cid=${cid}`)
-}
-
-export {handleLogin,handleSaveOrder,handleGetOrderByUserId,handleChangePassWord,cloudinaryUpload,changeFLA,handleGetUserInfoByCid}
+export {
+  handleGetInfoUser,
+  handleSaveInfoUser,
+  handleSaveOrder,
+  handleGetOrderByUserId,
+  cloudinaryUpload,
+  handleGetUserInfoByCid,
+};
