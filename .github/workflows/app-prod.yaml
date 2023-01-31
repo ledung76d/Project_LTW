@@ -121,7 +121,8 @@ jobs:
             infra:
               - 'infra/**'
             readme:
-              - '**/README.md'
+              - 'infra/**/README.md'
+              - 'infra/README.md
       
       - name: Commit the changes
         uses: EndBug/add-and-commit@v9
