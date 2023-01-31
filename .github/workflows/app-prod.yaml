@@ -55,28 +55,12 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: "Test Laravel Code"
-        uses: Argavyon/laravel-pint-action@7b0629439cc7fbb69ba61aba1ec86090659d3d77 
-        id: pint
+        uses: aglipanci/laravel-pint-action@2.0.0
         with:
+          preset: laravel
           verboseMode: true
+          pintVersion: 1.2.1
         continue-on-error: true
-      - name: "Lint Results"
-        uses: actions/github-script@v6
-        if: github.event_name == 'pull_request'
-        with:
-          github-token: ${{secrets.GITHUB_TOKEN}}
-          script: |
-            const output = `## Laravel Results
-            <details><summary>Show Laravel Results</summary>
-            ${{ steps.pint.outputs.stdout }}
-            </details>
-            *Pusher: @${{ github.actor }}, Action: \`${{ github.event_name }}\`*`;
-            github.rest.issues.createComment ({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: output
-            })
 
   docker:
     runs-on: ubuntu-latest
@@ -102,7 +86,7 @@ jobs:
       - name: Build and push Docker image for frontend
         uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
         with:
-          context: .
+          context: ./src/frontend
           file: ./src/frontend/Dockerfile
           push: true
           tags: |
@@ -114,7 +98,7 @@ jobs:
       - name: Build and push Docker image for laravel
         uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
         with:
-          context: .
+          context: ./src/api
           file: ./src/api/Dockerfile
           push: true
           tags: |
@@ -134,5 +118,12 @@ jobs:
         with:
           author_name: "Pick Bazar Bot"
           author_email: "quanganhdb2510@gmail.com"
-          message: "BOT: Update the images' tags in app.tf"
+          message: "BOT: Update the images' tags in app.tf [skip ci]"
           add: "infra/app.tf"
+
+      - name: Invoke infra-prod workflow
+        uses: benc-uk/workflow-dispatch@v1
+        with:
+          workflow: infra-prod
+          token: ${{ secrets.GITHUB_TOKEN }}
+          inputs: '{"sha": "${{ github.sha }}"}'

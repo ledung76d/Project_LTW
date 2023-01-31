@@ -55,10 +55,11 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: "Test Laravel Code"
-        uses: Argavyon/laravel-pint-action@7b0629439cc7fbb69ba61aba1ec86090659d3d77 
-        id: pint
+        uses: aglipanci/laravel-pint-action@2.0.0
         with:
+          preset: laravel
           verboseMode: true
+          pintVersion: 1.2.1
         continue-on-error: true
 
   docker:
@@ -117,5 +118,5 @@ jobs:
         with:
           author_name: "Pick Bazar Bot"
           author_email: "quanganhdb2510@gmail.com"
-          message: "BOT: Update the images' tags in app.tf"
+          message: "BOT: Update the images' tags in app.tf [skip ci]"
           add: "infra/app.tf"
