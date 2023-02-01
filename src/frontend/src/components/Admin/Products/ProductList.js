@@ -11,7 +11,6 @@ import { connect } from "react-redux";
 import * as actions from "../../../store/actions";
 import adminService from "../../../services/adminService";
 import Axios from "axios";
-
 class ProductList extends Component {
   constructor(props) {
     super(props);
@@ -133,7 +132,14 @@ class ProductList extends Component {
     });
 
     //console.log('Link',tmp)
+    this.setState({
+      details: {
+        ...this.state.details,
+        img: tmp.secure_url,
+      },
+    });
   };
+  
 
   render() {
     const {
@@ -145,6 +151,7 @@ class ProductList extends Component {
       unit,
       content,
       discount,
+      status,
     } = this.props.info;
 
     return (
@@ -160,7 +167,9 @@ class ProductList extends Component {
             <td>${price}</td>
             <td>{quantity}</td>
             <td>
-              <span>publish</span>
+              <span 
+                className={status === "active" ? "active-bg" : "deleted-bg"}
+              >{status}</span>
             </td>
             <td>
               <i

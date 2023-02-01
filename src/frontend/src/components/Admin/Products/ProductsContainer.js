@@ -182,7 +182,8 @@ class ProductsContainer extends Component {
   };
 
   handlePage = (e) => {
-    this.setState({ page: e.selected });
+    const dataPage = this.state.data[e.selected];
+    this.setState({ page: e.selected, products: dataPage });
   };
 
   onSelect = (selectedList, selectedItem) => {
@@ -203,7 +204,6 @@ class ProductsContainer extends Component {
       sortBy: this.state.filterByGroup,
       category: this.state.filterByCategory,
     };
-    console.log(data);
     let out = await adminService.handleSearchByFilter(data);
     console.log("Out:", out);
     this.setState({

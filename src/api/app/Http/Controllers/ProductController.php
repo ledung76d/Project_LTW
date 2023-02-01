@@ -73,7 +73,7 @@ class ProductController extends Controller
         if ($category) {
             $pid = $pid->where('category.title', 'like', $category);
         }
-        $product = Product::whereIn('pid', $pid)->get();
+        $product = Product::whereIn('pid', $pid)->where('status', '=','active')->get();
         return response()->json([
             'status' => 'success',
             'products' => $product,
@@ -111,7 +111,8 @@ class ProductController extends Controller
     public function deleteProductByPId(Request $request)
     {
         $pid = $request->pid;
-        $product = Product::where('pid', $pid)->delete();
+        //change status to 
+        $product = Product::where('pid', $pid)->update(['status' => 'deleted']);
         return response()->json([
             'status' => 'success',
             'data' => $product,

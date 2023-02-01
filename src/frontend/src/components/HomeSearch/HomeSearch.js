@@ -10,7 +10,6 @@ class HomeSearch extends React.Component {
   }
 
   handleSearchProduct = () => {
-    console.log("Clicked");
     this.props.searchProduct(this.state.searchText);
   };
 

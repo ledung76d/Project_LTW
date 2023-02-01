@@ -141,7 +141,6 @@
     span {
         width: 73px;
         height: 25px;
-        background-color: #009f7f;
         border-radius: 9999px;
         color: #ffffff;
         font-size: 12px;
@@ -149,6 +148,16 @@
         padding: 4px 12px;
         text-align: center;
         text-transform: uppercase;
+    }
+    
+    .active-bg {
+        background-color: #009f7f;
+        color: #ffffff;
+    }
+
+    .deleted-bg {
+        background-color: #ff0000;
+        color: #ffffff;
     }
 
     i {

@@ -5,7 +5,7 @@ let handleGetInfoUser = () => {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
-      Authorization: "Bearer " + localStorage.getItem("token"),
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
     },
   });
 };
@@ -15,7 +15,7 @@ let handleSaveInfoUser = (data) => {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      Authorization: "Bearer " + localStorage.getItem("token"),
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
     },
     data: JSON.stringify(data),
   });
@@ -26,7 +26,7 @@ let handleSaveOrder = (order) => {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      Authorization: "Bearer " + localStorage.getItem("token"),
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
     },
     data: JSON.stringify(order),
   });
@@ -37,7 +37,7 @@ let handleGetOrderByUserId = (cid) => {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
-      Authorization: "Bearer " + localStorage.getItem("token"),
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
     },
   });
 };
@@ -48,7 +48,7 @@ let cloudinaryUpload = (fileToUpload) => {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      Authorization: "Bearer " + localStorage.getItem("token"),
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
     },
     data: JSON.stringify(fileToUpload),
   });
@@ -61,7 +61,7 @@ let handleGetUserInfoByCid = (cid) => {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
-      Authorization: "Bearer " + localStorage.getItem("token"),
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
     },
   });
 };
