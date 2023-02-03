@@ -6,6 +6,7 @@ use App\Models\Product;
 use App\Models\ProductCategory;
 use App\Models\Store;
 use Illuminate\Http\Request;
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 
 class ProductController extends Controller
 {
@@ -72,7 +73,7 @@ class ProductController extends Controller
         if ($category) {
             $pid = $pid->where('category.title', 'like', $category);
         }
-        $product = Product::whereIn('pid', $pid)->get();
+        $product = Product::whereIn('pid', $pid)->where('status', '=','active')->get();
         return response()->json([
             'status' => 'success',
             'products' => $product,
@@ -110,7 +111,8 @@ class ProductController extends Controller
     public function deleteProductByPId(Request $request)
     {
         $pid = $request->pid;
-        $product = Product::where('pid', $pid)->delete();
+        //change status to 
+        $product = Product::where('pid', $pid)->update(['status' => 'deleted']);
         return response()->json([
             'status' => 'success',
             'data' => $product,
@@ -126,5 +128,13 @@ class ProductController extends Controller
             $product,
          200);
     }
-        
+    
+    public function cloudinaryUpload($request){
+        $image = $request->file('file');
+        $uploadedFileUrl = Cloudinary::upload($request->file('file')->getRealPath())->getSecurePath();
+        return response()->json([
+            'status' => 'success',
+            'data' => $uploadedFileUrl,
+        ], 200);
+    }
 }

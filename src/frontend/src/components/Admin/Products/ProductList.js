@@ -10,6 +10,7 @@ import { cloudinaryUpload } from "../../../services/userService";
 import { connect } from "react-redux";
 import * as actions from "../../../store/actions";
 import adminService from "../../../services/adminService";
+import Axios from "axios";
 class ProductList extends Component {
   constructor(props) {
     super(props);
@@ -110,9 +111,26 @@ class ProductList extends Component {
   };
 
   onChangeInputImage = async (e) => {
-    let uploadData = new FormData();
-    uploadData.append("file", e.target.files[0], "file");
-    let tmp = await cloudinaryUpload(uploadData);
+    const cloudinaryEnv = {
+      cloud_name: process.env.REACT_APP_CLOUDINARY_CLOUD_NAME,
+      upload_preset: process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET,
+    };
+    let formData = new FormData();
+    formData.append("file", e.target.files[0], "file");
+    formData.append("upload_preset", cloudinaryEnv.upload_preset);
+
+    Axios.post(
+      `https://api.cloudinary.com/v1_1/${cloudinaryEnv.cloud_name}/image/upload`,
+      formData
+    ).then((res) => {
+      this.setState({
+        details: {
+          ...this.state.details,
+          img: res.data.secure_url,
+        },
+      });
+    });
+
     //console.log('Link',tmp)
     this.setState({
       details: {
@@ -132,6 +150,7 @@ class ProductList extends Component {
       unit,
       content,
       discount,
+      status,
     } = this.props.info;
 
     return (
@@ -147,7 +166,9 @@ class ProductList extends Component {
             <td>${price}</td>
             <td>{quantity}</td>
             <td>
-              <span>publish</span>
+              <span 
+                className={status === "active" ? "active-bg" : "deleted-bg"}
+              >{status}</span>
             </td>
             <td>
               <i

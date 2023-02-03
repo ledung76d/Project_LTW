@@ -8,6 +8,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\StoreController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProductCategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -50,6 +51,11 @@ Route::middleware(['api'])->group(function () {
     Route::get('/get-userinfo-by-cid', [UserController::class, 'getUserInfoByCId']);
     // Route::get('/total30day', [UserController::class, 'total30day']);
     
+    //ProductCategory
+    Route::post('/add-product-category', [ProductCategoryController::class, 'addProductCategory']);
+
+    //Upload Image
+    Route::post('/cloudinary-upload', [ProductController::class, 'cloudinaryUpload']);
 });
 
 //Product

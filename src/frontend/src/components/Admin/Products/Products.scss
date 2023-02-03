@@ -141,7 +141,6 @@
     span {
         width: 73px;
         height: 25px;
-        background-color: #009f7f;
         border-radius: 9999px;
         color: #ffffff;
         font-size: 12px;
@@ -149,6 +148,16 @@
         padding: 4px 12px;
         text-align: center;
         text-transform: uppercase;
+    }
+    
+    .active-bg {
+        background-color: #009f7f;
+        color: #ffffff;
+    }
+
+    .deleted-bg {
+        background-color: #ff0000;
+        color: #ffffff;
     }
 
     i {
@@ -244,7 +253,6 @@
 }
 
 .modal-header {
-    border-radius: 15px !important;
     height: 60px !important;
     background-color: #009f7f !important;
 }
@@ -316,7 +324,7 @@
 
 .upload-img-container {
     .profile__infor-avatar {
-        margin-bottom: 32px;
+        margin: 8px 34px;
         border: 2px dashed rgba(0, 0, 0, 0.1);
         border-radius: 4px;
         //height       : 140px; //
@@ -356,7 +364,7 @@
         width: 100px;
         height: 100px;
         display: block;
-
+        margin-left: 35px;
         .img {
             width: 100px;
             height: 100px;

@@ -146,9 +146,12 @@ class StoreController extends Controller
             'unit' => $request->unit,
 
         ]);
+        $insertId = Product::select('pid')->where('sid', Auth::user()->id)->orderBy('pid', 'desc')->first();
+        $insertId = $insertId->pid;
         return response()->json([
             'status' => 'success',
             'data' => $product,
+            'insertId' => $insertId,
         ], 200);
     }
 
