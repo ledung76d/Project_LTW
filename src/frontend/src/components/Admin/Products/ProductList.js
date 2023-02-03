@@ -139,7 +139,6 @@ class ProductList extends Component {
       },
     });
   };
-  
 
   render() {
     const {
