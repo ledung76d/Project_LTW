@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Order;
 use App\Models\OrderItem;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Resources\OrderResource;
 
@@ -43,18 +44,23 @@ class OrderController extends Controller
 
     public function saveToOrderItem(Request $request)
     {
-            
+        
         $orderItem = OrderItem::create([
             'order_id' => $request->orderId,
             'pid' => $request->pid,
             'quantity' => $request->quantity,
             'price' => $request->price,
-        ]);
+        ]); 
+      
+        $product = Product::find($request->pid)
+        ->where('quantity', '>', 0) ->decrement('quantity', $request->quantity);
+         
         return response()->json([
-           $orderItem
-        ], 200);
+           $orderItem,
+              $product
+        ] , 200);
             
-        
+       
     }
 
     public function findOrderById(Request $request)
@@ -72,6 +78,8 @@ class OrderController extends Controller
 
         
     }
+
+    
 
     public function findOrderByUserId(Request $request)
     {

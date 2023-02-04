@@ -5,6 +5,7 @@ import { Modal } from "reactstrap";
 import * as actions from "../../store/actions";
 import "./ViewProduct.scss";
 import ViewProductDetail from "./ViewProductDetail";
+import { toast } from "react-toastify";
 
 class ViewProduct extends Component {
   constructor(props) {
@@ -29,7 +30,17 @@ class ViewProduct extends Component {
     console.log(
       `Hien tai: ${this.state.quatily} Tong: ${this.state.product.quantity}`
     );
-    if (this.state.quatily === this.state.product.quantity) return;
+    if (this.state.product.quantity === 0 || this.state.quatily === this.state.product.quantity) {
+      toast.error("Out of stock", {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,})
+        return;
+    }
     this.props.AddCart(this.state.product);
     let quatilyItem = this.state.quatily + 1;
     this.setState({
