@@ -63,13 +63,13 @@ class YourOrder extends Component {
             Place Order
           </button>
         ) : (
-          <Link
-            to="/placeorder"
+          <button
+            // to="/placeorder"
             className="btn btn-primary link-order btn-lg"
             onClick={() => this.handleSaveOrder()}
           >
             Place Order
-          </Link>
+          </button>
         )}
         {/* </button> */}
       </div>

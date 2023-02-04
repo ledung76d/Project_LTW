@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle, no-unused-vars */
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { push } from "connected-react-router";
@@ -13,6 +14,7 @@ import { handleGetInfoUser, handleSaveOrder } from "../../services/userService";
 import { handleSaveToOrderItem } from "../../services/productService";
 import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
+import { Spinner } from "react-bootstrap";
 class Checkout extends Component {
   constructor(props) {
     super(props);
@@ -25,6 +27,7 @@ class Checkout extends Component {
       mesPhone: "",
       mesAddress: "",
       check: "",
+      loading: false,
     };
   }
 
@@ -79,31 +82,39 @@ class Checkout extends Component {
   }
 
   saveOrder = async () => {
-    let orderId = this.makeid(8);
-    //Save order
-    let order = {
-      orderId: orderId,
-      cid: this.state.userInfo.cid,
-      status: "Order Received",
-      total: this.sumCart(),
-      phone: this.state.phone,
-      address: this.state.address,
-      delivery: this.state.delivery,
-    };
-
-    await handleSaveOrder(order);
-    //Save order item
-
-    this.props.Carts.map(async (item) => {
-      // console.log('Item',item)
-      item.orderId = orderId;
-      await handleSaveToOrderItem(item);
+    this.setState({
+      loading: true,
     });
-    this.props.DeleteCart();
-    //console.log( typeof orderId)
-    setTimeout(() => {
+    let orderId = this.makeid(8);
+    try {
+      //Save order
+      let order = {
+        orderId: orderId,
+        cid: this.state.userInfo.cid,
+        status: "Order Received",
+        total: this.sumCart(),
+        phone: this.state.phone,
+        address: this.state.address,
+        delivery: this.state.delivery,
+      };
+
+      await handleSaveOrder(order);
+      //Save order item
+
+      this.props.Carts.map(async (item) => {
+        // console.log('Item',item)
+        item.orderId = orderId;
+        await handleSaveToOrderItem(item);
+      });
+      this.props.DeleteCart();
+      console.log("this.props.history", this.props.history);
+    } catch (error) {
+    } finally {
+      this.setState({
+        loading: false,
+      });
       this.props.history.push(`/placeorder/${encodeURIComponent(orderId)}`);
-    }, 1000);
+    }
   };
 
   setPhoneNumber = (e) => {
@@ -119,125 +130,149 @@ class Checkout extends Component {
   };
 
   render() {
+    console.log("this.address", this.state.address);
     return (
       <section className="co-page">
         <div className="co-container">
-          <div className="co-list">
-            <div className="co-contact">
-              <div className="co-item">
-                <div className="co-item-box">
-                  <span className="item-index">1</span>
-                  <h3 className="item-text">Contact Number</h3>
-                </div>
-                <button className="btn item-btn" type="button">
-                  <svg
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    className="w-4 h-4 stroke-2 me-0.5 svg-plus"
-                    data-selected="true"
-                    data-label-id="0"
-                    // data-metatip='true'
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M12 6v6m0 0v6m0-6h6m-6 0H6"
-                    ></path>
-                  </svg>
-                  Update
-                </button>
-              </div>
-              <div>
-                {/* <p className="item-linenumber">{this.state.phone}</p> */}
-                <input
-                  className="co-content active"
-                  type="tel"
-                  value={this.state.phone}
-                  onChange={(e) => this.setPhoneNumber(e)}
-                />
-                {this.state.mesPhone && (
-                  <p className="item-linenumber">{this.state.mesPhone}</p>
-                )}
-              </div>
+          {!this.state.loading ? (
+            <div className="spinner-div">
+              <Spinner
+                animation="border"
+                role="status"
+                variant="info"
+                className="checkout-spinner"
+              />
+              <span className="">Loading...</span>
             </div>
+          ) : (
+            <>
+              <div className="co-list">
+                <div className="co-contact">
+                  <div className="co-item">
+                    <div className="co-item-box">
+                      <span className="item-index">1</span>
+                      <h3 className="item-text">Contact Number</h3>
+                    </div>
+                    <label
+                      className="btn item-btn"
+                      type="button"
+                      for="checkout_phone"
+                    >
+                      <svg
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        className="w-4 h-4 stroke-2 me-0.5 svg-plus"
+                        data-selected="true"
+                        data-label-id="0"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+                        ></path>
+                      </svg>
+                      Update
+                    </label>
+                  </div>
+                  <div>
+                    {/* <p className="item-linenumber">{this.state.phone}</p> */}
+                    <input
+                      className="co-content active"
+                      type="tel"
+                      value={this.state.phone}
+                      onChange={(e) => this.setPhoneNumber(e)}
+                      id="checkout_phone"
+                    />
+                    {this.state.mesPhone && (
+                      <p className="item-linenumber">{this.state.mesPhone}</p>
+                    )}
+                  </div>
+                </div>
 
-            <div className="co-shipping-address">
-              <div className="co-item">
-                <div className="co-item-box">
-                  <span className="item-index">2</span>
-                  <h3 className="item-text">Shipping Address</h3>
+                <div className="co-shipping-address">
+                  <div className="co-item">
+                    <div className="co-item-box">
+                      <span className="item-index">2</span>
+                      <h3 className="item-text">Shipping Address</h3>
+                    </div>
+                    <label
+                      className="btn item-btn"
+                      type="button"
+                      for="checkout_address"
+                    >
+                      <svg
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        className="w-4 h-4 stroke-2 me-0.5 svg-plus"
+                        data-selected="true"
+                        data-label-id="0"
+                        // data-metatip='true'
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+                        ></path>
+                      </svg>
+                      Update
+                    </label>
+                  </div>
+                  <div className="co-content h-126 active w-50">
+                    <p className="item-title">
+                      Shipping
+                      <button className="add-address">
+                        <svg
+                          className="w-3 h-3 icon-add"
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 20 20"
+                          fill="currentColor"
+                        >
+                          <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"></path>
+                        </svg>
+                      </button>
+                      <button className="delete-address">
+                        <svg
+                          className="w-3 h-3 icon-delete"
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 20 20"
+                          fill="currentColor"
+                        >
+                          <path
+                            fillRule="evenodd"
+                            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                            clipRule="evenodd"
+                          ></path>
+                        </svg>
+                      </button>
+                    </p>
+                    <textarea
+                      id="checkout_address"
+                      type="text"
+                      className="item-address"
+                      value={this.state.address}
+                      onChange={(e) => this.setAddress(e)}
+                      style={{ width: "100%" }}
+                    />
+                  </div>
                 </div>
-                <button className="btn item-btn" type="button">
-                  <svg
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    className="w-4 h-4 stroke-2 me-0.5 svg-plus"
-                    data-selected="true"
-                    data-label-id="0"
-                    // data-metatip='true'
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M12 6v6m0 0v6m0-6h6m-6 0H6"
-                    ></path>
-                  </svg>
-                  Add
-                </button>
-              </div>
-              <div className="co-content h-126 active w-50">
-                <p className="item-title">
-                  Shipping
-                  <button className="add-address">
-                    <svg
-                      className="w-3 h-3 icon-add"
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                    >
-                      <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"></path>
-                    </svg>
-                  </button>
-                  <button className="delete-address">
-                    <svg
-                      className="w-3 h-3 icon-delete"
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                        clipRule="evenodd"
-                      ></path>
-                    </svg>
-                  </button>
-                </p>
-                <textarea
-                  type="text"
-                  className="item-address"
-                  value={this.state.address}
-                  onChange={(e) => this.setAddress(e)}
-                  style={{ width: "100%" }}
+                {this.state.mesAddress && (
+                  <p className="item-linenumber">{this.state.mesAddress}</p>
+                )}
+                <Delivery
+                  userInfo={this.state.userInfo}
+                  setDelivery={this.setDelivery}
+                  delivery={this.state.delivery}
                 />
               </div>
-            </div>
-            {this.state.mesAddress && (
-              <p className="item-linenumber">{this.state.mesAddress}</p>
-            )}
-            <Delivery
-              userInfo={this.state.userInfo}
-              setDelivery={this.setDelivery}
-              delivery={this.state.delivery}
-            />
-          </div>
-          <YourOrder
-            Carts={this.props.Carts}
-            check={this.state.check}
-            saveOrder={this.saveOrder}
-          />
+              <YourOrder
+                Carts={this.props.Carts}
+                check={this.state.check}
+                saveOrder={this.saveOrder}
+              />
+            </>
+          )}
         </div>
       </section>
     );
