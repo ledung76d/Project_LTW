@@ -169,7 +169,7 @@ class ProductsContainer extends Component {
         progress: undefined,
       });
     } catch (error) {
-      toast.error("You must login to buy something!", {
+      toast.error("Add product failed!", {
         position: "top-center",
         autoClose: 2000,
         hideProgressBar: false,
@@ -389,12 +389,14 @@ class ProductsContainer extends Component {
                   <Form.Label>Name</Form.Label>
                   <Form.Control
                     type="text"
+                    
                     defaultValue={""}
                     onChange={(e) =>
                       this.setState({
                         details: {
                           ...this.state.details,
                           title: e.target.value,
+                        
                         },
                       })
                     }

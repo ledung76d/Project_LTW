@@ -13,6 +13,7 @@ import * as actions from "../../store/actions";
 import { Carousel } from "reactstrap";
 import "./ViewProductDetail.scss";
 import Apples from "../../assets/images/Apples.jpg";
+import { toast } from "react-toastify";
 import {
   handleGetCategoryById,
   handleGetStoreById,
@@ -38,6 +39,17 @@ class ViewProductDetail extends Component {
     });
   };
   handleAddItem = () => {
+    if (this.state.product.quantity === 0 || this.state.quatily === this.state.product.quantity) {
+      toast.error("Out of stock", {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,})
+        return;
+    }
     this.props.AddCart(this.state.product);
     let quatilyItem = this.state.quatily + 1;
     this.setState({
