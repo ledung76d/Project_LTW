@@ -14,6 +14,7 @@ class Analysis extends React.Component {
       order30day: 0,
       totalRevenue: 0,
       countNumber: 0,
+      popularProduct: [],
     };
   }
   async componentDidMount() {
@@ -23,12 +24,15 @@ class Analysis extends React.Component {
     let data3 = await adminService.handleGetProductBySid(
       this.props.adminInfo.sid
     );
+    let data4 = await adminService.handlePopularProduct();
+    console.log("test", data4);
     console.log("test", data3);
     this.setState({
       total30day: data[0].total,
       order30day: data1[0].total,
       totalRevenue: data2[0].total,
       countNumber: data3.data.length,
+      popularProduct: data4.data,
     });
   }
 
@@ -75,6 +79,7 @@ class Analysis extends React.Component {
   }
 
   render() {
+    console.log("test", this.state.popularProduct);
     return (
       <>
         <div className="analysis__container">
@@ -161,98 +166,24 @@ class Analysis extends React.Component {
                   <th>Group</th>
                   <th>Shop</th>
                   <th>Price/Unit</th>
+                  <th>Sold Product</th>
                   <th>Quantity</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>1</td>
-                  <td>Apples</td>
-                  <td>Grocery</td>
-                  <td>Grocery Shop</td>
-                  <td>$2.00</td>
-                  <td>18</td>
-                </tr>
-
-                <tr>
-                  <td>2</td>
-                  <td>Apples</td>
-                  <td>Grocery</td>
-                  <td>Grocery Shop</td>
-                  <td>$2.00</td>
-                  <td>18</td>
-                </tr>
-
-                <tr>
-                  <td>3</td>
-                  <td>Apples</td>
-                  <td>Grocery</td>
-                  <td>Grocery Shop</td>
-                  <td>$2.00</td>
-                  <td>18</td>
-                </tr>
-
-                <tr>
-                  <td>4</td>
-                  <td>Apples</td>
-                  <td>Grocery</td>
-                  <td>Grocery Shop</td>
-                  <td>$2.00</td>
-                  <td>18</td>
-                </tr>
-                <tr>
-                  <td>1</td>
-                  <td>Apples</td>
-                  <td>Grocery</td>
-                  <td>Grocery Shop</td>
-                  <td>$2.00</td>
-                  <td>18</td>
-                </tr>
-
-                <tr>
-                  <td>2</td>
-                  <td>Apples</td>
-                  <td>Grocery</td>
-                  <td>Grocery Shop</td>
-                  <td>$2.00</td>
-                  <td>18</td>
-                </tr>
-
-                <tr>
-                  <td>3</td>
-                  <td>Apples</td>
-                  <td>Grocery</td>
-                  <td>Grocery Shop</td>
-                  <td>$2.00</td>
-                  <td>18</td>
-                </tr>
-
-                <tr>
-                  <td>4</td>
-                  <td>Apples</td>
-                  <td>Grocery</td>
-                  <td>Grocery Shop</td>
-                  <td>$2.00</td>
-                  <td>18</td>
-                </tr>
-
-                <tr>
-                  <td>1</td>
-                  <td>Apples</td>
-                  <td>Grocery</td>
-                  <td>Grocery Shop</td>
-                  <td>$2.00</td>
-                  <td>18</td>
-                </tr>
-
-                <tr>
-                  <td>2</td>
-                  <td>Apples</td>
-                  <td>Grocery</td>
-                  <td>Grocery Shop</td>
-                  <td>$2.00</td>
-                  <td>18</td>
-                </tr>
+                {this.state.popularProduct?.map((item, index) => {
+                  return (
+                    <tr>
+                      <td>{index}</td>
+                      <td>{item.product.title}</td>
+                      <td>Grocery</td>
+                      <td>Grocery Shop</td>
+                      <td>{item.product.price}</td>
+                      <td>{item.total}</td>
+                      <td>{item.product.quantity}</td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>
