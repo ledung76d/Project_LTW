@@ -1,7 +1,8 @@
 .co-page {
   background-color: #f3f4f6;
   line-height     : 24px;
-  padding         : 56px 80px;
+  padding         : 148px 80px 56px 80px;
+  height: 100vh;
 
   .h-126 {
     height: 126px !important;
@@ -12,7 +13,7 @@
   }
 
   .ml-12 {
-    margin-left: 12px !important;
+    margin-left: 0px !important;
   }
 
   .m-5 {
@@ -20,23 +21,49 @@
   }
 
   .co-container {
+    margin: auto;
     display    : flex;
     align-items: flex-start;
     line-height: 24px;
-    margin     : 0px 199.5px;
+    justify-content: center;
+
+    .spinner-div{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      span {
+        margin-top: 32px;
+        font-size: 20px;
+        color: #0dcaf0;
+      }
+    }
+    .checkout-spinner {
+        margin-top: 200px;
+        height: 50px;
+        width: 50px;
+      }
+  }
+
+  .item-mesError{
+    color: red;
+    font-size: 12px;
+    margin-top: 4px;
+    margin-left: 32px;
+    position: absolute;
   }
 
   .co-list {
     line-height: 24px;
-    padding    : 32px;
+    margin-right: 32px;
   }
 
   .co-contact {
     background-color: #ffffff;
     box-shadow      : #000000 0px 0px 0px 0px;
     width           : 672px;
-    height          : 182px;
-    margin-top      : 58px;
+    // height          : 182px;
+    padding-bottom: 32px;
   }
 
   .co-shipping-address {
@@ -44,7 +71,8 @@
     box-shadow      : #000000 0px 0px 0px 0px;
     margin          : 24px 0px 0px;
     width           : 672px;
-    height          : 254px;
+    // height          : 254px;
+    padding-bottom: 32px;
   }
 
   .co-delivery {
@@ -52,7 +80,8 @@
     box-shadow      : #000000 0px 0px 0px 0px;
     margin          : 24px 0px 0px;
     width           : 672px;
-    height          : 308px;
+    // height          : 308px;
+    padding-bottom: 32px;
   }
 
   .co-item {
@@ -93,7 +122,6 @@
   .co-order {
     width     : 320px;
     height    : 261px;
-    margin-top: 58px;
   }
 
   .item-index {
@@ -177,7 +205,9 @@
     justify-content: flex-start;
     flex-wrap      : wrap;
     gap            : 10px;
+    padding-left: 32px;
   }
+
 
   .your-order {
     align-items   : center;
@@ -213,7 +243,7 @@
   }
 
   .link-order {
-    width           : 300px;
+    width           : 100%;
     height          : 45px;
     background-color: #009f7f;
     border-color    : #009f7f;

@@ -39,7 +39,10 @@ class ViewProductDetail extends Component {
     });
   };
   handleAddItem = () => {
-    if (this.state.product.quantity === 0 || this.state.quatily === this.state.product.quantity) {
+    if (
+      this.state.product.quantity === 0 ||
+      this.state.quatily === this.state.product.quantity
+    ) {
       toast.error("Out of stock", {
         position: "top-center",
         autoClose: 2000,
@@ -47,8 +50,9 @@ class ViewProductDetail extends Component {
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
-        progress: undefined,})
-        return;
+        progress: undefined,
+      });
+      return;
     }
     this.props.AddCart(this.state.product);
     let quatilyItem = this.state.quatily + 1;

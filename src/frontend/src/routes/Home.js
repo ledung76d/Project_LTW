@@ -11,6 +11,7 @@ import ProductCart from "../components/ProductCart/ProductCart";
 import { handleGetProductByCategory } from "../services/productService";
 import { v4 as uuidv4 } from "uuid";
 import { handleSearchProductByName } from "../services/productService";
+import { Spinner } from "react-bootstrap";
 class Home extends React.Component {
   constructor(props) {
     super(props);

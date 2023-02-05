@@ -1,5 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Mochiy+Pop+P+One&display=swap');
-
+// @import url('https://fonts.googleapis.com/css2?family=Mochiy+Pop+P+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap');
 .item-container {
     section {
         width: -webkit-fill-available;
@@ -11,6 +11,7 @@
 }
 
 .products-search {
+
     display: flex;
     background-color: #ffffff;
     width: 100rem;
@@ -109,7 +110,6 @@
 
     select {
         height: 4rem;
-        font-family: 'Mochiy Pop P One', sans-serif;
     }
 }
 
@@ -259,7 +259,6 @@
 
 .modal-title {
     margin: auto;
-    font-family: 'Mochiy Pop P One', sans-serif;
 }
 
 .modal-body {

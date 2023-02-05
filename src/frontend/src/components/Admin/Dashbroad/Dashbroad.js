@@ -177,8 +177,8 @@ class Dashbroad extends React.Component {
                 <div className="Payment_element heading">
                   Email: {admin.userName}
                 </div>
-                <div className="Payment_element heading">Bank:</div>
-                <div className="Payment_element heading">Account No.:</div>
+                <div className="Payment_element heading">Bank: {}</div>
+                <div className="Payment_element heading">Account No.: {}</div>
               </div>
             </div>
           </div>

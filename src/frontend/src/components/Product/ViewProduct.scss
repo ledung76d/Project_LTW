@@ -53,7 +53,7 @@
         display: block;
         width: 100%;
         max-width: 320px;
-        padding: 8px;
+        padding: 32px;
     }
 
 
@@ -142,6 +142,25 @@
 
 
 
+        }
+
+        .item-btn-info {
+             width           : 100%;
+            border          : none;
+            height          : 32px;
+            border-radius   : 4px;
+            background-color: #b69820;
+            position: relative;
+            opacity: 0.9;
+            margin-bottom   : 24px;
+            span{
+                color: #fff;
+                font-weight: 500;
+
+            }
+            &:hover{
+            opacity: 1;
+            }
         }
 
         .item-btn-quatily:hover {

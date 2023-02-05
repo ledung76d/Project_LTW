@@ -212,6 +212,8 @@ class ProductsContainer extends Component {
   };
 
   render() {
+    console.log("Test", this.state.products);
+
     return (
       <>
         <section className="products-admin">
@@ -371,32 +373,36 @@ class ProductsContainer extends Component {
             <div className="gr-cate">
               <div className="form-gr">
                 <Form.Group>
-                  <Form.Label>Category</Form.Label>
-                  {/* <Form.Control
-                    type='text'
-                    defaultValue='Grocery'
-                    disabled
-                    readOnly
-                  /> */}
-                  <Multiselect
-                    options={this.state?.category} // Options to display in the dropdown
-                    selectedValues={this.state.selectedValue} // Preselected value to persist in dropdown
-                    onSelect={this.onSelect} // Function will trigger on select event
-                    onRemove={this.onRemove} // Function will trigger on remove event
-                    displayValue="title" // Property name to display in the dropdown options
-                    placeholder="Select product category"
-                  />
+                  {this.state.category && (
+                    <>
+                      <Form.Label>Category</Form.Label>
+                      //{" "}
+                      {/* <Form.Control
+                  //   type='text'
+                  //   defaultValue='Grocery'
+                  //   disabled
+                  //   readOnly
+                  // /> */}
+                      <Multiselect
+                        options={this.state?.category} // Options to display in the dropdown
+                        selectedValues={this.state.selectedValue} // Preselected value to persist in dropdown
+                        onSelect={this.onSelect} // Function will trigger on select event
+                        onRemove={this.onRemove} // Function will trigger on remove event
+                        displayValue="title" // Property name to display in the dropdown options
+                        placeholder="Select product category"
+                      />
+                    </>
+                  )}
+
                   <Form.Label>Name</Form.Label>
                   <Form.Control
                     type="text"
-                    
                     defaultValue={""}
                     onChange={(e) =>
                       this.setState({
                         details: {
                           ...this.state.details,
                           title: e.target.value,
-                        
                         },
                       })
                     }
