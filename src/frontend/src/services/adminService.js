@@ -147,6 +147,16 @@ const adminService = {
     });
   },
 
+  handlePopularProduct() {
+    return axios(`/api/admin/product-popular`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
+  },
+
   handleUpdateStoreInfo(data) {
     return axios("/api/update-store-info", {
       method: "POST",

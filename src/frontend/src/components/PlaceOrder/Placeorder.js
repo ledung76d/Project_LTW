@@ -73,7 +73,7 @@ class PlaceOrder extends Component {
     // console.log('Arr', arr)
     // console.log('Data', data)
     setTimeout(() => {
-      if (data[0].length === 0) {
+      if (data[0]?.length === 0) {
         this.props.history.push("/");
         return;
       }

@@ -58,6 +58,8 @@ Route::middleware(['api'])->group(function () {
     Route::post('/cloudinary-upload', [ProductController::class, 'cloudinaryUpload']);
 });
 
+
+Route::get('/admin/product-popular', [OrderController::class, 'productPopular']);
 //Product
 Route::get('/get-product', [ProductController::class, 'getProductByCategory']);
 Route::get('/get-category-by-id', [CategoryController::class, 'getCategoryById']);
