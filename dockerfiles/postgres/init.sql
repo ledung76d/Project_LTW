@@ -28,6 +28,7 @@ CREATE TABLE "store"(
     phone CHAR(10) NOT NULL,
     store_name VARCHAR ( 50 ) NOT NULL,
     picture text,
+    logo text NULL DEFAULT NULL,
     content TEXT NULL DEFAULT NULL,
     created_at TIMESTAMP NOT NULL,
 	updated_at TIMESTAMP NOT NULL,
@@ -102,9 +103,9 @@ values ('R4qR4njBQ7RIHm6xJKc2G76cqrG3', 'VietNguyen', 'viet.nt194718@sis.hust.ed
 
 -- Them cua hang ban tap hoa 
 
-insert into "store" (sid, address,phone,store_name, content,created_at,updated_at,picture)
-values ('R4qR4njBQ7RIHm6xJKc2G76cqrG3', 'address','01223213','Grocery','Shop ban hoa qua',now(),now(),'https://pickbazar-react-admin-rest.vercel.app/_next/image?url=https%3A%2F%2Fpickbazarlaravel.s3.ap-southeast-1.amazonaws.com%2F892%2FUntitled-2.jpg&w=1920&q=75'),
-('V4MwCdZeVxRrETZGC0kLZkOQeAa2', 'address','01223213','DrinkShop','Ban nuoc tang luc',now(),now(),'https://pickbazar-react-admin-rest.vercel.app/_next/image?url=https%3A%2F%2Fpickbazarlaravel.s3.ap-southeast-1.amazonaws.com%2F883%2FUntitled-6.jpg&w=1920&q=75');
+insert into "store" (sid, address,phone,store_name, content,created_at,updated_at,picture, logo)
+values ('R4qR4njBQ7RIHm6xJKc2G76cqrG3', 'address','01223213','Grocery','Shop ban hoa qua',now(),now(),'https://pickbazar-react-admin-rest.vercel.app/_next/image?url=https%3A%2F%2Fpickbazarlaravel.s3.ap-southeast-1.amazonaws.com%2F892%2FUntitled-2.jpg&w=1920&q=75', 'https://pickbazarlaravel.s3.ap-southeast-1.amazonaws.com/891/conversions/Group-36321-thumbnail.jpg'),
+('V4MwCdZeVxRrETZGC0kLZkOQeAa2', 'address','01223213','DrinkShop','Ban nuoc tang luc',now(),now(),'https://pickbazar-react-admin-rest.vercel.app/_next/image?url=https%3A%2F%2Fpickbazarlaravel.s3.ap-southeast-1.amazonaws.com%2F883%2FUntitled-6.jpg&w=1920&q=75','https://pickbazarlaravel.s3.ap-southeast-1.amazonaws.com/891/conversions/Group-36321-thumbnail.jpg');
 
 
 -- Them phan loai category
