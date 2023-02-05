@@ -123,7 +123,7 @@ resource "kubernetes_deployment_v1" "backend" {
 
       spec {
         container {
-          image = "quanganhquanganh/pick-bazar-laravel:4c2406589a370328ed7a8ad67a4d8812c97c4a29-dev"
+          image = "quanganhquanganh/pick-bazar-laravel:c9d7a3eec92e561813d1bf4ae774693f71910a96-dev"
           name  = "laravel"
           
           env {
@@ -275,7 +275,7 @@ resource "kubernetes_deployment_v1" "frontend" {
 
       spec {
         container {
-          image = "quanganhquanganh/pick-bazar-frontend:4c2406589a370328ed7a8ad67a4d8812c97c4a29-dev"
+          image = "quanganhquanganh/pick-bazar-frontend:c9d7a3eec92e561813d1bf4ae774693f71910a96-dev"
           name  = "react"
 
           port {
