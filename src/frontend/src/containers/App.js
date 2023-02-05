@@ -37,7 +37,7 @@ import Admin from "../components/Admin/Admin";
 import AdminNav from "../components/Admin/AdminNav";
 import ScrollToTop from "./ScrollToTop";
 import Register from "../components/Auth/Register";
-class App extends Component {
+class App extends React.Component {
   handlePersistorState = () => {
     const { persistor } = this.props;
     let { bootstrapped } = persistor.getState();
@@ -105,7 +105,7 @@ class App extends Component {
                   component={adminIsNotAuthenticated(LoginAdmin)}
                 />
                 <Route path="/admin" component={adminIsAuthenticated(Admin)} />
-                <Redirect to={path.HOME} />
+                {/* <Redirect to={path.HOME} /> */}
               </Switch>
             </div>
             {/* <ToastContainer

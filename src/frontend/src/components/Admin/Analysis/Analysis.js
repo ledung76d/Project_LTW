@@ -81,7 +81,7 @@ class Analysis extends React.Component {
           <div className="analysis__header">
             <div className="analysis__header-total">
               <div className="total-title">
-                <span className="total-title--bold">Total Revenue ss</span>
+                <span className="total-title--bold">Total Revenue</span>
                 {/* <span className='total-title--gray'>(Last 30 Days)</span> */}
               </div>
               <div className="analysis__header-logo">

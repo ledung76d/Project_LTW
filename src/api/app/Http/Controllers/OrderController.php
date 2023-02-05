@@ -52,8 +52,7 @@ class OrderController extends Controller
             'price' => $request->price,
         ]); 
       
-        $product = Product::find($request->pid)
-        ->where('quantity', '>', 0) ->decrement('quantity', $request->quantity);
+        $product = Product::find($request->pid) ->decrement('quantity', $request->quantity);
          
         return response()->json([
            $orderItem,
