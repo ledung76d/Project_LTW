@@ -4,9 +4,12 @@ import ImageUpload from "./ImageUpload";
 import { v4 as uuidv4 } from "uuid";
 import {
   deleteProductById,
+  restoreProductById,
   handleGetCategoryById,
+  handleGetAllCategory,
 } from "../../../services/productService";
 import { cloudinaryUpload } from "../../../services/userService";
+import Multiselect from "multiselect-react-dropdown";
 import { connect } from "react-redux";
 import * as actions from "../../../store/actions";
 import adminService from "../../../services/adminService";
@@ -20,6 +23,7 @@ class ProductList extends Component {
       showDelete: false, // hiện ẩn modal edit
       details: { ...this.props.info }, // lưu các props của 1 sản phẩm
       listCategory: null,
+      category: null,
     };
   }
 
@@ -28,6 +32,11 @@ class ProductList extends Component {
     //console.log(data.category)
     this.setState({
       listCategory: data.category,
+    });
+    data = await handleGetAllCategory();
+    console.log(data);
+    this.setState({
+      category: data,
     });
   }
 
@@ -58,6 +67,11 @@ class ProductList extends Component {
     //console.log(id)
   };
 
+  restoreProducts = async (id) => {
+    await restoreProductById(id);
+    this.reRenderList();
+  };
+
   editProducts = (id) => {
     this.handleOpenEdit();
     console.log(id);
@@ -75,19 +89,12 @@ class ProductList extends Component {
   };
 
   handleClickUpdate = async () => {
-    // this.props.info['title'] = this.state.details['title']
-    // this.props.info['unit'] = this.state.details['unit']
-    // this.props.info['content'] = this.state.details['content']
-    // this.props.info['price'] = this.state.details['price']
-    // this.props.info['quantity'] = this.state.details['quantity']
-    // if (this.state.files.length > 0) {
-    //   this.props.info['img'] = this.state.files[0].preview
-    // }
     let product = {
       ...this.state.details,
       discount: Number.parseInt(this.state.details.discount),
       price: Number.parseFloat(this.state.details.price),
       quantity: Number.parseInt(this.state.details.quantity),
+      category: this.state.listCategory,
     };
     await adminService.handleUpdateProductByStore(product);
     this.reRenderList();
@@ -141,6 +148,7 @@ class ProductList extends Component {
   };
 
   render() {
+    let admin = this.props.adminInfo;
     const {
       pid: id,
       img: url,
@@ -152,6 +160,15 @@ class ProductList extends Component {
       discount,
       status,
     } = this.props.info;
+    let categoryString = "";
+    if (this.state.listCategory) {
+      this.state.listCategory.forEach((item) => {
+        categoryString += item.title + ", ";
+      });
+    }
+    categoryString = categoryString.slice(0, categoryString.length - 2);
+    const categoryArray = this.state.listCategory;
+    console.log(categoryArray);
 
     return (
       <>
@@ -161,8 +178,8 @@ class ProductList extends Component {
               <img src={url} alt={name} />
             </td>
             <td>{name}</td>
-            <td>Grocery</td>
-            <td>Grocery Shop</td>
+            <td>{categoryString}</td>
+            <td>{admin.storeName}</td>
             <td>${price}</td>
             <td>{quantity}</td>
             <td>
@@ -171,16 +188,20 @@ class ProductList extends Component {
               >{status}</span>
             </td>
             <td>
-              <i
+              {status === "active" ? (
+                <i
                 className="far fa-trash-alt"
                 onClick={() => this.deleteProducts(id)}
-              ></i>{" "}
-              {/* icon delete */}
+              ></i>) : (
+                <i
+                className="fa fa-recycle"
+                onClick={() => this.restoreProducts(id)}
+              ></i>
+              )}
               <i
                 className="far fa-edit"
                 onClick={() => this.editProducts(id)}
-              ></i>{" "}
-              {/* icon edit */}
+              ></i>
             </td>
           </tr>
         </tbody>
@@ -232,19 +253,20 @@ class ProductList extends Component {
             </div>
             <div className="gr-cate">
               <div className="form-gr">
-                <Form.Group>
-                  <Form.Label>Category</Form.Label>
-                  {/* <Form.Control
-                    type='text'
-                    defaultValue='Grocery'
-                    disabled
-                    readOnly
-                  /> */}
-                  <div className="item-categories-tag">
-                    {this.state.listCategory?.map((item, index) => {
-                      return <span key={index}>{item.title}</span>;
-                    })}
-                  </div>
+              <Form.Group>
+                  {this.state.category && (
+                      <>
+                      <Form.Label>Category</Form.Label>
+                      <Multiselect
+                        options={this.state?.category} // Options to display in the dropdown
+                        selectedValues={categoryArray} // Preselected value to persist in dropdown
+                        onSelect={this.onSelect} // Function will trigger on select event
+                        onRemove={this.onRemove} // Function will trigger on remove event
+                        displayValue="title" // Property name to display in the dropdown options
+                        placeholder="Select product category"
+                      />
+                    </>
+                  )}
                   <Form.Label>Name</Form.Label>
                   <Form.Control
                     type="text"
@@ -304,7 +326,7 @@ class ProductList extends Component {
                     defaultValue={discount}
                     onChange={(e) =>
                       this.setState({
-                        details: {
+                        details: {  
                           ...this.state.details,
                           discount: e.target.value,
                         },

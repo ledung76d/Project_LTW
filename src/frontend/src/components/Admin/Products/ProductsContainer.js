@@ -133,10 +133,6 @@ class ProductsContainer extends Component {
   };
 
   handleClickAddProduct = async () => {
-    // if (this.state.files.length > 0) {
-    //   this.state.details['img'] = this.state.files[0].preview
-    // }
-    //console.log('ID: ',nextPid.Auto_increment)
     try {
       let product = {
         ...this.state.details,
@@ -146,7 +142,90 @@ class ProductsContainer extends Component {
         img: this.state.tmpImg,
         sid: this.props.adminInfo.sid,
       };
-      console.log("Add: ", product);
+      const toastError = (message) => {
+        toast.error(message, {
+          position: "top-center",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      };
+      if (!product.title || product.title === "") {
+        toastError("Name is required");
+        return;
+      }
+      if (!product.unit || product.unit === "") {
+        toastError("Unit is required");
+        return;
+      }
+      if (!product.content || product.content === "") {
+        toastError("Description is required");
+        return;
+      }
+      if (!product.price || product.price === "") {
+        toastError("Price is required");
+        return;
+      }
+      if (!product.discount || product.discount === "") {
+        toastError("Discount is required");
+        return;
+      }
+      if (!product.quantity || product.quantity === "") {
+        toastError("Quantity is required");
+        return;
+      }
+      if (!product.img || product.img === "") {
+        toastError("Image is required");
+        return;
+      }
+      if (product.discount < 0 || product.discount > 100) {
+        toastError("Discount must be in range [0, 100]");
+        return;
+      }
+      if (product.quantity < 0 || product.quantity > 1000000000) {
+        toastError("Quantity must be greater than 0");
+        return;
+      }
+      if (product.price < 0 || product.price > 1000000000) {
+        toastError("Price must be greater than 0");
+        return;
+      }
+      // Regex for checking the fields
+      const nameRegex = /^[a-zA-Z0-9 ]{2,30}$/;
+      const unitRegex = /^[a-zA-Z0-9 ]{2,10}$/;
+      const descriptionRegex = /^[a-zA-Z0-9 ]{2,50}$/;
+      const priceRegex = /^[0-9]{1,10}$/;
+      const discountRegex = /^[0-9]{1,3}$/;
+      const quantityRegex = /^[0-9]{1,10}$/;
+
+      if (!nameRegex.test(product.title)) {
+        toastError("Name must be 2-30 characters");
+        return;
+      }
+      if (!unitRegex.test(product.unit)) {
+        toastError("Unit must be 2-10 characters");
+        return;
+      }
+      if (!descriptionRegex.test(product.content)) {
+        toastError("Description must be 2-50 characters");
+        return;
+      }
+      if (!priceRegex.test(product.price)) {
+        toastError("Price must be 1-10 digits");
+        return;
+      }
+      if (!discountRegex.test(product.discount)) {
+        toastError("Discount must be 1-3 digits");
+        return;
+      }
+      if (!quantityRegex.test(product.quantity)) {
+        toastError("Quantity must be 1-10 digits");
+        return;
+      }
+
       let insertedId = await adminService.handleAddNewProductByStore(product);
       for (let i = 0; i < this.state.listCategory.length; i++) {
         let temp = {
@@ -212,7 +291,6 @@ class ProductsContainer extends Component {
   };
 
   render() {
-    console.log("Test", this.state.products);
 
     return (
       <>
@@ -285,7 +363,7 @@ class ProductsContainer extends Component {
                 <tr>
                   <th className="th-img">Image</th>
                   <th className="th-name">Name</th>
-                  <th>Group</th>
+                  <th>Category</th>
                   <th>Shop</th>
                   <th>Price/Unit</th>
                   <th>Quantity</th>
@@ -376,13 +454,6 @@ class ProductsContainer extends Component {
                   {this.state.category && (
                     <>
                       <Form.Label>Category</Form.Label>
-                      //{" "}
-                      {/* <Form.Control
-                  //   type='text'
-                  //   defaultValue='Grocery'
-                  //   disabled
-                  //   readOnly
-                  // /> */}
                       <Multiselect
                         options={this.state?.category} // Options to display in the dropdown
                         selectedValues={this.state.selectedValue} // Preselected value to persist in dropdown
@@ -482,7 +553,7 @@ class ProductsContainer extends Component {
               Back
             </Button>
             <Button variant="success" onClick={this.handleClickAddProduct}>
-              Add Products
+              Add Product
             </Button>
           </Modal.Footer>
         </Modal>

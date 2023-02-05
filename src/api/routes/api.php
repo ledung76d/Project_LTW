@@ -56,6 +56,8 @@ Route::middleware(['api'])->group(function () {
 
     //Upload Image
     Route::post('/cloudinary-upload', [ProductController::class, 'cloudinaryUpload']);
+    Route::post('/delete-product-by-pid', [ProductController::class, 'deleteProductByPId']);
+    Route::post('/restore-product-by-pid', [ProductController::class, 'restoreProductByPId']);
 });
 
 //Product
@@ -66,15 +68,9 @@ Route::get('/get-product-by-sid', [ProductController::class, 'getProductBySid'])
 Route::get('/search-by-name', [ProductController::class, 'searchByName']);
 
 Route::get('/find-product-by-store-id/{id}', [ProductController::class, 'findProductByStoreId']);
-Route::post('/delete-product-by-pid', [ProductController::class, 'deleteProductByPId']);
-
 //Store
 Route::get('/get-store-by-id', [StoreController::class, 'getStoreById']);
 Route::get('/get-all-category', [CategoryController::class, 'getAllCategory']);
-
-
-// ProductCategory
-Route::post('/add-product-category', [ProductController::class, 'addProductCategory']);
 
 // For probe
 Route::get('/health', function () {

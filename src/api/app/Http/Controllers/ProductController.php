@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Auth;
 use App\Models\Product;
 use App\Models\ProductCategory;
 use App\Models\Store;
@@ -79,7 +79,6 @@ class ProductController extends Controller
             'products' => $product,
         ], 200);
     }
-
   
     public function findProductById(Request $request)
     {
@@ -107,18 +106,40 @@ class ProductController extends Controller
         return response()->json($products);
     }
 
-
     public function deleteProductByPId(Request $request)
     {
+        $user = Auth::user();
+        if (!$user) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'User not found'
+            ], 404);
+        }
         $pid = $request->pid;
-        //change status to 
         $product = Product::where('pid', $pid)->update(['status' => 'deleted']);
         return response()->json([
             'status' => 'success',
             'data' => $product,
         ], 200);
     }
-    
+
+    public function restoreProductByPId(Request $request)
+    {
+        $user = Auth::user();
+        if (!$user) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'User not found'
+            ], 404);
+        }
+        $pid = $request->pid;
+        $product = Product::where('pid', $pid)->update(['status' => 'active']);
+        return response()->json([
+            'status' => 'success',
+            'data' => $product,
+        ], 200);
+    }
+
     public function searchByName(Request $request)
     {
         $name = $request->name;
@@ -127,14 +148,5 @@ class ProductController extends Controller
             
             $product,
          200);
-    }
-    
-    public function cloudinaryUpload($request){
-        $image = $request->file('file');
-        $uploadedFileUrl = Cloudinary::upload($request->file('file')->getRealPath())->getSecurePath();
-        return response()->json([
-            'status' => 'success',
-            'data' => $uploadedFileUrl,
-        ], 200);
     }
 }
