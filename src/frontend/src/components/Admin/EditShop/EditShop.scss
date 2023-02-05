@@ -1,4 +1,6 @@
-
+.important-height {
+    height: 250px !important;
+}
 .edit_container {
     padding: 0 15px 0 15px;
     width: 100%;
@@ -45,7 +47,7 @@
             }
 
             .box_Address {
-                height: 580px !important;
+                // height: 580px !important;
             }
 
             .box_Settings {
@@ -68,9 +70,9 @@
                     .box_upload {
                         height: 144px;
                         width: 100%;
-                        border: 2px dashed #c9c4c4d2;
+                        border: 3px dashed #c9c4c4d2;
                         border-radius: 5px;
-                        padding: 25px 0;
+                        padding: 30px 0;
                         text-align: center;
                         cursor: pointer;
 
@@ -87,8 +89,8 @@
                         margin-top: 8px;
                         height: 32%;
                         display: flex;
-                        align-items: end;
-
+                        align-items: center;
+                        justify-content: center;
                         .wrap_img {
                             width: 66px;
                             height: 66px;
@@ -288,7 +290,6 @@
                 }
             }
         }
-
         .Update {
             text-align: right;
             margin-bottom: 20px;
