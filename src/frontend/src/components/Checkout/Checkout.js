@@ -80,8 +80,36 @@ class Checkout extends Component {
     });
     return Number.parseFloat((Math.round(sum * 100) / 100).toFixed(2));
   }
-
   saveOrder = async () => {
+    const regexPhone = /^0[0-9]{9}$/;
+    const regexAddress = /^[a-zA-Z0-9\s,'-]*$/;
+    if (!regexPhone.test(this.state.phone)) {
+      this.setState({
+        mesPhone: "Phone number is not valid",
+      });
+      setTimeout(() => {
+        this.setState({
+          mesPhone: "",
+        });
+      }, 2000);
+    }
+    if (!regexAddress.test(this.state.address) && this.state.address === "") {
+      this.setState({
+        mesAddress: "Address is not valid",
+      });
+      setTimeout(() => {
+        this.setState({
+          mesAddress: "",
+        });
+      }, 2000);
+    }
+    if (
+      !regexAddress.test(this.state.address) ||
+      !regexPhone.test(this.state.phone) ||
+      this.state.address === ""
+    )
+      return;
+
     this.setState({
       loading: true,
     });
@@ -102,18 +130,20 @@ class Checkout extends Component {
       //Save order item
 
       this.props.Carts.map(async (item) => {
-        // console.log('Item',item)
+        console.log("Item", item);
         item.orderId = orderId;
         await handleSaveToOrderItem(item);
       });
       this.props.DeleteCart();
-      console.log("this.props.history", this.props.history);
     } catch (error) {
     } finally {
-      this.setState({
-        loading: false,
-      });
-      this.props.history.push(`/placeorder/${encodeURIComponent(orderId)}`);
+      setTimeout(() => {
+        this.setState({
+          loading: false,
+        });
+
+        this.props.history.push(`/placeorder/${encodeURIComponent(orderId)}`);
+      }, 2000);
     }
   };
 
@@ -130,11 +160,11 @@ class Checkout extends Component {
   };
 
   render() {
-    console.log("this.address", this.state.address);
+    console.log("this.address", this.state.loading);
     return (
       <section className="co-page">
         <div className="co-container">
-          {!this.state.loading ? (
+          {this.state.loading ? (
             <div className="spinner-div">
               <Spinner
                 animation="border"
@@ -176,7 +206,6 @@ class Checkout extends Component {
                     </label>
                   </div>
                   <div>
-                    {/* <p className="item-linenumber">{this.state.phone}</p> */}
                     <input
                       className="co-content active"
                       type="tel"
@@ -185,7 +214,7 @@ class Checkout extends Component {
                       id="checkout_phone"
                     />
                     {this.state.mesPhone && (
-                      <p className="item-linenumber">{this.state.mesPhone}</p>
+                      <p className="item-mesError">{this.state.mesPhone}</p>
                     )}
                   </div>
                 </div>
@@ -256,10 +285,11 @@ class Checkout extends Component {
                       style={{ width: "100%" }}
                     />
                   </div>
+                  {this.state.mesAddress && (
+                    <p className="item-mesError">{this.state.mesAddress}</p>
+                  )}
                 </div>
-                {this.state.mesAddress && (
-                  <p className="item-linenumber">{this.state.mesAddress}</p>
-                )}
+
                 <Delivery
                   userInfo={this.state.userInfo}
                   setDelivery={this.setDelivery}

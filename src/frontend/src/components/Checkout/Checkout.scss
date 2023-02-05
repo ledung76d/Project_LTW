@@ -45,7 +45,14 @@
       }
   }
 
-  
+  .item-mesError{
+    color: red;
+    font-size: 12px;
+    margin-top: 4px;
+    margin-left: 32px;
+    position: absolute;
+  }
+
   .co-list {
     line-height: 24px;
     margin-right: 32px;
