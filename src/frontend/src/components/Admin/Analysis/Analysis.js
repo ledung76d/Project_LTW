@@ -4,12 +4,48 @@ import Chart from "./Chart";
 import adminService from "../../../services/adminService";
 import * as actions from "../../../store/actions";
 import { connect } from "react-redux";
+import { LineChart } from "./LineChart";
 class Analysis extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       modal: true,
-      chartData: {},
+      chartData: {
+        labels: [
+          "Apple",
+          "February",
+          "March",
+          "April",
+          "May",
+          "June",
+          "July",
+          "August",
+          "September",
+          "October",
+          "November",
+          "December",
+        ],
+        datasets: [
+          {
+            label: "Products",
+            data: [10, 100, 153, 80, 20, 95, 10, 100, 133, 80, 105, 95],
+            backgroundColor: [
+              "rgba(255, 99, 132, 0.8)",
+              "rgba(54, 162, 235, 0.8)",
+              "rgba(255, 206, 86, 0.8)",
+              "rgba(75, 192, 192, 0.8)",
+              "rgba(153, 102, 255, 0.8)",
+              "rgba(255, 159, 64, 0.8)",
+              "rgba(60, 179, 113, 0.8)",
+              "rgba(238, 130, 238, 0.8)",
+              "rgba(0, 0, 255, 0.8)",
+              "rgba(255, 0, 0, 0.8)",
+              "rgba(255, 165, 0, 0.8)",
+              "rgba(106, 90, 205, 0.8)",
+            ],
+          },
+        ],
+      },
       total30day: 0,
       order30day: 0,
       totalRevenue: 0,
@@ -34,6 +70,32 @@ class Analysis extends React.Component {
       countNumber: data3.data.length,
       popularProduct: data4.data,
     });
+    const labelData = data4.data.map((item) => item.product.title);
+    const datasets = data4.data.map((item) => item.total);
+    const chartData = {
+      labels: labelData,
+      datasets: [
+        {
+          label: "Products",
+          data: datasets,
+          backgroundColor: [
+            "rgba(255, 99, 132, 0.8)",
+            "rgba(54, 162, 235, 0.8)",
+            "rgba(255, 206, 86, 0.8)",
+            "rgba(75, 192, 192, 0.8)",
+            "rgba(153, 102, 255, 0.8)",
+            "rgba(255, 159, 64, 0.8)",
+            "rgba(60, 179, 113, 0.8)",
+            "rgba(238, 130, 238, 0.8)",
+            "rgba(0, 0, 255, 0.8)",
+            "rgba(255, 0, 0, 0.8)",
+            "rgba(255, 165, 0, 0.8)",
+            "rgba(106, 90, 205, 0.8)",
+          ],
+        },
+      ],
+    };
+    this.setState({ chartData: chartData });
   }
 
   async componentWillMount() {
@@ -79,7 +141,7 @@ class Analysis extends React.Component {
   }
 
   render() {
-    console.log("test", this.state.popularProduct);
+    console.log("test", this.state.chartData);
     return (
       <>
         <div className="analysis__container">
@@ -147,6 +209,9 @@ class Analysis extends React.Component {
           <div className="analysis__body">
             <Chart chartData={this.state.chartData} />
           </div>
+          <div className="analysis__body">
+            <LineChart />
+          </div>
           <div className="analysis__footer">
             <h3 className="analysis__footer-title">Popular Products</h3>
 
@@ -174,7 +239,7 @@ class Analysis extends React.Component {
                 {this.state.popularProduct?.map((item, index) => {
                   return (
                     <tr>
-                      <td>{index}</td>
+                      <td>{index + 1}</td>
                       <td>{item.product.title}</td>
                       <td>Grocery</td>
                       <td>Grocery Shop</td>
