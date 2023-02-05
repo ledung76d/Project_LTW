@@ -57,25 +57,7 @@ class LoginAdmin extends Component {
     this.props.changeAppMode("adminMode");
   }
 
-  handleLogin = async () => {
-    let userName = this.state.username;
-    let passWord = this.state.password;
-    let data = await adminService.login(userName, passWord);
-    console.log(data);
-    if (data.err !== 4) {
-      this.setState({
-        err: data.err,
-        message: data.message,
-      });
-    } else {
-      //Thanh cong
-      // this.props.processLogout()
-      this.props.adminLoginSuccess(data.store);
-      let { navigate } = this.props;
-      //const redirectPath = '/system/user-manage';
-      navigate("/admin");
-    }
-
+  render() {
     return (
       <>
         <div className="login-admin">
