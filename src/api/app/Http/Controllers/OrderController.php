@@ -99,7 +99,7 @@ class OrderController extends Controller
         }
     }
 
-    public function productPopular(){
+    public function productPopular() {
         $user = Auth::user();
         if($user){
             $data = Order::select('order_item.pid', OrderItem::raw('SUM(order_item.quantity) as total'))
@@ -138,5 +138,9 @@ class OrderController extends Controller
                 'message' => 'User not found'
             ], 404);
         }
+    }
+
+    public function productChart () {
+
     }
 }

@@ -160,7 +160,7 @@ class ViewProduct extends Component {
               </button>
             ) : (
               <button className="item-btn-info">
-                <span className="item-btn-quatilt-content">Out of product</span>
+                <span className="item-btn-quatilt-content">Out of stock</span>
               </button>
             )}
           </div>
