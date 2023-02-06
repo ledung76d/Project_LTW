@@ -4,48 +4,16 @@ import Chart from "./Chart";
 import adminService from "../../../services/adminService";
 import * as actions from "../../../store/actions";
 import { connect } from "react-redux";
-import { LineChart } from "./LineChart";
+import LineChart from "./LineChart";
+import { v4 as uuidv4 } from "uuid";
+
 class Analysis extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       modal: true,
-      chartData: {
-        labels: [
-          "Apple",
-          "February",
-          "March",
-          "April",
-          "May",
-          "June",
-          "July",
-          "August",
-          "September",
-          "October",
-          "November",
-          "December",
-        ],
-        datasets: [
-          {
-            label: "Products",
-            data: [10, 100, 153, 80, 20, 95, 10, 100, 133, 80, 105, 95],
-            backgroundColor: [
-              "rgba(255, 99, 132, 0.8)",
-              "rgba(54, 162, 235, 0.8)",
-              "rgba(255, 206, 86, 0.8)",
-              "rgba(75, 192, 192, 0.8)",
-              "rgba(153, 102, 255, 0.8)",
-              "rgba(255, 159, 64, 0.8)",
-              "rgba(60, 179, 113, 0.8)",
-              "rgba(238, 130, 238, 0.8)",
-              "rgba(0, 0, 255, 0.8)",
-              "rgba(255, 0, 0, 0.8)",
-              "rgba(255, 165, 0, 0.8)",
-              "rgba(106, 90, 205, 0.8)",
-            ],
-          },
-        ],
-      },
+      chartData: null,
+      lineChartData: null,
       total30day: 0,
       order30day: 0,
       totalRevenue: 0,
@@ -55,28 +23,29 @@ class Analysis extends React.Component {
   }
   async componentDidMount() {
     let data = await adminService.handleTotal30day();
-    let data1 = await adminService.handleOrder30day();
+    // let data1 = await adminService.handleOrder30day();
     let data2 = await adminService.handleTotalRevenue();
-    let data3 = await adminService.handleGetProductBySid(
-      this.props.adminInfo.sid
-    );
+    // let data3 = await adminService.handleGetProductBySid(
+    //   this.props.adminInfo.sid
+    // );
     let data4 = await adminService.handlePopularProduct();
-    console.log("test", data4);
-    console.log("test", data3);
+    let dataAnalysis = await adminService.handleGetAnalysisStore();
+    console.log("dataAnalysis", dataAnalysis);
     this.setState({
       total30day: data[0].total,
-      order30day: data1[0].total,
+      order30day: dataAnalysis.totalOrder,
       totalRevenue: data2[0].total,
-      countNumber: data3.data.length,
+      countNumber: dataAnalysis.totalNewProduct,
       popularProduct: data4.data,
     });
     const labelData = data4.data.map((item) => item.product.title);
     const datasets = data4.data.map((item) => item.total);
+    console.log("helo=", labelData);
     const chartData = {
       labels: labelData,
       datasets: [
         {
-          label: "Products",
+          label: "Quantity",
           data: datasets,
           backgroundColor: [
             "rgba(255, 99, 132, 0.8)",
@@ -96,52 +65,35 @@ class Analysis extends React.Component {
       ],
     };
     this.setState({ chartData: chartData });
-  }
-
-  async componentWillMount() {
-    // this.getchartData(); // this should be this.getChartData();
+    const lineChartData = {
+      labels: ["January", "February"],
+      datasets: [
+        {
+          label: "Sales",
+          data: [0, dataAnalysis.totalSales],
+          borderColor: "rgb(255, 99, 132)",
+          backgroundColor: "rgba(255, 99, 132, 0.5)",
+        },
+        {
+          label: "Order",
+          data: [0, dataAnalysis.totalOrder],
+          borderColor: "rgb(53, 162, 235)",
+          backgroundColor: "rgba(53, 162, 235, 0.5)",
+        },
+        {
+          label: "Quantity",
+          data: [0, dataAnalysis.totalQuantity],
+          borderColor: "rgb(255, 200, 0)",
+          backgroundColor: "rgba(255, 215, 0, 0.5)",
+        },
+      ],
+    };
     this.setState({
-      chartData: {
-        labels: [
-          "January",
-          "February",
-          "March",
-          "April",
-          "May",
-          "June",
-          "July",
-          "August",
-          "September",
-          "October",
-          "November",
-          "December",
-        ],
-        datasets: [
-          {
-            label: "Products",
-            data: [10, 100, 153, 80, 20, 95, 10, 100, 133, 80, 105, 95],
-            backgroundColor: [
-              "rgba(255, 99, 132, 0.8)",
-              "rgba(54, 162, 235, 0.8)",
-              "rgba(255, 206, 86, 0.8)",
-              "rgba(75, 192, 192, 0.8)",
-              "rgba(153, 102, 255, 0.8)",
-              "rgba(255, 159, 64, 0.8)",
-              "rgba(60, 179, 113, 0.8)",
-              "rgba(238, 130, 238, 0.8)",
-              "rgba(0, 0, 255, 0.8)",
-              "rgba(255, 0, 0, 0.8)",
-              "rgba(255, 165, 0, 0.8)",
-              "rgba(106, 90, 205, 0.8)",
-            ],
-          },
-        ],
-      },
+      lineChartData: lineChartData,
     });
   }
 
   render() {
-    console.log("test", this.state.chartData);
     return (
       <>
         <div className="analysis__container">
@@ -207,10 +159,7 @@ class Analysis extends React.Component {
             </div>
           </div>
           <div className="analysis__body">
-            <Chart chartData={this.state.chartData} />
-          </div>
-          <div className="analysis__body">
-            <LineChart />
+            <LineChart data={this.state.lineChartData} key={uuidv4()} />
           </div>
           <div className="analysis__footer">
             <h3 className="analysis__footer-title">Popular Products</h3>
@@ -252,6 +201,11 @@ class Analysis extends React.Component {
               </tbody>
             </table>
           </div>
+          {this.state.chartData && (
+            <div className="analysis__body">
+              <Chart chartData={this.state.chartData} key={uuidv4()} />
+            </div>
+          )}
         </div>
       </>
     );

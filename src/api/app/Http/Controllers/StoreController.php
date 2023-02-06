@@ -202,15 +202,13 @@ class StoreController extends Controller
         $user = Auth::user();
         if ($user) {
             $sid = $user->id;
-            $total = Order::selectRaw('count(distinct \'order.order_id\') as total')
-                ->join('order_item', 'order.order_id', '=', 'order_item.order_id')
-                ->join('product', 'order_item.pid', '=', 'product.pid')
-                ->where('sid', $sid)
-                ->where('order.created_at', '>=', now()->subDays(30))
-                ->get();
-
+            $pid = Product::select('pid')->where('sid', $sid)->get();
+        
+            $total = OrderItem::select('order_id')->distinct()
+            ->whereIn('pid', $pid)->where('created_at', '>=', now()->subDays(30))->count('order_id');
+        
             return response()->json(
-                $total,
+                ['total' => $total],
                 200
             );
         } else {
@@ -339,6 +337,38 @@ class StoreController extends Controller
         return response()->json([
             'status' => 'success',
             'data' => $detailStore,
+        ], 200);
+    }
+
+    public function getAnalysisStore(){
+        $sid = "i1p6rcRoUSMj1g8XvZnkKIB2D7r2";
+
+        $pid = Product::select('pid')->where('sid', $sid);
+
+        $orders = OrderItem::select('*')->whereIn('pid', $pid)->where('created_at', '>=', now()->subDays(30))->get();
+        
+        
+        $totalSales = 0;
+        $totalQuantity = 0;
+        foreach($orders as $item){
+            $totalSales = $totalSales + ($item['price'] * $item['quantity']);
+            $totalQuantity = $totalQuantity + $item['quantity'];
+        }
+        $pid = Product::select('pid')->where('sid', $sid)->where('created_at', '>=', now()->subDays(30))->get();
+        
+        $totalOrder = OrderItem::select('order_id')->distinct()
+            ->whereIn('pid', $pid)->where('created_at', '>=', now()->subDays(30))->count('order_id');
+
+        $totalNewProduct = Product::select('pid')->where('sid', $sid)
+        ->where('created_at', '>=', now()->subDays(30))->count('pid');
+
+
+        return response()->json([
+            'data' => 'Hello World',
+            'totalSales' => $totalSales,
+            'totalOrder' => $totalOrder,
+            'totalQuantity' => $totalQuantity,
+            'totalNewProduct' => $totalNewProduct,
         ], 200);
     }
 }

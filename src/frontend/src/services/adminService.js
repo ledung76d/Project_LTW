@@ -169,6 +169,16 @@ const adminService = {
       data: JSON.stringify(data),
     });
   },
+
+  handleGetAnalysisStore() {
+    return axios(`/api/admin/analysis-line-chart`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
+  },
 };
 
 export default adminService;
