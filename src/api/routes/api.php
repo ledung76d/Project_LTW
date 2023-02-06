@@ -36,8 +36,6 @@ Route::middleware(['api'])->group(function () {
     Route::get('/get-product-by-storeId', [StoreController::class, 'getProductByStoreId']);
     Route::post('/add-new-product-by-store', [StoreController::class, 'addNewProductByStore']);
     Route::post('/search-by-filter', [StoreController::class, 'searchByFilter']);
-    Route::post('/update-store-info', [StoreController::class, 'updateStoreInfo']);
-
 
     // /api/total30day?sid=1
     Route::get('/total30day', [StoreController::class, 'total30day']);
@@ -58,7 +56,9 @@ Route::middleware(['api'])->group(function () {
     //Upload Image
     Route::post('/cloudinary-upload', [ProductController::class, 'cloudinaryUpload']);
 
+
 });
+Route::post('/update-store-info', [StoreController::class, 'updateStoreInfo']);
 
 Route::get('/admin/product-chart', [OrderController::class, 'productChart']);
 

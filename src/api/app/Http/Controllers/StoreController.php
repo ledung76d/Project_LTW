@@ -293,18 +293,27 @@ class StoreController extends Controller
     }
 
     public function updateStoreInfo(Request $request){
-        $sid = $request->sid;
+        $user = Auth::user();
+        if(!$user){
+            return response()->json([
+                'status' => 'fail',
+                'error' => 'store not found',
+            ], 404);
+        }
+
+        $sid = $user->id;
         $store = Store::where('sid', $sid)->update([
-            'name' => $request->name,
             'address' => $request->address,
             'phone' => $request->phone,
-            'email' => $request->email,
-            'img' => $request->img,
-            'description' => $request->description,
+            'store_name' => $request->name,
+            'content' => $request->content,
+            'picture' => $request->img,
+            'logo' => $request->logo,
         ]);
+        $detailStore =  Store::where('sid', $sid)->get();
         return response()->json([
             'status' => 'success',
-            'data' => $store,
+            'data' => $detailStore,
         ], 200);
     }
 }

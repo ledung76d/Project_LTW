@@ -64,8 +64,8 @@ class ProductsContainer extends Component {
 
   onChangeInputImage = async (e) => {
     const cloudinaryEnv = {
-      cloud_name: process.env.REACT_APP_CLOUDINARY_CLOUD_NAME,
-      upload_preset: process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET,
+      cloud_name: "dm6vzyxzh",
+      upload_preset: "hpaflvm3",
     };
     let formData = new FormData();
     formData.append("file", e.target.files[0], "file");
