@@ -19,12 +19,12 @@ class StoreController extends Controller
     public function register(Request $request)
     {
         $user = Auth::user();
-        $store = Store::find($user->sid);
+        $store = Store::find($user->id);
         if (!$user) {
             return response()->json([
                 'status' => 'error',
                 'message' => 'User not found'
-            ], 404);
+            ], 404);    
         }
         if ($store) {
             return response()->json([
@@ -117,12 +117,16 @@ class StoreController extends Controller
 
     public function getProductByStoreId(Request $request)
     {
-
         $sid = $request->sid;
         $product = Product::where('sid', $sid)->get();
 
-        return response()->json(
+        for ($i = 0; $i < count($product); $i++) {
+            $category = ProductCategory::join('category', 'category.id', '=', 'product_category.category_id')
+                ->where('product_category.pid', $product[$i]->pid)->get();
+            $product[$i]->category = $category;
+        }
 
+        return response()->json(
             [
                 'products' => $product
             ],
@@ -133,8 +137,7 @@ class StoreController extends Controller
     public function addNewProductByStore(Request $request)
     {
         $user = Auth::user();
-        $store = Store::find($user->sid);
-        if (!$user || !$store) {
+        if (!$user) {
             return response()->json([
                 'status' => 'error',
                 'message' => 'User not found'
@@ -144,22 +147,27 @@ class StoreController extends Controller
             'title' => $request->title,
             'price' => $request->price,
             'quantity' => $request->quantity,
-            'sid' => $user->sid,
+            'sid' => $user->id,
             'discount' => $request->discount,
             'img' => $request->img,
             'content' => $request->content,
             'unit' => $request->unit,
         ]);
-        $insertId = Product::select('pid')->where('sid', Auth::user()->id)->orderBy('pid', 'desc')->first();
-        $insertId = $insertId->pid;
+        // Get category list from request
+        $categoryList = $request->category;
+        
+        // Insert category list to product_category table
+        for ($i = 0; $i < count($categoryList); $i++) {
+            $productCategory = ProductCategory::create([
+                'pid' => $product->pid,
+                'category_id' => $categoryList[$i]['id'],
+            ]);
+        }
         return response()->json([
             'status' => 'success',
             'data' => $product,
-            'insertId' => $insertId,
         ], 200);
     }
-
-
 
     public function total30day()
     {
