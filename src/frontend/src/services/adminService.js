@@ -158,7 +158,8 @@ const adminService = {
   },
 
   handleUpdateStoreInfo(data) {
-    return axios("/api/update-store-info", {
+    console.log("update store", JSON.stringify(data));
+    return axios(`/api/update-store-info`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

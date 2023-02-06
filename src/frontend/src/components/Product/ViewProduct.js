@@ -77,7 +77,6 @@ class ViewProduct extends Component {
   render() {
     let { product, quatily } = this.state;
 
-    console.log(`check view product:${product.quantity}`);
     //JSX
     return (
       <>
