@@ -87,21 +87,27 @@ class EditShop extends React.Component {
     const regexPhone = /^[0-9]*$/;
     const regexStoreName = /^[a-zA-Z0-9\s,'-]*$/;
     if (
-      !regexAddress.test(this.state.address) ||
+      !regexAddress.test(this.state.address)) {
+      toast.error("Address is invalid!");   
+      return;      
+      }
+    if (
       !regexPhone.test(this.state.phone) ||
-      !regexStoreName.test(this.state.storeName)
+      this.state.phone.length < 9 ||
+      this.state.phone.length > 15
     ) {
-      toast.info("Exist fields invalid!", {
-        position: "top-center",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
+      toast.error("Phone is invalid!");
       return;
     }
+    if (
+      !regexStoreName.test(this.state.storeName) ||
+      this.state.storeName.length < 5 ||
+      this.state.storeName.length > 50
+    ) {
+      toast.error("Store name is invalid!");
+      return;
+    }
+     
 
     let newShop = {
       name: this.state.storeName,
@@ -281,7 +287,7 @@ class EditShop extends React.Component {
               className="btn btn-success"
               onClick={() => this.handleSave()}
             >
-              Success
+              Save
             </button>
           </div>
         </form>
