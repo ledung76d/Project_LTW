@@ -7,6 +7,8 @@ use App\Models\OrderItem;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Resources\OrderResource;
+use App\Models\Category;
+use App\Models\ProductCategory;
 
 class OrderController extends Controller
 {
@@ -101,5 +103,50 @@ class OrderController extends Controller
                 'message' => 'User not found'
             ], 404);
         }
+    }
+
+    public function productPopular() {
+        $user = Auth::user();
+        if($user){
+            $data = Order::select('order_item.pid', OrderItem::raw('SUM(order_item.quantity) as total'))
+            ->join('order_item', 'order.order_id', '=', 'order_item.order_id')->groupBy('order_item.pid')->orderBy('total', 'desc')->limit(5)->get();
+            
+        // get pid from data
+            $pid = $data->pluck('pid');
+            
+            // get product from pid
+
+            for($i = 0; $i < count($data); $i++){
+                $data[$i]['product'] =  Product::where('pid', $data[$i]['pid'])->first();
+            }
+
+            $result = [];
+            foreach($data as $item){
+                if($item['product']['sid'] != $user->id) continue;
+                
+                $result[] = [
+                    'pid' => $item['pid'],
+                    'total' => $item['total']? $item['total'] : 0,
+                    'product' => $item['product']
+                ];
+            }
+
+        
+            return response()->json(
+                [
+                    'status' => 'success',
+                    'data' =>  $result,
+                ]
+            , 200);
+         } else {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'User not found'
+            ], 404);
+        }
+    }
+
+    public function productChart () {
+
     }
 }

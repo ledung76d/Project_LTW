@@ -44,6 +44,7 @@ Route::middleware(['api'])->group(function () {
     Route::get('/handleOrder30day', [StoreController::class, 'handleOrder30day']);
     Route::get('/totalrevenue', [StoreController::class, 'totalrevenue']);
     Route::post('/update-product-by-store', [StoreController::class, 'updateProductByStore']);
+    Route::get('/admin/product-popular', [OrderController::class, 'productPopular']);
 
     //User
     Route::get('/user/get-info-user', [UserController::class, 'getInfoUser']);
@@ -56,9 +57,12 @@ Route::middleware(['api'])->group(function () {
 
     //Upload Image
     Route::post('/cloudinary-upload', [ProductController::class, 'cloudinaryUpload']);
+
     Route::post('/delete-product-by-pid', [ProductController::class, 'deleteProductByPId']);
     Route::post('/restore-product-by-pid', [ProductController::class, 'restoreProductByPId']);
 });
+
+Route::get('/admin/product-chart', [OrderController::class, 'productChart']);
 
 //Product
 Route::get('/get-product', [ProductController::class, 'getProductByCategory']);
