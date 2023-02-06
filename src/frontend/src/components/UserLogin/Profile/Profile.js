@@ -141,8 +141,20 @@ class Profile extends Component {
       });
     }
   };
+  handleChangeImg = () => {
+    toast.warning("Feature coming soon :))", {
+      position: "top-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+  };
 
   render() {
+    console.log("check props", this.props);
     return (
       <>
         <div className="container__profile">
@@ -209,7 +221,10 @@ class Profile extends Component {
           <div className="userLogin__profile">
             <div className="profile__infor">
               <div className="profile__infor-avatar">
-                <label htmlFor="avatar" className="profile__infor-avatar-title">
+                <label
+                  className="profile__infor-avatar-title"
+                  onClick={() => this.handleChangeImg()}
+                >
                   <i className="fas fa-cloud-upload-alt avatar_upload-icon"></i>
                   <br />
                   <span className="avatar-title-bold">UpLoad an image</span>

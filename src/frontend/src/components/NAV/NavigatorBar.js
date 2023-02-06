@@ -8,6 +8,7 @@ import Login from "../Auth/Login";
 import { Link } from "react-router-dom";
 import LoginIcon from "../Auth/LoginIcon";
 import IconCart from "../ProductCart/IconCart";
+import { toast } from "react-toastify";
 
 class NavigatorBar extends Component {
   constructor(props) {
@@ -50,6 +51,18 @@ class NavigatorBar extends Component {
     console.log(">>> check dropdown", this.state.checkDropdow);
   };
 
+  handleFeature = () => {
+    toast.warning("Feature coming soon :))", {
+      position: "top-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+  };
+
   render() {
     let { titleProduct, removeSearchData, checkDropdow } = this.state;
     //JSX
@@ -77,9 +90,13 @@ class NavigatorBar extends Component {
                     </Link>
                   </li>
                   <li className="header__navbar-item">
-                    <a href="" className="header__navbar-item-link">
+                    <p
+                      style={{ cursor: "pointer" }}
+                      className="header__navbar-item-link"
+                      onClick={this.handleFeature}
+                    >
                       <span>Offers</span>
-                    </a>
+                    </p>
                   </li>
                   <li className="header__navbar-item header__navbar-item--separate">
                     <Link to={"/faq"} className="header__navbar-item-link">
