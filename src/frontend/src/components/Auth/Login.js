@@ -145,7 +145,6 @@ class Login extends Component {
 
   render() {
     //JSX
-    console.log("Check props", this.props);
     return (
       <>
         <div>

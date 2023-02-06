@@ -4,6 +4,9 @@ import Axios from "axios";
 import * as actions from "../../../store/actions";
 import { connect } from "react-redux";
 import { handleGetStoreById } from "../../../services/productService";
+import adminService, {
+  handleUpdateStoreInfo,
+} from "../../../services/adminService";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Redirect } from "react-router";
@@ -22,8 +25,8 @@ class EditShop extends React.Component {
   }
   onChangeInputImage1 = (e) => {
     const cloudinaryEnv = {
-      cloud_name: process.env.REACT_APP_CLOUDINARY_CLOUD_NAME,
-      upload_preset: process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET,
+      cloud_name: "dm6vzyxzh",
+      upload_preset: "hpaflvm3",
     };
     let formData = new FormData();
     formData.append("file", e.target.files[0], "file");
@@ -43,8 +46,8 @@ class EditShop extends React.Component {
 
   onChangeInputImage2 = (e) => {
     const cloudinaryEnv = {
-      cloud_name: process.env.REACT_APP_CLOUDINARY_CLOUD_NAME,
-      upload_preset: process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET,
+      cloud_name: "dm6vzyxzh",
+      upload_preset: "hpaflvm3",
     };
     let formData = new FormData();
     formData.append("file", e.target.files[0], "file");
@@ -79,7 +82,7 @@ class EditShop extends React.Component {
       storeName: event.target.value,
     });
   };
-  handleSave = () => {
+  handleSave = async () => {
     const regexAddress = /^[a-zA-Z0-9\s,'-]*$/;
     const regexPhone = /^[0-9]*$/;
     const regexStoreName = /^[a-zA-Z0-9\s,'-]*$/;
@@ -101,16 +104,47 @@ class EditShop extends React.Component {
     }
 
     let newShop = {
-      ...this.state.shop,
-      logo: this.state.logo,
-      img: this.state.img1,
+      name: this.state.storeName,
       address: this.state.address,
       phone: this.state.phone,
+      img: this.state.img1,
+      logo: this.state.logo,
       content: this.state.content,
-      storeName: this.state.storeName,
     };
-    this.props.adminLoginSuccess(newShop);
-    Redirect("/admin");
+    const sid = this.state.shop.sid;
+    console.log("check sid", sid);
+    this.props.adminLoginSuccess({
+      ...this.state.shop,
+      name: this.state.storeName,
+      address: this.state.address,
+      phone: this.state.phone,
+      img: this.state.img1,
+      logo: this.state.logo,
+      content: this.state.content,
+    });
+    try {
+      let test = await adminService.handleUpdateStoreInfo(newShop);
+    } catch (error) {
+      toast.error("Update failed!", {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      return;
+    }
+    toast.success("Update success!", {
+      position: "top-center",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
   };
 
   render() {
@@ -244,7 +278,7 @@ class EditShop extends React.Component {
           <div className="Update">
             <button
               type="button"
-              class="btn btn-success"
+              className="btn btn-success"
               onClick={() => this.handleSave()}
             >
               Success
