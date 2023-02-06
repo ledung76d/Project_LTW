@@ -15,12 +15,12 @@ class Chart extends Component {
     legendPosition: "right",
     location: "City",
   };
-
   render() {
+    const { chartData } = this.props;
     return (
       <div className="chart">
         <Bar
-          data={this.state.chartData}
+          data={chartData}
           options={{
             title: {
               display: this.props.displayTitle,

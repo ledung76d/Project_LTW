@@ -109,7 +109,7 @@ class OrderController extends Controller
         $user = Auth::user();
         if($user){
             $data = Order::select('order_item.pid', OrderItem::raw('SUM(order_item.quantity) as total'))
-            ->join('order_item', 'order.order_id', '=', 'order_item.order_id')->groupBy('order_item.pid')->orderBy('total', 'desc')->limit(5)->get();
+            ->join('order_item', 'order.order_id', '=', 'order_item.order_id')->groupBy('order_item.pid')->orderBy('total', 'desc')->limit(10)->get();
             
         // get pid from data
             $pid = $data->pluck('pid');

@@ -59,6 +59,8 @@ Route::middleware(['api'])->group(function () {
     Route::post('/delete-product-by-pid', [ProductController::class, 'deleteProductByPId']);
     Route::post('/restore-product-by-pid', [ProductController::class, 'restoreProductByPId']);
 });
+
+Route::get('/admin/analysis-line-chart', [StoreController::class, 'getAnalysisStore']);
 Route::post('/update-store-info', [StoreController::class, 'updateStoreInfo']);
 
 Route::get('/admin/product-chart', [OrderController::class, 'productChart']);
