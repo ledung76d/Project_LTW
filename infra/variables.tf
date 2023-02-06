@@ -44,16 +44,6 @@ variable "assume_role_account_id" {
   type        = string
 }
 
-variable "firebase_api_key" {
-  description = "Firebase API Key"
-  type        = string
-}
-
-variable "firebase_auth_domain" {
-  description = "Firebase Auth Domain"
-  type        = string
-}
-
 variable "google_cloud_project" {
   description = "Google Cloud Project"
   type        = string

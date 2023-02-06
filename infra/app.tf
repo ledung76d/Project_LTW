@@ -160,6 +160,18 @@ resource "kubernetes_deployment_v1" "backend" {
             }
           }
 
+          lifecycle {
+            post_start {
+              exec {
+                command = [
+                  "sh",
+                  "-c",
+                  "php artisan db:seed --force"
+                ]
+              }
+            }
+          }
+
           volume_mount {
             name       = "db-password-vol"
             mount_path = "/mnt/secrets-store"
@@ -235,18 +247,18 @@ resource "kubernetes_service" "backend" {
 ################# Deploy React-Nginx App ##################################
 
 
-resource "kubernetes_config_map" "react-env" {
-  metadata {
-    name      = "react-env"
-    namespace = kubernetes_namespace_v1.app.metadata.0.name
-  }
+# resource "kubernetes_config_map" "react-env" {
+#   metadata {
+#     name      = "react-env"
+#     namespace = kubernetes_namespace_v1.app.metadata.0.name
+#   }
 
-  data = {
-    "REACT_APP_BACKEND_URL" = "https://${var.domain}/api",
-    "REACT_APP_FIREBASE_API_KEY" = var.firebase_api_key,
-    "REACT_APP_FIREBASE_AUTH_DOMAIN" = var.firebase_auth_domain,
-  }
-}
+#   data = {
+#     "REACT_APP_BACKEND_URL" = "https://${var.domain}/api",
+#     "REACT_APP_FIREBASE_API_KEY" = var.firebase_api_key,
+#     "REACT_APP_FIREBASE_AUTH_DOMAIN" = var.firebase_auth_domain,
+#   }
+# }
 
 resource "kubernetes_deployment_v1" "frontend" {
   metadata {
@@ -298,11 +310,11 @@ resource "kubernetes_deployment_v1" "frontend" {
             allow_privilege_escalation = false
           }
 
-          env_from {
-            config_map_ref {
-              name = kubernetes_config_map.react-env.metadata[0].name
-            }
-          }
+          # env_from {
+          #   config_map_ref {
+          #     name = kubernetes_config_map.react-env.metadata[0].name
+          #   }
+          # }
         }
       }
     }
