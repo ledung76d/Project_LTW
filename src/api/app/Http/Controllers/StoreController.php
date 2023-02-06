@@ -6,6 +6,7 @@ use App\Models\Store;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Product;
+use App\Models\ProductCategory;
 use Illuminate\Http\Request;
 use App\Http\Resources\StoreResource;
 use App\Http\Resources\OrderResource;
@@ -244,6 +245,7 @@ class StoreController extends Controller
     {
         $pid = $request->pid;
         $product = Product::where('pid', $pid)->update([
+            //update category list
             'title' => $request->title,
             'price' => $request->price,
             'quantity' => $request->quantity,
@@ -252,9 +254,21 @@ class StoreController extends Controller
             'content' => $request->content,
             'unit' => $request->unit,
         ]);
+
+        //loop through category list
+        $productCategory = ProductCategory::where('pid', $pid)->delete();
+        $categoryList = $request->category;
+        // Loop through the array
+        foreach ($categoryList as $category) {
+            $productCategory = ProductCategory::create([
+                'pid' => $request->pid,
+                'category_id' => $category["id"],
+            ]);
+        }
         return response()->json([
             'status' => 'success',
             'data' => $product,
+            'productCategory' => $productCategory,
         ], 200);
     }
     public function searchByFilter(Request $request)

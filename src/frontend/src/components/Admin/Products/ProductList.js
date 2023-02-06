@@ -83,6 +83,20 @@ class ProductList extends Component {
     });
   };
 
+  onSelect = (selectedList, selectedItem) => {
+    //console.log('select: ',selectedList)
+    this.setState({
+      listCategory: selectedList,
+    });
+  };
+
+  onRemove = (selectedList, removedItem) => {
+    //console.log('select: ',selectedList
+    this.setState({
+      listCategory: selectedList,
+    });
+  };
+
   handleClickBack = () => {
     this.setState({ details: {} });
     this.handleCloseEdit();
@@ -95,6 +109,7 @@ class ProductList extends Component {
       price: Number.parseFloat(this.state.details.price),
       quantity: Number.parseInt(this.state.details.quantity),
       category: this.state.listCategory,
+      pid: this.props.info.pid,
     };
     await adminService.handleUpdateProductByStore(product);
     this.reRenderList();
