@@ -46,41 +46,47 @@ class OrderController extends Controller
 
     public function saveToOrderItem(Request $request)
     {
-        
-        $orderItem = OrderItem::create([
-            'order_id' => $request->orderId,
-            'pid' => $request->pid,
-            'quantity' => $request->quantity,
-            'price' => $request->price,
-        ]); 
-      
-        $product = Product::find($request->pid) ->decrement('quantity', $request->quantity);
-         
-        return response()->json([
-           $orderItem,
-              $product
-        ] , 200);
+        $user = Auth::user();
+        if ($user) {
+            $orderItem = OrderItem::create([
+                'order_id' => $request->orderId,
+                'pid' => $request->pid,
+                'quantity' => $request->quantity,
+                'price' => $request->price,
+            ]); 
             
-       
+            $product = Product::find($request->pid) ->decrement('quantity', $request->quantity);
+                
+            return response()->json([
+                $orderItem,
+                    $product
+            ] , 200);
+        } else {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'User not found'
+            ], 404);
+        }
     }
 
     public function findOrderById(Request $request)
     {
-       
-        //select  DISTINCT * from `order`inner join order_item on `order`.orderId = order_item.orderId where `order`.orderId = "' +id 
+        $user = Auth::user();
+        if(!$user){
+            return response()->json([
+                'status' => 'error',
+                'message' => 'User not found'
+            ], 404);
+        }
         $order = Order::select('order.*', 'order_item.*')
         ->join('order_item', 'order.order_id', '=', 'order_item.order_id')
         ->where('order.order_id', $request->id)
         ->get();
         $orderRes = OrderResource::collection($order);
         return response()->json(
-             $orderRes
-        , 200);
-
-        
+                $orderRes
+        , 200);   
     }
-
-    
 
     public function findOrderByUserId(Request $request)
     {

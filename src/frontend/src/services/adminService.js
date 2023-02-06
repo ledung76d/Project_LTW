@@ -1,7 +1,7 @@
 import axios from "../axios";
 
 const adminService = {
-  login(userName, passWord) {
+  register(storeName, phone) {
     return axios(`/api/admin/register`, {
       method: "POST",
       headers: {
@@ -9,8 +9,8 @@ const adminService = {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
       data: JSON.stringify({
-        storeName: userName,
-        phone: passWord,
+        storeName: storeName,
+        phone: phone,
       }),
     });
   },

@@ -137,8 +137,6 @@ class MyOders extends React.Component {
                 </div>
                 <div className="Details">
                   <BillHeader item={this.state.detailHeader} key={uuidv4()} />
-                  {/* <div className="Space-White"></div> */}
-                  {/* <Bill orderId={this.state.orderId} key={uuidv4()} /> */}
                   <div className="Order-Items">
                     <div className="Test">
                       <div className="Item">Item</div>

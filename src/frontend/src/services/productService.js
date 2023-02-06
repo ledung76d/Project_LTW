@@ -14,11 +14,24 @@ const handleGetStoreById = async (id) => {
 };
 
 const handleSaveToOrderItem = async (item) => {
-  return axios.post("/api/save-to-order-item", item);
+  return axios("/api/save-to-order-item", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
+    data: JSON.stringify(item),
+  });
 };
 
 const handleFindOrderById = async (id) => {
-  return axios.get(`/api/find-order-by-id?id=${encodeURIComponent(id)}`);
+  return axios(`/api/find-order-by-id?id=${encodeURIComponent(id)}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
+  });
 };
 
 const handleFindProductById = async (id) => {
@@ -30,7 +43,23 @@ const handleGetProductByStoreId = async (sid) => {
 };
 
 const deleteProductById = async (pid) => {
-  return axios.post(`/api/delete-product-by-pid?pid=${pid}`);
+  return axios(`/api/delete-product-by-pid?pid=${pid}`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
+  });
+};
+
+const restoreProductById = async (pid) => {
+  return axios(`/api/restore-product-by-pid?pid=${pid}`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
+  });
 };
 
 const handleGetAllCategory = async () => {
@@ -50,6 +79,7 @@ export {
   handleFindProductById,
   handleGetProductByStoreId,
   deleteProductById,
+  restoreProductById,
   handleGetAllCategory,
   handleSearchProductByName,
 };
