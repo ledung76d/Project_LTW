@@ -14,6 +14,9 @@ import { connect } from "react-redux";
 import * as actions from "../../../store/actions";
 import adminService from "../../../services/adminService";
 import Axios from "axios";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 class ProductList extends Component {
   constructor(props) {
     super(props);
@@ -22,21 +25,16 @@ class ProductList extends Component {
       showEdit: false, // hiện ẩn modal edit
       showDelete: false, // hiện ẩn modal edit
       details: { ...this.props.info }, // lưu các props của 1 sản phẩm
-      listCategory: null,
-      category: null,
+      listCategory: this.props.info.category, // lưu danh sách category của 1 sản phẩm
+      category: this.props.category,
     };
   }
 
   async componentDidMount() {
-    let data = await handleGetCategoryById(this.state.details.pid);
     //console.log(data.category)
     this.setState({
-      listCategory: data.category,
-    });
-    data = await handleGetAllCategory();
-    console.log(data);
-    this.setState({
-      category: data,
+      listCategory: this.props.info.category,
+      category: this.props.category,
     });
   }
 
@@ -111,6 +109,94 @@ class ProductList extends Component {
       category: this.state.listCategory,
       pid: this.props.info.pid,
     };
+    const toastError = (message) => {
+      toast.error(message, {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    };
+    if (!product.title || product.title === "") {
+      toastError("Name is required");
+      return;
+    }
+    if (!product.unit || product.unit === "") {
+      toastError("Unit is required");
+      return;
+    }
+    if (!product.content || product.content === "") {
+      toastError("Description is required");
+      return;
+    }
+    if (!product.price || product.price === "") {
+      toastError("Price is required");
+      return;
+    }
+    if (!product.discount || product.discount === "") {
+      toastError("Discount is required");
+      return;
+    }
+    if (!product.quantity || product.quantity === "") {
+      toastError("Quantity is required");
+      return;
+    }
+    if (!product.img || product.img === "") {
+      toastError("Image is required");
+      return;
+    }
+    if (product.discount < 0 || product.discount > 100) {
+      toastError("Discount must be in range [0, 100]");
+      return;
+    }
+    if (product.quantity < 0 || product.quantity > 1000000000) {
+      toastError("Quantity must be greater than 0");
+      return;
+    }
+    if (product.price < 0 || product.price > 1000000000) {
+      toastError("Price must be greater than 0");
+      return;
+    }
+    if (product.category.length === 0) {
+      toastError("Category is required");
+      return;
+    }
+    // Regex for checking the fields
+    const nameRegex = /^[a-zA-Z0-9 ]{2,30}$/;
+    const unitRegex = /^[a-zA-Z0-9 ]{2,10}$/;
+    const descriptionRegex = /^[a-zA-Z0-9 ]{2,50}$/;
+    const priceRegex = /^[0-9]{1,10}$/;
+    const discountRegex = /^[0-9]{1,3}$/;
+    const quantityRegex = /^[0-9]{1,10}$/;
+
+    if (!nameRegex.test(product.title)) {
+      toastError("Name must be 2-30 characters");
+      return;
+    }
+    if (!unitRegex.test(product.unit)) {
+      toastError("Unit must be 2-10 characters");
+      return;
+    }
+    if (!descriptionRegex.test(product.content)) {
+      toastError("Description must be 2-50 characters");
+      return;
+    }
+    if (!priceRegex.test(product.price)) {
+      toastError("Price must be 1-10 digits");
+      return;
+    }
+    if (!discountRegex.test(product.discount)) {
+      toastError("Discount must be 1-3 digits");
+      return;
+    }
+    if (!quantityRegex.test(product.quantity)) {
+      toastError("Quantity must be 1-10 digits");
+      return;
+    }
+
     await adminService.handleUpdateProductByStore(product);
     this.reRenderList();
     this.handleCloseEdit();
@@ -129,6 +215,7 @@ class ProductList extends Component {
 
   //Render lai cac san pham sau khi sua xoa
   reRenderList = () => {
+    console.log("Rerendering");
     this.props.updateChange(this.props.sid);
   };
 

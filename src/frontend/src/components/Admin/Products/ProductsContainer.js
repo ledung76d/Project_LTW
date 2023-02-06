@@ -141,6 +141,7 @@ class ProductsContainer extends Component {
         quantity: Number.parseInt(this.state.details.quantity),
         img: this.state.tmpImg,
         sid: this.props.adminInfo.sid,
+        category: this.state.listCategory,
       };
       const toastError = (message) => {
         toast.error(message, {
@@ -193,6 +194,10 @@ class ProductsContainer extends Component {
         toastError("Price must be greater than 0");
         return;
       }
+      if (product.category.length === 0) {
+        toastError("Category is required");
+        return;
+      }
       // Regex for checking the fields
       const nameRegex = /^[a-zA-Z0-9 ]{2,30}$/;
       const unitRegex = /^[a-zA-Z0-9 ]{2,10}$/;
@@ -225,19 +230,10 @@ class ProductsContainer extends Component {
         toastError("Quantity must be 1-10 digits");
         return;
       }
-
-      let insertedId = await adminService.handleAddNewProductByStore(product);
-      for (let i = 0; i < this.state.listCategory.length; i++) {
-        let temp = {
-          categoryId: this.state.listCategory[i].id,
-          pid: insertedId.insertId,
-        };
-        setTimeout(() => adminService.handleAddProductCategory(temp), 100);
-      }
-      //this.state.data[this.state.data.length - 1].push(this.state.details)
+      
+      await adminService.handleAddNewProductByStore(product);
       setTimeout(() => this.fetchProducts(this.props.adminInfo.sid), 100);
       this.handleCloseAddProduct();
-      this.setState({ showAddProduct: !this.state.showAddProduct });
       toast.success("Add product success!", {
         position: "top-center",
         autoClose: 2000,
@@ -375,6 +371,7 @@ class ProductsContainer extends Component {
                 <ProductList
                   key={uuidv4()}
                   info={product}
+                  category={this.state.category}
                   state={this.state}
                   sid={this.props.adminInfo.sid}
                   updateChange={this.fetchProducts}
