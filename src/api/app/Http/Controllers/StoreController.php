@@ -341,8 +341,15 @@ class StoreController extends Controller
     }
 
     public function getAnalysisStore(){
-        $sid = "i1p6rcRoUSMj1g8XvZnkKIB2D7r2";
-
+       
+        $user = Auth::user();
+        if(!$user){
+            return response()->json([
+                'status' => 'fail',
+                'error' => 'store not found',
+            ], 404);
+        }
+        $sid = $user->id;
         $pid = Product::select('pid')->where('sid', $sid);
 
         $orders = OrderItem::select('*')->whereIn('pid', $pid)->where('created_at', '>=', now()->subDays(30))->get();
