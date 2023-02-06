@@ -201,7 +201,7 @@ class ProductsContainer extends Component {
       // Regex for checking the fields
       const nameRegex = /^[a-zA-Z0-9 ]{2,30}$/;
       const unitRegex = /^[a-zA-Z0-9 ]{2,10}$/;
-      const descriptionRegex = /^[a-zA-Z0-9 ]{2,50}$/;
+      const descriptionRegex = /^[a-zA-Z0-9 ]{2,300}$/;
       const priceRegex = /^[0-9]{1,10}$/;
       const discountRegex = /^[0-9]{1,3}$/;
       const quantityRegex = /^[0-9]{1,10}$/;
@@ -230,7 +230,7 @@ class ProductsContainer extends Component {
         toastError("Quantity must be 1-10 digits");
         return;
       }
-      
+
       await adminService.handleAddNewProductByStore(product);
       setTimeout(() => this.fetchProducts(this.props.adminInfo.sid), 100);
       this.handleCloseAddProduct();
@@ -287,7 +287,6 @@ class ProductsContainer extends Component {
   };
 
   render() {
-
     return (
       <>
         <section className="products-admin">
