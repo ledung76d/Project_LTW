@@ -194,7 +194,12 @@
 
                 }
 
+                .profile__infor-name{
+                    display: flex;
+                    align-items: center;
+                    font-weight: 500;
 
+                }
                 .profile__infor-input {
                     height: 46px;
                     padding: 0 16px;
@@ -238,6 +243,7 @@
             }
         }
         .profile__contact {
+            cursor: pointer;
             border-radius: 4px;
             border: 1px solid rgba(0, 0, 0, 0.1);
             margin-bottom: 32px;
