@@ -55,18 +55,18 @@ module "alb_ingress" {
   depends_on = [module.eks, module.networking]
 }
 
-# module "karpenter" {
-#   source = "./modules/karpenter"
+module "karpenter" {
+  source = "./modules/karpenter"
 
-#   node_group_role_arn      = module.eks.eks_managed_node_groups["app"].iam_role_name
-#   eks_cluster_id           = module.eks.cluster_id
-#   eks_cluster_endpoint_url = module.eks.cluster_endpoint
-#   oidc_url                 = module.eks.cluster_oidc_issuer_url
-#   oidc_arn                 = module.eks.oidc_provider_arn
-#   karpenter_version        = "v0.6.0"
+  node_group_role_arn      = module.eks.eks_managed_node_groups["app"].iam_role_name
+  eks_cluster_id           = module.eks.cluster_id
+  eks_cluster_endpoint_url = module.eks.cluster_endpoint
+  oidc_url                 = module.eks.cluster_oidc_issuer_url
+  oidc_arn                 = module.eks.oidc_provider_arn
+  karpenter_version        = "v0.6.0"
 
-#   depends_on = [module.eks, module.networking]
-# }
+  depends_on = [module.eks, module.networking]
+}
 
 ######################## Outputs ########################
 
