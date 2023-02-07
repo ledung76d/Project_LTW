@@ -163,10 +163,11 @@ resource "kubernetes_deployment_v1" "backend" {
           lifecycle {
             post_start {
               exec {
+                # First wipe the database, then seed it
                 command = [
                   "sh",
                   "-c",
-                  "php artisan db:seed --force"
+                  "php artisan db:wipe --force && php artisan db:seed --force",
                 ]
               }
             }
