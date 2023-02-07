@@ -11,9 +11,9 @@ drop table IF EXISTS "store";
 
 -- Create user
 CREATE TABLE "users" (
-	id VARCHAR ( 50 ) NOT NULL,
+	id VARCHAR ( 50 ) unique NOT NULL,
 	name VARCHAR ( 50 ) NOT NULL,
-    email VARCHAR ( 50 ) unique NOT NULL,
+    email VARCHAR ( 50 ),
 	phone CHAR(10),
 	address VARCHAR ( 255 ),
 	picture text,
