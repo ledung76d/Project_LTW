@@ -252,12 +252,12 @@ class Profile extends Component {
                 >
                   Name
                 </label>
-                <input
+                <span
                   className="profile__infor-input"
                   id="profile__infor-name"
                   value={this.state.name}
-                  onChange={(e) => this.handleNameOnChange(e)}
-                ></input>
+                  //onChange={(e) => this.handleNameOnChange(e)}
+                />
               </div>
             </div>
             <div className="profile__contact">
