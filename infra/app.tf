@@ -123,7 +123,7 @@ resource "kubernetes_deployment_v1" "backend" {
 
       spec {
         container {
-          image = "quanganhquanganh/pick-bazar-laravel:989d236dede241dc78000ee16d9aec3fb47fc458"
+          image = "quanganhquanganh/pick-bazar-laravel:0f337b1aa3837ee93a322e3b980d1434fd14054f-dev"
           name  = "laravel"
           
           env {
@@ -156,6 +156,18 @@ resource "kubernetes_deployment_v1" "backend" {
               secret_key_ref {
                 name = "db-password-secret"
                 key  = "db_password"
+              }
+            }
+          }
+
+          lifecycle {
+            post_start {
+              exec {
+                command = [
+                  "sh",
+                  "-c",
+                  "php artisan db:seed --force"
+                ]
               }
             }
           }
@@ -235,18 +247,18 @@ resource "kubernetes_service" "backend" {
 ################# Deploy React-Nginx App ##################################
 
 
-resource "kubernetes_config_map" "react-env" {
-  metadata {
-    name      = "react-env"
-    namespace = kubernetes_namespace_v1.app.metadata.0.name
-  }
+# resource "kubernetes_config_map" "react-env" {
+#   metadata {
+#     name      = "react-env"
+#     namespace = kubernetes_namespace_v1.app.metadata.0.name
+#   }
 
-  data = {
-    "REACT_APP_BACKEND_URL" = "https://${var.domain}/api",
-    "REACT_APP_FIREBASE_API_KEY" = var.firebase_api_key,
-    "REACT_APP_FIREBASE_AUTH_DOMAIN" = var.firebase_auth_domain,
-  }
-}
+#   data = {
+#     "REACT_APP_BACKEND_URL" = "https://${var.domain}/api",
+#     "REACT_APP_FIREBASE_API_KEY" = var.firebase_api_key,
+#     "REACT_APP_FIREBASE_AUTH_DOMAIN" = var.firebase_auth_domain,
+#   }
+# }
 
 resource "kubernetes_deployment_v1" "frontend" {
   metadata {
@@ -275,7 +287,7 @@ resource "kubernetes_deployment_v1" "frontend" {
 
       spec {
         container {
-          image = "quanganhquanganh/pick-bazar-frontend:989d236dede241dc78000ee16d9aec3fb47fc458"
+          image = "quanganhquanganh/pick-bazar-frontend:0f337b1aa3837ee93a322e3b980d1434fd14054f-dev"
           name  = "react"
 
           port {
@@ -298,11 +310,11 @@ resource "kubernetes_deployment_v1" "frontend" {
             allow_privilege_escalation = false
           }
 
-          env_from {
-            config_map_ref {
-              name = kubernetes_config_map.react-env.metadata[0].name
-            }
-          }
+          # env_from {
+          #   config_map_ref {
+          #     name = kubernetes_config_map.react-env.metadata[0].name
+          #   }
+          # }
         }
       }
     }

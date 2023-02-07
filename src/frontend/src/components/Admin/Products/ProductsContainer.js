@@ -22,6 +22,10 @@ import * as actions from "../../../store/actions";
 import Multiselect from "multiselect-react-dropdown";
 import { cloudinaryUpload } from "../../../services/userService";
 import adminService from "../../../services/adminService";
+import Axios from "axios";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 class ProductsContainer extends Component {
   constructor(props) {
     super(props);
@@ -59,12 +63,21 @@ class ProductsContainer extends Component {
   }
 
   onChangeInputImage = async (e) => {
-    let uploadData = new FormData();
-    uploadData.append("file", e.target.files[0], "file");
-    let tmp = await cloudinaryUpload(uploadData);
-    //console.log('Link',tmp)
-    this.setState({
-      tmpImg: tmp.secure_url,
+    const cloudinaryEnv = {
+      cloud_name: "dm6vzyxzh",
+      upload_preset: "hpaflvm3",
+    };
+    let formData = new FormData();
+    formData.append("file", e.target.files[0], "file");
+    formData.append("upload_preset", cloudinaryEnv.upload_preset);
+
+    Axios.post(
+      `https://api.cloudinary.com/v1_1/${cloudinaryEnv.cloud_name}/image/upload`,
+      formData
+    ).then((res) => {
+      this.setState({
+        tmpImg: res.data.secure_url,
+      });
     });
   };
 
@@ -120,31 +133,127 @@ class ProductsContainer extends Component {
   };
 
   handleClickAddProduct = async () => {
-    // if (this.state.files.length > 0) {
-    //   this.state.details['img'] = this.state.files[0].preview
-    // }
-    //console.log('ID: ',nextPid.Auto_increment)
-    let product = {
-      ...this.state.details,
-      discount: Number.parseInt(this.state.details.discount),
-      price: Number.parseFloat(this.state.details.price),
-      quantity: Number.parseInt(this.state.details.quantity),
-      // img: this.state.tmpImg,
-      img: "https://toigingiuvedep.vn/wp-content/uploads/2022/01/anh-meo-cute.jpg",
-      sid: this.props.adminInfo.sid,
-    };
-    console.log("Add: ", product);
-    let insertedId = await adminService.handleAddNewProductByStore(product);
-    for (let i = 0; i < this.state.listCategory.length; i++) {
-      let temp = {
-        categoryId: this.state.listCategory[i].id,
-        pid: insertedId.insertId,
+    try {
+      let product = {
+        ...this.state.details,
+        discount: Number.parseInt(this.state.details.discount),
+        price: Number.parseFloat(this.state.details.price),
+        quantity: Number.parseInt(this.state.details.quantity),
+        img: this.state.tmpImg,
+        sid: this.props.adminInfo.sid,
+        category: this.state.listCategory,
       };
-      setTimeout(() => adminService.handleAddProductCategory(temp), 100);
+      const toastError = (message) => {
+        toast.error(message, {
+          position: "top-center",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      };
+      if (!product.title || product.title === "") {
+        toastError("Name is required");
+        return;
+      }
+      if (!product.unit || product.unit === "") {
+        toastError("Unit is required");
+        return;
+      }
+      if (!product.content || product.content === "") {
+        toastError("Description is required");
+        return;
+      }
+      if (!product.price || product.price === "") {
+        toastError("Price is required");
+        return;
+      }
+      if (!product.discount || product.discount === "") {
+        toastError("Discount is required");
+        return;
+      }
+      if (!product.quantity || product.quantity === "") {
+        toastError("Quantity is required");
+        return;
+      }
+      if (!product.img || product.img === "") {
+        toastError("Image is required");
+        return;
+      }
+      if (product.discount < 0 || product.discount > 100) {
+        toastError("Discount must be in range [0, 100]");
+        return;
+      }
+      if (product.quantity < 0 || product.quantity > 1000000000) {
+        toastError("Quantity must be greater than 0");
+        return;
+      }
+      if (product.price < 0 || product.price > 1000000000) {
+        toastError("Price must be greater than 0");
+        return;
+      }
+      if (product.category.length === 0) {
+        toastError("Category is required");
+        return;
+      }
+      // Regex for checking the fields
+      const nameRegex = /^[a-zA-Z0-9 ]{2,30}$/;
+      const unitRegex = /^[a-zA-Z0-9 ]{2,10}$/;
+      const descriptionRegex = /^[a-zA-Z0-9 ]{2,300}$/;
+      const priceRegex = /^[0-9]{1,10}$/;
+      const discountRegex = /^[0-9]{1,3}$/;
+      const quantityRegex = /^[0-9]{1,10}$/;
+
+      if (!nameRegex.test(product.title)) {
+        toastError("Name must be 2-30 characters");
+        return;
+      }
+      if (!unitRegex.test(product.unit)) {
+        toastError("Unit must be 2-10 characters");
+        return;
+      }
+      if (!descriptionRegex.test(product.content)) {
+        toastError("Description must be 2-50 characters");
+        return;
+      }
+      if (!priceRegex.test(product.price)) {
+        toastError("Price must be 1-10 digits");
+        return;
+      }
+      if (!discountRegex.test(product.discount)) {
+        toastError("Discount must be 1-3 digits");
+        return;
+      }
+      if (!quantityRegex.test(product.quantity)) {
+        toastError("Quantity must be 1-10 digits");
+        return;
+      }
+
+      await adminService.handleAddNewProductByStore(product);
+      setTimeout(() => this.fetchProducts(this.props.adminInfo.sid), 100);
+      this.handleCloseAddProduct();
+      toast.success("Add product success!", {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    } catch (error) {
+      toast.error("Add product failed!", {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     }
-    //this.state.data[this.state.data.length - 1].push(this.state.details)
-    setTimeout(() => this.fetchProducts(this.props.adminInfo.sid), 100);
-    this.handleCloseAddProduct();
   };
 
   handlePage = (e) => {
@@ -249,7 +358,7 @@ class ProductsContainer extends Component {
                 <tr>
                   <th className="th-img">Image</th>
                   <th className="th-name">Name</th>
-                  <th>Group</th>
+                  <th>Category</th>
                   <th>Shop</th>
                   <th>Price/Unit</th>
                   <th>Quantity</th>
@@ -261,6 +370,7 @@ class ProductsContainer extends Component {
                 <ProductList
                   key={uuidv4()}
                   info={product}
+                  category={this.state.category}
                   state={this.state}
                   sid={this.props.adminInfo.sid}
                   updateChange={this.fetchProducts}
@@ -337,21 +447,20 @@ class ProductsContainer extends Component {
             <div className="gr-cate">
               <div className="form-gr">
                 <Form.Group>
-                  <Form.Label>Category</Form.Label>
-                  {/* <Form.Control
-                    type='text'
-                    defaultValue='Grocery'
-                    disabled
-                    readOnly
-                  /> */}
-                  <Multiselect
-                    options={this.state?.category} // Options to display in the dropdown
-                    selectedValues={this.state.selectedValue} // Preselected value to persist in dropdown
-                    onSelect={this.onSelect} // Function will trigger on select event
-                    onRemove={this.onRemove} // Function will trigger on remove event
-                    displayValue="title" // Property name to display in the dropdown options
-                    placeholder="Select product category"
-                  />
+                  {this.state.category && (
+                    <>
+                      <Form.Label>Category</Form.Label>
+                      <Multiselect
+                        options={this.state?.category} // Options to display in the dropdown
+                        selectedValues={this.state.selectedValue} // Preselected value to persist in dropdown
+                        onSelect={this.onSelect} // Function will trigger on select event
+                        onRemove={this.onRemove} // Function will trigger on remove event
+                        displayValue="title" // Property name to display in the dropdown options
+                        placeholder="Select product category"
+                      />
+                    </>
+                  )}
+
                   <Form.Label>Name</Form.Label>
                   <Form.Control
                     type="text"
@@ -440,7 +549,7 @@ class ProductsContainer extends Component {
               Back
             </Button>
             <Button variant="success" onClick={this.handleClickAddProduct}>
-              Add Products
+              Add Product
             </Button>
           </Modal.Footer>
         </Modal>

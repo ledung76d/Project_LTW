@@ -17,8 +17,8 @@ import "firebase/compat/auth";
 
 // Configure Firebase.
 const config = {
-  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
-  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+  apiKey: "AIzaSyDMSeYEPU24SqM_Nj_5NTzNXf1rVv-Zrf0",
+  authDomain: "pickbazar-c589c.firebaseapp.com",
 };
 firebase.initializeApp(config);
 
@@ -145,7 +145,6 @@ class Login extends Component {
 
   render() {
     //JSX
-
     return (
       <>
         <div>

@@ -117,6 +117,26 @@
                 min-height: 56px;
                 font-size : 16px;
 
+                .item-btn-info {
+                        width: 100%;
+                        border: none;
+                        height: 32px;
+                        border-radius: 4px;
+                        position: relative;
+                        background-color: #38a58f;
+                        opacity: 0.9;
+                        margin-bottom: 24px;
+                
+                        span {
+                            color: #fff;
+                            font-weight: 500;
+                        }
+                
+                        &:hover {
+                            opacity: 1;
+                        }
+                    }
+
                 .item-btn {
                     flex            : 60%;
                     background-color: #249f7f;

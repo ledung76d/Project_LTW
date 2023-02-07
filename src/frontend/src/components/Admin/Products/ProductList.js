@@ -4,12 +4,19 @@ import ImageUpload from "./ImageUpload";
 import { v4 as uuidv4 } from "uuid";
 import {
   deleteProductById,
+  restoreProductById,
   handleGetCategoryById,
+  handleGetAllCategory,
 } from "../../../services/productService";
 import { cloudinaryUpload } from "../../../services/userService";
+import Multiselect from "multiselect-react-dropdown";
 import { connect } from "react-redux";
 import * as actions from "../../../store/actions";
 import adminService from "../../../services/adminService";
+import Axios from "axios";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 class ProductList extends Component {
   constructor(props) {
     super(props);
@@ -18,15 +25,16 @@ class ProductList extends Component {
       showEdit: false, // hiện ẩn modal edit
       showDelete: false, // hiện ẩn modal edit
       details: { ...this.props.info }, // lưu các props của 1 sản phẩm
-      listCategory: null,
+      listCategory: this.props.info.category, // lưu danh sách category của 1 sản phẩm
+      category: this.props.category,
     };
   }
 
   async componentDidMount() {
-    let data = await handleGetCategoryById(this.state.details.pid);
     //console.log(data.category)
     this.setState({
-      listCategory: data.category,
+      listCategory: this.props.info.category,
+      category: this.props.category,
     });
   }
 
@@ -57,6 +65,11 @@ class ProductList extends Component {
     //console.log(id)
   };
 
+  restoreProducts = async (id) => {
+    await restoreProductById(id);
+    this.reRenderList();
+  };
+
   editProducts = (id) => {
     this.handleOpenEdit();
     console.log(id);
@@ -68,26 +81,122 @@ class ProductList extends Component {
     });
   };
 
+  onSelect = (selectedList, selectedItem) => {
+    //console.log('select: ',selectedList)
+    this.setState({
+      listCategory: selectedList,
+    });
+  };
+
+  onRemove = (selectedList, removedItem) => {
+    //console.log('select: ',selectedList
+    this.setState({
+      listCategory: selectedList,
+    });
+  };
+
   handleClickBack = () => {
     this.setState({ details: {} });
     this.handleCloseEdit();
   };
 
   handleClickUpdate = async () => {
-    // this.props.info['title'] = this.state.details['title']
-    // this.props.info['unit'] = this.state.details['unit']
-    // this.props.info['content'] = this.state.details['content']
-    // this.props.info['price'] = this.state.details['price']
-    // this.props.info['quantity'] = this.state.details['quantity']
-    // if (this.state.files.length > 0) {
-    //   this.props.info['img'] = this.state.files[0].preview
-    // }
     let product = {
       ...this.state.details,
       discount: Number.parseInt(this.state.details.discount),
       price: Number.parseFloat(this.state.details.price),
       quantity: Number.parseInt(this.state.details.quantity),
+      category: this.state.listCategory,
+      pid: this.props.info.pid,
     };
+    const toastError = (message) => {
+      toast.error(message, {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    };
+    if (!product.title || product.title === "") {
+      toastError("Name is required");
+      return;
+    }
+    if (!product.unit || product.unit === "") {
+      toastError("Unit is required");
+      return;
+    }
+    if (!product.content || product.content === "") {
+      toastError("Description is required");
+      return;
+    }
+    if (!product.price || product.price === "") {
+      toastError("Price is required");
+      return;
+    }
+    if (!product.discount || product.discount === "") {
+      toastError("Discount is required");
+      return;
+    }
+    if (!product.quantity || product.quantity === "") {
+      toastError("Quantity is required");
+      return;
+    }
+    if (!product.img || product.img === "") {
+      toastError("Image is required");
+      return;
+    }
+    if (product.discount < 0 || product.discount > 100) {
+      toastError("Discount must be in range [0, 100]");
+      return;
+    }
+    if (product.quantity < 0 || product.quantity > 1000000000) {
+      toastError("Quantity must be greater than 0");
+      return;
+    }
+    if (product.price < 0 || product.price > 1000000000) {
+      toastError("Price must be greater than 0");
+      return;
+    }
+    if (product.category.length === 0) {
+      toastError("Category is required");
+      return;
+    }
+    // Regex for checking the fields
+    const nameRegex = /^[a-zA-Z0-9 ]{2,30}$/;
+    const unitRegex = /^[a-zA-Z0-9 ]{2,10}$/;
+    const descriptionRegex = /^[a-zA-Z0-9 ]{2,50}$/;
+    const priceRegex = /^[0-9]{1,10}$/;
+    const discountRegex = /^[0-9]{1,3}$/;
+    const quantityRegex = /^[0-9]{1,10}$/;
+
+    if (!nameRegex.test(product.title)) {
+      toastError("Name must be 2-30 characters");
+      return;
+    }
+    if (!unitRegex.test(product.unit)) {
+      toastError("Unit must be 2-10 characters");
+      return;
+    }
+    if (!descriptionRegex.test(product.content)) {
+      toastError("Description must be 2-50 characters");
+      return;
+    }
+    if (!priceRegex.test(product.price)) {
+      toastError("Price must be 1-10 digits");
+      return;
+    }
+    if (!discountRegex.test(product.discount)) {
+      toastError("Discount must be 1-3 digits");
+      return;
+    }
+    if (!quantityRegex.test(product.quantity)) {
+      toastError("Quantity must be 1-10 digits");
+      return;
+    }
+
     await adminService.handleUpdateProductByStore(product);
     this.reRenderList();
     this.handleCloseEdit();
@@ -106,13 +215,31 @@ class ProductList extends Component {
 
   //Render lai cac san pham sau khi sua xoa
   reRenderList = () => {
+    console.log("Rerendering");
     this.props.updateChange(this.props.sid);
   };
 
   onChangeInputImage = async (e) => {
-    let uploadData = new FormData();
-    uploadData.append("file", e.target.files[0], "file");
-    let tmp = await cloudinaryUpload(uploadData);
+    const cloudinaryEnv = {
+      cloud_name: "dm6vzyxzh",
+      upload_preset: "hpaflvm3",
+    };
+    let formData = new FormData();
+    formData.append("file", e.target.files[0], "file");
+    formData.append("upload_preset", cloudinaryEnv.upload_preset);
+
+    Axios.post(
+      `https://api.cloudinary.com/v1_1/${cloudinaryEnv.cloud_name}/image/upload`,
+      formData
+    ).then((res) => {
+      this.setState({
+        details: {
+          ...this.state.details,
+          img: res.data.secure_url,
+        },
+      });
+    });
+
     //console.log('Link',tmp)
     this.setState({
       details: {
@@ -123,6 +250,7 @@ class ProductList extends Component {
   };
 
   render() {
+    let admin = this.props.adminInfo;
     const {
       pid: id,
       img: url,
@@ -132,7 +260,17 @@ class ProductList extends Component {
       unit,
       content,
       discount,
+      status,
     } = this.props.info;
+    let categoryString = "";
+    if (this.state.listCategory) {
+      this.state.listCategory.forEach((item) => {
+        categoryString += item.title + ", ";
+      });
+    }
+    categoryString = categoryString.slice(0, categoryString.length - 2);
+    const categoryArray = this.state.listCategory;
+    console.log(categoryArray);
 
     return (
       <>
@@ -142,24 +280,32 @@ class ProductList extends Component {
               <img src={url} alt={name} />
             </td>
             <td>{name}</td>
-            <td>Grocery</td>
-            <td>Grocery Shop</td>
+            <td>{categoryString}</td>
+            <td>{admin.storeName}</td>
             <td>${price}</td>
             <td>{quantity}</td>
             <td>
-              <span>publish</span>
+              <span
+                className={status === "active" ? "active-bg" : "deleted-bg"}
+              >
+                {status}
+              </span>
             </td>
             <td>
-              <i
+              {status === "active" ? (
+                <i
                 className="far fa-trash-alt"
                 onClick={() => this.deleteProducts(id)}
-              ></i>{" "}
-              {/* icon delete */}
+              ></i>) : (
+                <i
+                className="fa fa-recycle"
+                onClick={() => this.restoreProducts(id)}
+              ></i>
+              )}
               <i
                 className="far fa-edit"
                 onClick={() => this.editProducts(id)}
-              ></i>{" "}
-              {/* icon edit */}
+              ></i>
             </td>
           </tr>
         </tbody>
@@ -211,19 +357,20 @@ class ProductList extends Component {
             </div>
             <div className="gr-cate">
               <div className="form-gr">
-                <Form.Group>
-                  <Form.Label>Category</Form.Label>
-                  {/* <Form.Control
-                    type='text'
-                    defaultValue='Grocery'
-                    disabled
-                    readOnly
-                  /> */}
-                  <div className="item-categories-tag">
-                    {this.state.listCategory?.map((item, index) => {
-                      return <span key={index}>{item.title}</span>;
-                    })}
-                  </div>
+              <Form.Group>
+                  {this.state.category && (
+                      <>
+                      <Form.Label>Category</Form.Label>
+                      <Multiselect
+                        options={this.state?.category} // Options to display in the dropdown
+                        selectedValues={categoryArray} // Preselected value to persist in dropdown
+                        onSelect={this.onSelect} // Function will trigger on select event
+                        onRemove={this.onRemove} // Function will trigger on remove event
+                        displayValue="title" // Property name to display in the dropdown options
+                        placeholder="Select product category"
+                      />
+                    </>
+                  )}
                   <Form.Label>Name</Form.Label>
                   <Form.Control
                     type="text"
@@ -283,7 +430,7 @@ class ProductList extends Component {
                     defaultValue={discount}
                     onChange={(e) =>
                       this.setState({
-                        details: {
+                        details: {  
                           ...this.state.details,
                           discount: e.target.value,
                         },

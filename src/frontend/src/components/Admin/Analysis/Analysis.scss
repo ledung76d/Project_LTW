@@ -13,11 +13,10 @@
 }
 
 .analysis__container {
-    width      : 1560px;
+    width      : 100%;
     margin-top: 74px;
     .analysis__header {
         display              : grid;
-        grid-template-columns: repeat(4, minmax(0, 1fr));
         grid-column-gap      : 32px;
 
 
@@ -186,7 +185,7 @@
                 font-size  : 14px;
                 font-weight: 500;
                 color      : #6B7280;
-
+                min-height: 840px;
                 tr {
                     td {
                         padding: 12px;
@@ -218,4 +217,27 @@
 
         }
     }
+}
+
+//Mobile
+@media (max-width: 46.1875em) {
+    .analysis__header {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+}
+
+// Tablet
+@media (min-width: 46.25em) and (max-width: 106.25em) {
+    .analysis__header {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+}
+
+// PC
+@media (min-width:  106.25em) {
+    
+    .analysis__header {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
 }

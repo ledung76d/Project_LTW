@@ -35,6 +35,61 @@ class PlaceOrder extends Component {
   }
 
   async componentDidMount() {
+    let data;
+    try {
+      let orderData = await handleFindOrderById(this.props.match.params.id);
+      data = [...orderData];
+      console.log("Data", data);
+    } catch (error) {
+      if (data.length === 0) {
+        this.props.history.push("/");
+        return;
+      }
+      //console.log('Data',data)
+      //Gan them push vao de tranh th data = null
+    } finally {
+    }
+    const findID = async (id) => {
+      const item = await handleFindProductById(id);
+      return item;
+    };
+
+    setTimeout(() => {
+      data.forEach((item) => {
+        let product = findID(item.pid);
+        product
+          .then((data) => {
+            const info = { ...data[0] };
+            info.quantity = item.quantity;
+            info.price = item.price;
+            this.setState({ arr: [info, ...this.state.arr] });
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      });
+    }, 2000);
+
+    // console.log('Arr', arr)
+    // console.log('Data', data)
+    setTimeout(() => {
+      if (data[0]?.length === 0) {
+        this.props.history.push("/");
+        return;
+      }
+    }, 10000);
+    this.setState({
+      orderItem: data,
+      orderId: data[0]?.orderId,
+      createdAt: data[0]?.createdAt,
+      total: data[0]?.total,
+      address: data[0]?.address,
+      phone: data[0]?.phone,
+      delivery: data[0]?.delivery,
+      status: data[0]?.status,
+      // arr: arr,
+    });
+
     //console.log(this.props.match.params.id)
   }
 

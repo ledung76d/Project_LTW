@@ -175,14 +175,38 @@
                                             }
 
                                             .status {
-                                                background-color: #DBEAFE;
-                                                color: #3B82F6;
+                                                background-color:#3B82F6;
+                                                font-weight: 600;
+                                                color: #fff;
                                                 padding: 8px 12px;
                                                 border-radius: 4px;
                                                 align-items: center;
                                                 display: flex;
                                                 justify-content: center;
                                             }
+
+                                            .statusRej {
+                                                background-color: red;
+                                                font-weight: 600;
+                                                color: #fff;
+                                                padding: 8px 12px;
+                                                border-radius: 4px;
+                                                align-items: center;
+                                                display: flex;
+                                                justify-content: center;
+                                            }
+                                            
+                                            .statusAc {
+                                                background-color: #009F7F;
+                                                font-weight: 600;
+                                                color: #fff;
+                                                padding: 8px 12px;
+                                                border-radius: 4px;
+                                                align-items: center;
+                                                display: flex;
+                                                justify-content: center;
+                                            }
+
                                         }
 
                                         .infor_Order {

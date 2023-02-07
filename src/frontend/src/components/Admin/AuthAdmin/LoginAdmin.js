@@ -11,44 +11,88 @@ class LoginAdmin extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: "",
-      password: "",
+      storeName: "",
+      phone: "",
       modal: false,
-      isShowUserOption: false,
-      isShowPassword: false,
       err: 4,
       message: "",
     };
   }
-  handleOnChangeUsername = (event) => {
-    this.setState({
-      username: event.target.value,
-      message: "",
-    });
+  handleOnChangeStorename = (event) => {
+    const storeName = event.target.value;
+    const isValidStoreName = /^[a-zA-Z0-9\s]+$/.test(storeName);
+    if (isValidStoreName && storeName.trim() !== '') {
+      this.setState({
+        storeName: storeName,
+        message: "",
+        err: 4,
+      });
+    } else {
+      this.setState({
+        message: "Store name can only contain letters, numbers and spaces.",
+        err: 1,
+      });
+    }
   };
-  handleOnChangePassword = (event) => {
-    this.setState({
-      password: event.target.value,
-      message: "",
-    });
+  
+  handleOnChangeNumber = (event) => {
+    const phoneNumber = event.target.value;
+    const isValidNumber = /^[0-9]+$/.test(phoneNumber);
+    if (isValidNumber && phoneNumber.trim() !== '') {
+      this.setState({
+        phone: phoneNumber,
+        message: "",
+        err: 4,
+      });
+    } else {
+      this.setState({
+        message: "Invalid phone number, please enter 10 digits",
+      });
+    }
   };
 
-  handleLogin = async () => {
-    let userName = this.state.username;
-    let passWord = this.state.password;
-    let data = await adminService.login(userName, passWord);
-    console.log(data);
+  handleRegister = async () => {
+    let storeName = this.state.storeName;
+    let phone = this.state.phone;
+    // Validate
+    if (storeName === "") {
+      this.setState({
+        message: "Please enter store name",
+        err: 1,
+      });
+      return;
+    }
+    if (storeName.length < 6 || storeName.length > 30) {
+      this.setState({
+        message: "Store name must be between 6 and 30 characters",
+        err: 1,
+      });
+      return;
+    }
+    if (phone === "") {
+      this.setState({
+        message: "Please enter phone number",
+        err: 2,
+      });
+      return;
+    }
+    if (phone.length < 9 || phone.length > 13) {
+      this.setState({
+        message: "Phone number must be between 9 and 13 characters",
+        err: 2,
+      });
+      return;
+    }
+    let data = await adminService.register(storeName, phone);
     if (data.err !== 4) {
       this.setState({
         err: data.err,
         message: data.message,
       });
     } else {
-      //Thanh cong
       this.props.processLogout();
-      this.props.adminLoginSuccess(data.admin);
+      this.props.adminLoginSuccess(data.store);
       let { navigate } = this.props;
-      //const redirectPath = '/system/user-manage';
       navigate("/admin");
     }
   };
@@ -57,25 +101,7 @@ class LoginAdmin extends Component {
     this.props.changeAppMode("adminMode");
   }
 
-  handleLogin = async () => {
-    let userName = this.state.username;
-    let passWord = this.state.password;
-    let data = await adminService.login(userName, passWord);
-    console.log(data);
-    if (data.err !== 4) {
-      this.setState({
-        err: data.err,
-        message: data.message,
-      });
-    } else {
-      //Thanh cong
-      // this.props.processLogout()
-      this.props.adminLoginSuccess(data.store);
-      let { navigate } = this.props;
-      //const redirectPath = '/system/user-manage';
-      navigate("/admin");
-    }
-
+  render() {
     return (
       <>
         <div className="login-admin">
@@ -94,52 +120,33 @@ class LoginAdmin extends Component {
                   type="email"
                   className="form-control login-input--text"
                   placeholder="Enter your store name"
-                  value={this.state.username}
-                  onChange={(event) => this.handleOnChangeUsername(event)}
+                  value={this.state.storeName}
+                  onChange={(event) => this.handleOnChangeStorename(event)}
                 />
               </div>
               <div className="col-12 form-group login-input">
                 <label className="login-input-password">
                   <span>Phone</span>
-                  {/* <span className='forgot-password'>Forgot password?</span> */}
                 </label>
                 <div className="custom-input-password">
                   <input
                     type={"text"}
                     className="form-control login-input--text"
                     placeholder="Enter your phone"
-                    value={this.state.password}
-                    onChange={(event) => this.handleOnChangePassword(event)}
+                    value={this.state.phone}
+                    onChange={(event) => this.handleOnChangeNumber(event)}
                   />
-                  {/* <span
-                                onClick={() => this.setState({
-                                    isShowPassword: !this.state.isShowPassword,
-                                })}
-                            >
-                                <i className={this.state.isShowPassword ? 'far fa-eye' : 'far fa-eye-slash'}></i>
-                            </span> */}
                 </div>
               </div>
               <button
                 className="btn-login btn-login-normal"
-                onClick={() => this.handleLogin()}
+                onClick={() => this.handleRegister()}
               >
-                Login
+                Register
               </button>
               <div className="col-12">
                 <span style={{ color: "red" }}>{this.state.message}</span>
               </div>
-              {/* <div className='col-12  login-orther'>
-                        <span className='text-orther-login '>
-                            <span>Or</span>
-                        </span>
-
-                    </div>
-
-                    <div className='login-register-user '>
-                        <span>Don't have any account? </span>
-                        <a>Register as Shop</a>
-                    </div> */}
             </div>
           </div>
         </div>

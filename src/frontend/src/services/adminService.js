@@ -1,7 +1,7 @@
 import axios from "../axios";
 
 const adminService = {
-  login(userName, passWord) {
+  register(storeName, phone) {
     return axios(`/api/admin/register`, {
       method: "POST",
       headers: {
@@ -9,8 +9,8 @@ const adminService = {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
       data: JSON.stringify({
-        storeName: userName,
-        phone: passWord,
+        storeName: storeName,
+        phone: phone,
       }),
     });
   },
@@ -64,6 +64,7 @@ const adminService = {
   },
 
   handleAddNewProductByStore(data) {
+    console.log("Test add: ", data);
     return axios("/api/add-new-product-by-store", {
       method: "POST",
       headers: {
@@ -147,14 +148,35 @@ const adminService = {
     });
   },
 
+  handlePopularProduct() {
+    return axios(`/api/admin/product-popular`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
+  },
+
   handleUpdateStoreInfo(data) {
-    return axios("/api/update-store-info", {
+    console.log("update store", JSON.stringify(data));
+    return axios(`/api/update-store-info`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
       data: JSON.stringify(data),
+    });
+  },
+
+  handleGetAnalysisStore() {
+    return axios(`/api/admin/analysis-line-chart`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
     });
   },
 };

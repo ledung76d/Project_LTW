@@ -5,6 +5,7 @@ import { Modal } from "reactstrap";
 import * as actions from "../../store/actions";
 import "./ViewProduct.scss";
 import ViewProductDetail from "./ViewProductDetail";
+import { toast } from "react-toastify";
 
 class ViewProduct extends Component {
   constructor(props) {
@@ -29,7 +30,21 @@ class ViewProduct extends Component {
     console.log(
       `Hien tai: ${this.state.quatily} Tong: ${this.state.product.quantity}`
     );
-    if (this.state.quatily === this.state.product.quantity) return;
+    if (
+      this.state.product.quantity === 0 ||
+      this.state.quatily === this.state.product.quantity
+    ) {
+      toast.error("Out of stock", {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      return;
+    }
     this.props.AddCart(this.state.product);
     let quatilyItem = this.state.quatily + 1;
     this.setState({
@@ -62,7 +77,6 @@ class ViewProduct extends Component {
   render() {
     let { product, quatily } = this.state;
 
-    console.log(`check view product:${this.props.product}`);
     //JSX
     return (
       <>
@@ -79,7 +93,11 @@ class ViewProduct extends Component {
           <img
             src={product.img}
             className="item-image "
-            onClick={() => this.toggle()}
+            onClick={() => {
+              if (product.quantity > 0) {
+                this.toggle();
+              }
+            }}
           />
           <Modal
             funk="true"
@@ -115,30 +133,35 @@ class ViewProduct extends Component {
             <div className="item-name">
               <span>{product.title}</span>
             </div>
-
-            <button
-              className={
-                quatily === 0
-                  ? "item-btn-quatily"
-                  : "item-btn-quatily item-btn-quatily-active"
-              }
-            >
-              <span
-                className="item-btn-quatily-icon-minus"
-                onClick={() => this.handleMinusItem()}
+            {product.quantity > 0 ? (
+              <button
+                className={
+                  quatily === 0
+                    ? "item-btn-quatily"
+                    : "item-btn-quatily item-btn-quatily-active"
+                }
               >
-                <i className="fas fa-minus item-btn-icon"></i>
-              </span>
-              <span className="item-btn-quatilt-content">
-                {quatily === 0 ? "Add" : quatily}
-              </span>
-              <span
-                className="item-btn-quatily-icon-add"
-                onClick={() => this.handleAddItem()}
-              >
-                <i className="fas fa-plus item-btn-icon"></i>
-              </span>
-            </button>
+                <span
+                  className="item-btn-quatily-icon-minus"
+                  onClick={() => this.handleMinusItem()}
+                >
+                  <i className="fas fa-minus item-btn-icon"></i>
+                </span>
+                <span className="item-btn-quatilt-content">
+                  {quatily === 0 ? "Add" : quatily}
+                </span>
+                <span
+                  className="item-btn-quatily-icon-add"
+                  onClick={() => this.handleAddItem()}
+                >
+                  <i className="fas fa-plus item-btn-icon"></i>
+                </span>
+              </button>
+            ) : (
+              <button className="item-btn-info">
+                <span className="item-btn-quatilt-content">Out of stock</span>
+              </button>
+            )}
           </div>
         </div>
       </>

@@ -53,7 +53,7 @@ class MyOders extends React.Component {
               <div className="Infor">
                 <div className="Orders">
                   <div className="List-Order">
-                    <h3>My Orders</h3>
+                    <h3> </h3>
                     <div className="Piece-Orders">
                       <div className="scrollbar" id="style-3">
                         <div className="force-overflow">
@@ -76,7 +76,15 @@ class MyOders extends React.Component {
                                       Orders
                                       <span className="id">#{key + 1}</span>
                                     </span>
-                                    <span className="status">
+                                    <span
+                                      className={
+                                        item.status === "Order Received"
+                                          ? "status"
+                                          : item.status === "Accepted"
+                                          ? "statusAc"
+                                          : "statusRej"
+                                      }
+                                    >
                                       {item.status}
                                     </span>
                                   </div>
@@ -137,8 +145,6 @@ class MyOders extends React.Component {
                 </div>
                 <div className="Details">
                   <BillHeader item={this.state.detailHeader} key={uuidv4()} />
-                  {/* <div className="Space-White"></div> */}
-                  {/* <Bill orderId={this.state.orderId} key={uuidv4()} /> */}
                   <div className="Order-Items">
                     <div className="Test">
                       <div className="Item">Item</div>

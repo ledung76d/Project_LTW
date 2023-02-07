@@ -35,9 +35,10 @@ db_user_name            = "pickbazar"
 
 eks_version    = "1.20"
 instance_types = ["t3.medium", "t3.small"]
-alb_s3_bucket = "pick-bazar-logs-s3-bucket-1"
+alb_s3_bucket = "pick-bazar-logs-s3-bucket-2"
 
 /********** Global Variables ***************/
 org_name = "gitops-learn"
 domain   = "pick-bazar.store"
 assume_role_account_id = "082457122820"
+google_cloud_project = "pickbazar-c589c"

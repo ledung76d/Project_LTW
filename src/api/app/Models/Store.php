@@ -22,6 +22,7 @@ class Store extends Model
         'store_name',
         'content',
         'picture',
+        'logo',
     ];
 
     /**

@@ -33,13 +33,14 @@ class Dashbroad extends React.Component {
 
   render() {
     let admin = this.props.adminInfo;
-    //console.log('admin: ',admin)
+
+    console.log("admin: ", admin);
     return (
       <div className="order-container">
         <div className="order-12">
           <div className="order-1">
             <div className="logoShop">
-              <img src="https://pickbazar-react-admin.vercel.app/_next/image?url=https%3A%2F%2Fpickbazarlaravel.s3.ap-southeast-1.amazonaws.com%2F891%2Fconversions%2FGroup-36321-thumbnail.jpg&w=1920&q=75" />
+              <img src={admin.logo} />
               <i className="fas fa-check-circle"></i>
             </div>
             <h1>{admin.storeName}</h1>
@@ -177,8 +178,8 @@ class Dashbroad extends React.Component {
                 <div className="Payment_element heading">
                   Email: {admin.userName}
                 </div>
-                <div className="Payment_element heading">Bank:</div>
-                <div className="Payment_element heading">Account No.:</div>
+                <div className="Payment_element heading">Bank: {}</div>
+                <div className="Payment_element heading">Account No.: {}</div>
               </div>
             </div>
           </div>

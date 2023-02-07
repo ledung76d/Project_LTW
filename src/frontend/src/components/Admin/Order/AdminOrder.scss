@@ -16,7 +16,7 @@
 
     .adminOrder__header {
         padding: 32px;
-        width: 1500px;
+        width: 100%;
         display: flex;
         justify-content: space-between;
         background-color: var(--white-color);
@@ -77,7 +77,7 @@
 
     .adminOrder__body {
         height: 600px;
-        width: 1500px;
+        width: 100%;
         background: var(--white-color);
         box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
 

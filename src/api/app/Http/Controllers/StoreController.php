@@ -6,6 +6,7 @@ use App\Models\Store;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Product;
+use App\Models\ProductCategory;
 use Illuminate\Http\Request;
 use App\Http\Resources\StoreResource;
 use App\Http\Resources\OrderResource;
@@ -18,12 +19,12 @@ class StoreController extends Controller
     public function register(Request $request)
     {
         $user = Auth::user();
-        $store = Store::find($user->sid);
+        $store = Store::find($user->id);
         if (!$user) {
             return response()->json([
                 'status' => 'error',
                 'message' => 'User not found'
-            ], 404);
+            ], 404);    
         }
         if ($store) {
             return response()->json([
@@ -116,12 +117,16 @@ class StoreController extends Controller
 
     public function getProductByStoreId(Request $request)
     {
-
         $sid = $request->sid;
         $product = Product::where('sid', $sid)->get();
 
-        return response()->json(
+        for ($i = 0; $i < count($product); $i++) {
+            $category = ProductCategory::join('category', 'category.id', '=', 'product_category.category_id')
+                ->where('product_category.pid', $product[$i]->pid)->get();
+            $product[$i]->category = $category;
+        }
 
+        return response()->json(
             [
                 'products' => $product
             ],
@@ -131,28 +136,38 @@ class StoreController extends Controller
 
     public function addNewProductByStore(Request $request)
     {
-
-
+        $user = Auth::user();
+        if (!$user) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'User not found'
+            ], 404);
+        }
         $product = Product::create([
-
-
             'title' => $request->title,
             'price' => $request->price,
             'quantity' => $request->quantity,
-            'sid' => Auth::user()->id,
+            'sid' => $user->id,
             'discount' => $request->discount,
             'img' => $request->img,
             'content' => $request->content,
             'unit' => $request->unit,
-
         ]);
+        // Get category list from request
+        $categoryList = $request->category;
+        
+        // Insert category list to product_category table
+        for ($i = 0; $i < count($categoryList); $i++) {
+            $productCategory = ProductCategory::create([
+                'pid' => $product->pid,
+                'category_id' => $categoryList[$i]['id'],
+            ]);
+        }
         return response()->json([
             'status' => 'success',
             'data' => $product,
         ], 200);
     }
-
-
 
     public function total30day()
     {
@@ -187,15 +202,13 @@ class StoreController extends Controller
         $user = Auth::user();
         if ($user) {
             $sid = $user->id;
-            $total = Order::selectRaw('count(distinct \'order.order_id\') as total')
-                ->join('order_item', 'order.order_id', '=', 'order_item.order_id')
-                ->join('product', 'order_item.pid', '=', 'product.pid')
-                ->where('sid', $sid)
-                ->where('order.created_at', '>=', now()->subDays(30))
-                ->get();
-
+            $pid = Product::select('pid')->where('sid', $sid)->get();
+        
+            $total = OrderItem::select('order_id')->distinct()
+            ->whereIn('pid', $pid)->where('created_at', '>=', now()->subDays(30))->count('order_id');
+        
             return response()->json(
-                $total,
+                ['total' => $total],
                 200
             );
         } else {
@@ -238,6 +251,7 @@ class StoreController extends Controller
     {
         $pid = $request->pid;
         $product = Product::where('pid', $pid)->update([
+            //update category list
             'title' => $request->title,
             'price' => $request->price,
             'quantity' => $request->quantity,
@@ -246,9 +260,21 @@ class StoreController extends Controller
             'content' => $request->content,
             'unit' => $request->unit,
         ]);
+
+        //loop through category list
+        $productCategory = ProductCategory::where('pid', $pid)->delete();
+        $categoryList = $request->category;
+        // Loop through the array
+        foreach ($categoryList as $category) {
+            $productCategory = ProductCategory::create([
+                'pid' => $request->pid,
+                'category_id' => $category["id"],
+            ]);
+        }
         return response()->json([
             'status' => 'success',
             'data' => $product,
+            'productCategory' => $productCategory,
         ], 200);
     }
     public function searchByFilter(Request $request)
@@ -290,18 +316,66 @@ class StoreController extends Controller
     }
 
     public function updateStoreInfo(Request $request){
-        $sid = $request->sid;
+        $user = Auth::user();
+        if(!$user){
+            return response()->json([
+                'status' => 'fail',
+                'error' => 'store not found',
+            ], 404);
+        }
+
+        $sid = $user->id;
         $store = Store::where('sid', $sid)->update([
-            'name' => $request->name,
             'address' => $request->address,
             'phone' => $request->phone,
-            'email' => $request->email,
-            'img' => $request->img,
-            'description' => $request->description,
+            'store_name' => $request->name,
+            'content' => $request->content,
+            'picture' => $request->img,
+            'logo' => $request->logo,
         ]);
+        $detailStore =  Store::where('sid', $sid)->get();
         return response()->json([
             'status' => 'success',
-            'data' => $store,
+            'data' => $detailStore,
+        ], 200);
+    }
+
+    public function getAnalysisStore(){
+       
+        $user = Auth::user();
+        if(!$user){
+            return response()->json([
+                'status' => 'fail',
+                'error' => 'store not found',
+            ], 404);
+        }
+        $sid = $user->id;
+        $pid = Product::select('pid')->where('sid', $sid);
+
+        $orders = OrderItem::select('*')->whereIn('pid', $pid)->where('created_at', '>=', now()->subDays(30))->get();
+        
+        
+        $totalSales = 0;
+        $totalQuantity = 0;
+        foreach($orders as $item){
+            $totalSales = $totalSales + ($item['price'] * $item['quantity']);
+            $totalQuantity = $totalQuantity + $item['quantity'];
+        }
+        $pid = Product::select('pid')->where('sid', $sid)->where('created_at', '>=', now()->subDays(30))->get();
+        
+        $totalOrder = OrderItem::select('order_id')->distinct()
+            ->whereIn('pid', $pid)->where('created_at', '>=', now()->subDays(30))->count('order_id');
+
+        $totalNewProduct = Product::select('pid')->where('sid', $sid)
+        ->where('created_at', '>=', now()->subDays(30))->count('pid');
+
+
+        return response()->json([
+            'data' => 'Hello World',
+            'totalSales' => $totalSales,
+            'totalOrder' => $totalOrder,
+            'totalQuantity' => $totalQuantity,
+            'totalNewProduct' => $totalNewProduct,
         ], 200);
     }
 }
