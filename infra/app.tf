@@ -165,7 +165,7 @@ resource "kubernetes_deployment_v1" "backend" {
               exec {
                 # First wipe the database, then seed it
                 command = [
-                  "/bin/sh",
+                  "sh",
                   "-c",
                   "php artisan db:wipe --force && php artisan db:seed --force",
                 ]
