@@ -94,12 +94,7 @@ class Profile extends Component {
     });
   };
   saveFLA = async () => {
-    if (
-      this.state.img &&
-      this.state.name &&
-      this.state.phone &&
-      this.state.newAddress
-    ) {
+    if (this.state.phone && this.state.newAddress) {
       let data = {
         picture: this.state.img,
         name: this.state.name,
@@ -253,14 +248,19 @@ class Profile extends Component {
                   Name
                 </label>
                 <span
-                  className="profile__infor-input"
+                  className="profile__infor-input profile__infor-name"
                   id="profile__infor-name"
-                  value={this.state.name}
-                  //onChange={(e) => this.handleNameOnChange(e)}
-                />
+                >
+                  {this.state.name}
+                </span>
               </div>
             </div>
-            <div className="profile__contact">
+            <div
+              className="profile__contact"
+              onClick={() => {
+                this.setState({ modalContact: !this.state.modalContact });
+              }}
+            >
               <div className="profile__contact-header">
                 <span className="profile__contact-header-title">
                   Contact Number
@@ -278,7 +278,12 @@ class Profile extends Component {
                 <span>{this.state.phone}</span>
               </div>
             </div>
-            <div className="profile__contact">
+            <div
+              className="profile__contact"
+              onClick={() => {
+                this.setState({ modalAddress: !this.state.modalAddress });
+              }}
+            >
               <div className="profile__contact-header">
                 <span className="profile__contact-header-title">Addresses</span>
                 <button
@@ -358,14 +363,19 @@ class Profile extends Component {
             <div className="form__address-radio">
               <p className="form__address-radio-title">Type</p>
               <div className="form__address-radio-group">
-                <input type="radio" name="address-radio-type" id="Billing" />
+                <input
+                  type="radio"
+                  name="address-radio-type"
+                  id="Billing"
+                  defaultChecked
+                />
                 <label className="address-radio-type-label" htmlFor="Billing">
-                  Billing
+                  Shipping
                 </label>
 
                 <input type="radio" name="address-radio-type" id="Shipping" />
                 <label className="address-radio-type-label" htmlFor="Shipping">
-                  Shipping
+                  Billing
                 </label>
               </div>
             </div>
