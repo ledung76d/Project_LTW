@@ -40,5 +40,8 @@ resource "aws_acm_certificate_validation" "default" {
   certificate_arn         = aws_acm_certificate.default.arn
   validation_record_fqdns = [for record in aws_route53_record.default : record.fqdn]
 
+  timeouts {
+    create = "60m"
+  }
 }
 
