@@ -1,13 +1,15 @@
 --Create database
-
+-- DROP DATABASE IF EXISTS shop;
+-- CREATE DATABASE shop;
+-- use shop;
 -- Clear table
 drop table IF EXISTS "order_item";
 drop table IF EXISTS "order";
 drop table IF EXISTS "product_category";
 drop table IF EXISTS "category";
 drop table IF EXISTS "product";
-drop table IF EXISTS "users";
 drop table IF EXISTS "store";
+drop table IF EXISTS "users";
 
 -- Create user
 CREATE TABLE "users" (

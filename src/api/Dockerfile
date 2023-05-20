@@ -1,4 +1,4 @@
-FROM php:8.1-apache-bullseye
+FROM php:8.2-apache-bullseye
 
 ENV PHP_MAX_EXECUTION_TIME=30
 ENV PHP_MEMORY_LIMIT=128M
