@@ -108,7 +108,7 @@ class ProductsContainer extends Component {
   }
 
   addFile = async (file) => {
-    console.log(file);
+    // console.log(file);
     this.setState({
       files: file?.map((file) =>
         Object.assign(file, {
@@ -280,7 +280,7 @@ class ProductsContainer extends Component {
       category: this.state.filterByCategory,
     };
     let out = await adminService.handleSearchByFilter(data);
-    console.log("Out:", out);
+    // console.log("Out:", out);
     this.setState({
       products: out,
     });

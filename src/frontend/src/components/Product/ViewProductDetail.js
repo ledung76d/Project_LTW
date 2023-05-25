@@ -64,7 +64,7 @@ class ViewProductDetail extends Component {
   async componentDidMount() {
     let data = await handleGetCategoryById(this.props.product.pid);
     let data1 = await handleGetStoreById(this.props.product.sid);
-    console.log("Product: ", this.state.product);
+    // console.log("Product: ", this.state.product);
     let quantity = 0;
     let pid = this.state.product.pid;
     this.props.Carts.map((item) => {

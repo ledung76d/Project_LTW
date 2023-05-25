@@ -34,7 +34,7 @@ class Dashbroad extends React.Component {
   render() {
     let admin = this.props.adminInfo;
 
-    console.log("admin: ", admin);
+    // console.log("admin: ", admin);
     return (
       <div className="order-container">
         <div className="order-12">

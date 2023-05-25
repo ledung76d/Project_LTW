@@ -64,7 +64,7 @@ const adminService = {
   },
 
   handleAddNewProductByStore(data) {
-    console.log("Test add: ", data);
+    // console.log("Test add: ", data);
     return axios("/api/add-new-product-by-store", {
       method: "POST",
       headers: {
@@ -159,7 +159,7 @@ const adminService = {
   },
 
   handleUpdateStoreInfo(data) {
-    console.log("update store", JSON.stringify(data));
+    // console.log("update store", JSON.stringify(data));
     return axios(`/api/update-store-info`, {
       method: "POST",
       headers: {

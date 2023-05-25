@@ -47,12 +47,12 @@ class LoginIcon extends Component {
     //console.log(event.target.value);
   };
   handleLoginButton = async () => {
-    console.log(
-      "username: ",
-      this.state.username,
-      "password: ",
-      this.state.password
-    );
+    // console.log(
+    //   "username: ",
+    //   this.state.username,
+    //   "password: ",
+    //   this.state.password
+    // );
     //console.log('all stage: ', this.state);
     this.setState({
       errMessage: "",
@@ -93,7 +93,7 @@ class LoginIcon extends Component {
   };
 
   handleShowModalForgotPassword = () => {
-    console.log("Check forgot password");
+    // console.log("Check forgot password");
     this.setState({
       isShowModalForgotPassword: !this.state.isShowModalForgotPassword,
     });

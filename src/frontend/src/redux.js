@@ -30,7 +30,7 @@ const middleware = [
   thunkMiddleware,
   createStateSyncMiddleware(reduxStateSyncConfig),
 ];
-if (isDevelopment) middleware.push(logger);
+// if (isDevelopment) middleware.push(logger);
 
 const composeEnhancers =
   isDevelopment && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__

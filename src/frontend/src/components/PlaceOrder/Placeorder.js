@@ -39,7 +39,7 @@ class PlaceOrder extends Component {
     try {
       let orderData = await handleFindOrderById(this.props.match.params.id);
       data = [...orderData];
-      console.log("Data", data);
+      // console.log("Data", data);
     } catch (error) {
       if (data.length === 0) {
         this.props.history.push("/");
@@ -94,7 +94,7 @@ class PlaceOrder extends Component {
   }
 
   render() {
-    console.log("Render: ", this.state.arr);
+    // console.log("Render: ", this.state.arr);
     return (
       <section className="ph-page">
         <div className="ph-container">

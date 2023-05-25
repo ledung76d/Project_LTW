@@ -52,7 +52,7 @@ class Analysis extends React.Component {
     // );
     let data4 = await adminService.handlePopularProduct();
     let dataAnalysis = await adminService.handleGetAnalysisStore();
-    console.log("dataAnalysis", dataAnalysis);
+    // console.log("dataAnalysis", dataAnalysis);
     this.setState({
       total30day: data[0].total,
       order30day: dataAnalysis.totalOrder,
@@ -62,7 +62,7 @@ class Analysis extends React.Component {
     });
     const labelData = data4.data.map((item) => item.product.title);
     const datasets = data4.data.map((item) => item.total);
-    console.log("helo=", labelData);
+    // console.log("helo=", labelData);
     const chartData = {
       labels: labelData,
       datasets: [

@@ -44,7 +44,7 @@ class ProductList extends Component {
   }
 
   addFile = (file) => {
-    console.log(file);
+    // console.log(file);
     this.setState({
       files: file.map((file) =>
         Object.assign(file, {
@@ -72,7 +72,7 @@ class ProductList extends Component {
 
   editProducts = (id) => {
     this.handleOpenEdit();
-    console.log(id);
+    // console.log(id);
   };
 
   onPreviewDrop = (files) => {
@@ -215,7 +215,7 @@ class ProductList extends Component {
 
   //Render lai cac san pham sau khi sua xoa
   reRenderList = () => {
-    console.log("Rerendering");
+    // console.log("Rerendering");
     this.props.updateChange(this.props.sid);
   };
 
@@ -270,7 +270,7 @@ class ProductList extends Component {
     }
     categoryString = categoryString.slice(0, categoryString.length - 2);
     const categoryArray = this.state.listCategory;
-    console.log(categoryArray);
+    // console.log(categoryArray);
 
     return (
       <>

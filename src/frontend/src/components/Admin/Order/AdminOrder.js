@@ -19,7 +19,7 @@ class AdminOrder extends React.Component {
   }
 
   toggle() {
-    console.log(">>> check Order", this.state.modal);
+    // console.log(">>> check Order", this.state.modal);
     this.setState({
       modal: !this.state.modal,
     });

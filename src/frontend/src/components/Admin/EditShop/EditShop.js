@@ -118,7 +118,7 @@ class EditShop extends React.Component {
       content: this.state.content,
     };
     const sid = this.state.shop.sid;
-    console.log("check sid", sid);
+    // console.log("check sid", sid);
     this.props.adminLoginSuccess({
       ...this.state.shop,
       name: this.state.storeName,
@@ -155,7 +155,7 @@ class EditShop extends React.Component {
 
   render() {
     const { shop, img1, logo, address, phone, content, storeName } = this.state;
-    console.log(">>> shop: ", this.props.adminInfo);
+    // console.log(">>> shop: ", this.props.adminInfo);
     return (
       <div className="edit_container">
         <div className="Edit_Product">

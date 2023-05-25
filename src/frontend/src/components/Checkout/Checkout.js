@@ -34,7 +34,7 @@ class Checkout extends Component {
   async componentDidMount() {
     let data = await handleGetInfoUser();
     let info = data.data;
-    console.log("Info", info);
+    // console.log("Info", info);
     this.setState({
       phone: info.phone,
       address: info.address,
@@ -130,7 +130,7 @@ class Checkout extends Component {
       //Save order item
 
       this.props.Carts.map(async (item) => {
-        console.log("Item", item);
+        // console.log("Item", item);
         item.orderId = orderId;
         await handleSaveToOrderItem(item);
       });
@@ -160,7 +160,7 @@ class Checkout extends Component {
   };
 
   render() {
-    console.log("this.address", this.state.loading);
+    // console.log("this.address", this.state.loading);
     return (
       <section className="co-page">
         <div className="co-container">

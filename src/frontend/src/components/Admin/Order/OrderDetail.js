@@ -19,7 +19,7 @@ class OrderDetail extends React.Component {
   render() {
     let arrItem = this.props.data;
     let order = this.props.order;
-    console.log("Khach hang: ", this.state.khachHang);
+    // console.log("Khach hang: ", this.state.khachHang);
     return (
       <>
         <div className="OrderDetail__container">

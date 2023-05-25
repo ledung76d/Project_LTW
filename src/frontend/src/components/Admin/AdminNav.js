@@ -14,7 +14,7 @@ class AdminNav extends React.Component {
   // }
 
   render() {
-    console.log("check btn", this.state.isdropDown);
+    // console.log("check btn", this.state.isdropDown);
     return (
       <>
         <div className="AdminNav">

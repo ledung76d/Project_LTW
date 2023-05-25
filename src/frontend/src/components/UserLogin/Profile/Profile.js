@@ -149,7 +149,7 @@ class Profile extends Component {
   };
 
   render() {
-    console.log("check props", this.props);
+    // console.log("check props", this.props);
     return (
       <>
         <div className="container__profile">

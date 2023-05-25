@@ -27,9 +27,9 @@ class ViewProduct extends Component {
     });
   };
   handleAddItem = () => {
-    console.log(
-      `Hien tai: ${this.state.quatily} Tong: ${this.state.product.quantity}`
-    );
+    // console.log(
+    //   `Hien tai: ${this.state.quatily} Tong: ${this.state.product.quantity}`
+    // );
     if (
       this.state.product.quantity === 0 ||
       this.state.quatily === this.state.product.quantity

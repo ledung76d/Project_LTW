@@ -21,7 +21,7 @@ class NavigatorBar extends Component {
   }
 
   handleChangeSearchTitleProduct = (event) => {
-    console.log(">>> on change", this.state);
+    // console.log(">>> on change", this.state);
     if (event.target.value === "") {
       this.setState({
         titleProduct: event.target.value,
@@ -35,10 +35,10 @@ class NavigatorBar extends Component {
     });
   };
   handleSearchTitleProduct = () => {
-    console.log(">>> check Search bar");
+    // console.log(">>> check Search bar");
   };
   handleRemoveTitleProduct = () => {
-    console.log(">>> check remove");
+    // console.log(">>> check remove");
     this.setState({
       titleProduct: "",
       removeSearchData: false,
@@ -48,7 +48,7 @@ class NavigatorBar extends Component {
     this.setState({
       checkDropdow: !this.state.checkDropdow,
     });
-    console.log(">>> check dropdown", this.state.checkDropdow);
+    // console.log(">>> check dropdown", this.state.checkDropdow);
   };
 
   handleFeature = () => {
